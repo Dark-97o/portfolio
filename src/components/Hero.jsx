@@ -1,13 +1,10 @@
 /* 🎌 High-End Editorial Cream & Obsidian Hero Component - Horizontal Glassmorphic Card */
 import React from 'react';
-import { AudioSynth } from '../services/AudioSynth';
 import heroVid from '../assets/hero_vid.mov';
 import avtImg from '../assets/avt.png';
+import trainImg from '../assets/train.png';
 
 export default function Hero() {
-  const handleHover = () => {
-    AudioSynth.playHoverSweep();
-  };
 
   return (
     <section className="hero-section" id="home">
@@ -168,10 +165,54 @@ export default function Hero() {
             font-size: 14px;
           }
         }
+
+        .hero-railroad {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 6px; /* Elegant side-view wooden sleeper beam */
+          background: #5c4033; /* Rich dark wood brown */
+          border-top: 2px solid #000000; /* Horizontal steel rail */
+          z-index: 1;
+          opacity: 0.9;
+        }
+
+        .hero-train {
+          position: absolute;
+          bottom: 6px; /* Sits perfectly on top of the side-view rail */
+          left: 0;
+          height: 100px; /* Reduced from 130px */
+          width: auto;
+          z-index: 2;
+          pointer-events: none;
+          opacity: 0.95;
+          animation: trainPass 18s linear infinite; /* Faster cruising speed */
+        }
+
+        @keyframes trainPass {
+          0% {
+            transform: translateX(100vw);
+          }
+          100% {
+            transform: translateX(-100%);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .hero-train {
+            height: 60px; /* Reduced from 80px */
+            bottom: 6px;
+          }
+          .hero-railroad {
+            height: 6px;
+            border-top-width: 1.5px;
+          }
+        }
       `}</style>
 
       <div className="container hero-container">
-        <div className="hero-profile-card" onMouseEnter={handleHover}>
+        <div className="hero-profile-card" id="about">
           {/* Left aligned: Avatar display frame */}
           <div className="avatar-container">
             <img src={avtImg} alt="Subhranil Baul Portrait" className="avatar-img" />
@@ -191,6 +232,12 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Custom styled black & brown railroad track border */}
+      <div className="hero-railroad" />
+
+      {/* Ambient passing train aligned to the bottom */}
+      <img src={trainImg} alt="Ambient passing train" className="hero-train" />
     </section>
   );
 }

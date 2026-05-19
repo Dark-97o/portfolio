@@ -1,28 +1,17 @@
 /* 🎌 Premium Editorial Contact Registry Component */
 import React, { useState } from 'react';
-import { AudioSynth } from '../services/AudioSynth';
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('STANDBY');
 
-  const handleHover = () => {
-    AudioSynth.playHoverSweep();
-  };
-
-  const handleFocus = () => {
-    AudioSynth.playBeepClick();
-  };
-
   const handleInput = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    AudioSynth.playHoverSweep(); // soft synthetic typing sound!
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    AudioSynth.playBeepClick();
     setStatus('COMPILING_PAYLOAD');
     
     setTimeout(() => {
@@ -150,7 +139,6 @@ export default function ContactForm() {
                 name="name" 
                 value={form.name}
                 onChange={handleInput}
-                onFocus={handleFocus}
                 placeholder="YOUR NAME OR REPRESENTATIVE..."
                 required
               />
@@ -165,7 +153,6 @@ export default function ContactForm() {
                 name="email" 
                 value={form.email}
                 onChange={handleInput}
-                onFocus={handleFocus}
                 placeholder="YOUR ACTIVE DATALINK ROUTING ADDR..."
                 required
               />
@@ -179,7 +166,6 @@ export default function ContactForm() {
                 name="message" 
                 value={form.message}
                 onChange={handleInput}
-                onFocus={handleFocus}
                 placeholder="WRITE MESSAGE CORE FOR COMPILATION..."
                 required
               />
@@ -195,7 +181,6 @@ export default function ContactForm() {
               <button 
                 className="cyber-btn"
                 type="submit"
-                onMouseEnter={handleHover}
                 disabled={status !== 'STANDBY'}
               >
                 [ SEND DISPATCH ]

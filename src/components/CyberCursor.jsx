@@ -1,121 +1,132 @@
-/* 🎌 Premium Editorial Minimalist Cursor System */
-import React, { useState, useEffect, useRef } from 'react';
+/* 🎌 Premium Editorial White Particle Trail Splatter System */
+import React, { useEffect, useRef } from 'react';
 
 export default function CyberCursor() {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [clicked, setClicked] = useState(false);
-  const [hidden, setHidden] = useState(true);
-  const ringRef = useRef(null);
-  
-  const mousePos = useRef({ x: -100, y: -100 });
-  const ringPos = useRef({ x: -100, y: -100 });
+  const canvasRef = useRef(null);
+  const particles = useRef([]);
+  const mouse = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    class Particle {
+      constructor(x, y, isClick = false) {
+        this.x = x;
+        this.y = y;
+        
+        // Random angle and speed for splatter effect
+        const angle = Math.random() * Math.PI * 2;
+        const speed = isClick 
+          ? (Math.random() * 5 + 3) // Faster splatter on click
+          : (Math.random() * 1.5 + 0.3); // Drifting trail on move
+        
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        
+        // Particle size
+        this.size = isClick 
+          ? (Math.random() * 5.5 + 2.5) 
+          : (Math.random() * 2.5 + 1.2);
+          
+        this.maxLife = isClick ? 35 : 22;
+        this.life = this.maxLife;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        
+        // Apply friction
+        this.vx *= 0.95;
+        this.vy *= 0.95;
+        
+        // Gentle gravity drift downwards
+        this.vy += 0.05;
+        
+        this.life--;
+      }
+
+      draw(context) {
+        const opacity = this.life / this.maxLife;
+        context.save();
+        context.beginPath();
+        context.arc(this.x, this.y, this.size * opacity, 0, Math.PI * 2);
+        
+        // Pure white glowing particles with a soft warm drop shadow so they pop over cream
+        context.fillStyle = `rgba(255, 255, 255, ${opacity * 0.95})`;
+        context.shadowColor = 'rgba(95, 89, 79, 0.25)';
+        context.shadowBlur = 5;
+        context.shadowOffsetX = 1;
+        context.shadowOffsetY = 2;
+        
+        context.fill();
+        context.restore();
+      }
+    }
+
     const handleMouseMove = (e) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
-      setPosition({ x: e.clientX, y: e.clientY });
-      setHidden(false);
+      mouse.current = { x: e.clientX, y: e.clientY };
+      
+      // Spawn trail particles on mouse move
+      for (let i = 0; i < 2; i++) {
+        particles.current.push(new Particle(e.clientX, e.clientY, false));
+      }
     };
 
-    const handleMouseLeave = () => {
-      setHidden(true);
-    };
-
-    const handleMouseDown = () => {
-      setClicked(true);
-    };
-
-    const handleMouseUp = () => {
-      setClicked(false);
+    const handleMouseDown = (e) => {
+      // satisfying splatter burst on click
+      for (let i = 0; i < 18; i++) {
+        particles.current.push(new Particle(e.clientX, e.clientY, true));
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
 
-    // Smooth spring interpolation follow mechanics
-    let animationId;
-    const updateRing = () => {
-      const ease = 0.12; // slow elegant lag
-      const dx = mousePos.current.x - ringPos.current.x;
-      const dy = mousePos.current.y - ringPos.current.y;
+    let animId;
+    const tick = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      ringPos.current.x += dx * ease;
-      ringPos.current.y += dy * ease;
-      
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(calc(${ringPos.current.x}px - 50%), calc(${ringPos.current.y}px - 50%), 0)`;
-      }
-      
-      animationId = requestAnimationFrame(updateRing);
+      // Update and draw particles
+      particles.current = particles.current.filter(p => {
+        p.update();
+        p.draw(ctx);
+        return p.life > 0;
+      });
+
+      animId = requestAnimationFrame(tick);
     };
-    updateRing();
+    tick();
 
     return () => {
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      cancelAnimationFrame(animationId);
+      cancelAnimationFrame(animId);
     };
   }, []);
 
-  if (hidden) return null;
-
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 9999999 }}>
-      <style>{`
-        /* Minimalist central obsidian dot */
-        .cursor-dot {
-          width: 5px;
-          height: 5px;
-          background-color: var(--primary-color);
-          border-radius: 50%;
-          position: fixed;
-          pointer-events: none;
-          z-index: 99999999;
-          transform: translate3d(-50%, -50%, 0);
-          transition: transform 0.12s ease;
-        }
-
-        .cursor-dot.clicked {
-          transform: translate3d(-50%, -50%, 0) scale(0.5);
-          background-color: var(--secondary-color);
-        }
-
-        /* Large circular hollow spring follow ring */
-        .cursor-ring {
-          width: 32px;
-          height: 32px;
-          border: 1px solid var(--primary-color);
-          border-radius: 50%;
-          position: fixed;
-          pointer-events: none;
-          z-index: 99999998;
-          transition: width 0.22s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                      height 0.22s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                      border-color 0.22s ease;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          opacity: 0.8;
-        }
-
-        .cursor-ring.clicked {
-          width: 44px;
-          height: 44px;
-          border-color: var(--secondary-color);
-          opacity: 0.5;
-        }
-      `}</style>
-      
-      <div 
-        className={`cursor-dot ${clicked ? 'clicked' : ''}`}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
-      />
-      
-      <div ref={ringRef} className={`cursor-ring ${clicked ? 'clicked' : ''}`} />
-    </div>
+    <canvas 
+      ref={canvasRef} 
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        pointerEvents: 'none',
+        zIndex: 99999999
+      }}
+    />
   );
 }

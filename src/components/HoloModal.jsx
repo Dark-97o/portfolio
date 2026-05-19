@@ -1,24 +1,17 @@
 /* 🎌 Custom Editorial Detail Sheet Overlay Component */
 import React, { useState, useEffect } from 'react';
-import { AudioSynth } from '../services/AudioSynth';
 
 export default function HoloModal({ project, onClose }) {
   const [flickerActive, setFlickerActive] = useState(false);
 
   useEffect(() => {
-    AudioSynth.playBootDiagnostics();
     setFlickerActive(true);
     const timer = setTimeout(() => setFlickerActive(false), 150);
     return () => clearTimeout(timer);
   }, [project]);
 
-  const handleHover = () => {
-    AudioSynth.playHoverSweep();
-  };
-
   const handleCloseClick = (e) => {
     e.preventDefault();
-    AudioSynth.playBeepClick();
     setFlickerActive(true);
     setTimeout(() => {
       onClose();
@@ -250,10 +243,8 @@ export default function HoloModal({ project, onClose }) {
           <div className="holo-footer-btns">
             <button 
               className="cyber-btn"
-              onMouseEnter={handleHover}
               onClick={(e) => {
                 e.preventDefault();
-                AudioSynth.playBeepClick();
                 alert(`Starting active link to ${project.title} production stream...`);
               }}
             >
@@ -262,7 +253,6 @@ export default function HoloModal({ project, onClose }) {
             
             <button 
               className="cyber-btn cyber-btn-secondary"
-              onMouseEnter={handleHover}
               onClick={handleCloseClick}
             >
               [ CLOSE REGISTRY ]

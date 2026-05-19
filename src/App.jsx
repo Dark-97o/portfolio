@@ -6,41 +6,38 @@ import Hero from './components/Hero';
 import ProjectsGrid from './components/ProjectsGrid';
 import HoloModal from './components/HoloModal';
 import ContactForm from './components/ContactForm';
-import { AudioSynth } from './services/AudioSynth';
 import './App.css';
 
 export default function App() {
   const [booted, setBooted] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [audioActive, setAudioActive] = useState(true);
-  const [showNavbar, setShowNavbar] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
-      // Toggle navbar visibility once user scrolls down past 280px (scrolled over from hero)
-      if (window.scrollY > 280) {
-        setShowNavbar(true);
-      } else {
-        setShowNavbar(false);
+      const sections = ['home', 'about', 'projects', 'contact'];
+      let currentSection = 'home';
+      
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // If the top of the section is in the upper 40% of the viewport
+          if (rect.top <= window.innerHeight * 0.4) {
+            currentSection = section;
+          }
+        }
       }
+      setActiveSection(currentSection);
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleAudioToggle = (e) => {
-    e.stopPropagation();
-    const newState = AudioSynth.toggle();
-    setAudioActive(newState);
-  };
-
-  const handleHover = () => {
-    AudioSynth.playHoverSweep();
-  };
-
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
-    AudioSynth.playBeepClick();
     const el = document.getElementById(targetId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -59,154 +56,139 @@ export default function App() {
       {/* Elegant Organic Canvas backdrop */}
       <EditorialCanvas />
 
-      {/* Global Navbar Header HUD */}
+      {/* Global Navbar Header HUD - Floating Glassmorphic Pill */}
       {booted && (
         <header className="navbar-hud">
           <style>{`
             .navbar-hud {
               position: fixed;
-              top: 0;
-              left: 0;
-              width: 100%;
+              top: 1.5rem;
+              left: 50%;
+              transform: translateX(-50%);
               z-index: 999;
-              background: rgba(250, 246, 240, 0.75);
-              backdrop-filter: blur(25px);
-              -webkit-backdrop-filter: blur(25px);
-              border-bottom: var(--border-editorial);
-              box-shadow: var(--shadow-soft);
-              transform: translateY(${showNavbar ? '0' : '-100%'});
-              opacity: ${showNavbar ? '1' : '0'};
-              transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
-                          opacity 0.35s ease;
-              pointer-events: ${showNavbar ? 'auto' : 'none'};
-            }
-            .nav-inner {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              height: 70px;
+              width: max-content;
+              max-width: 95vw;
+              background: rgba(255, 255, 255, 0.45);
+              backdrop-filter: blur(25px) saturate(140%);
+              -webkit-backdrop-filter: blur(25px) saturate(140%);
+              border: 1px solid rgba(255, 255, 255, 0.4);
+              border-radius: 9999px;
+              box-shadow: 0 10px 40px rgba(95, 89, 79, 0.12),
+                          inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                          0 1px 2px rgba(17, 17, 17, 0.05);
+              padding: 0.5rem 0.75rem;
+              transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+              animation: pillSlideDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
             }
 
-            .nav-logo {
-              font-family: var(--font-display);
-              font-size: 1.4rem;
-              font-weight: 800;
-              color: var(--primary-color);
-              letter-spacing: -0.5px;
+            @keyframes pillSlideDown {
+              0% {
+                transform: translate(-50%, -40px);
+                opacity: 0;
+              }
+              100% {
+                transform: translate(-50%, 0);
+                opacity: 1;
+              }
+            }
+
+            .nav-inner {
+              display: flex;
+              align-items: center;
+              position: relative;
             }
 
             .nav-links {
               display: flex;
               align-items: center;
-              gap: 2rem;
               list-style: none;
+              padding: 0;
+              margin: 0;
+              background: rgba(17, 17, 17, 0.04);
+              border-radius: 9999px;
+              padding: 0.25rem;
+              border: 1px solid rgba(17, 17, 17, 0.03);
+              position: relative;
             }
 
             .nav-link {
-              color: var(--text-secondary);
+              color: #000000;
               text-decoration: none;
               font-family: var(--font-mono);
               font-size: 11px;
-              font-weight: 700;
-              letter-spacing: 1.5px;
+              font-weight: 800;
+              letter-spacing: 1px;
               text-transform: uppercase;
               transition: var(--transition-fast);
-              position: relative;
-              padding: 0.4rem 0;
-            }
-
-            .nav-link::after {
-              content: '';
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              width: 0%;
-              height: 1px;
-              background: var(--primary-color);
-              transition: var(--transition-fast);
+              padding: 0.5rem 1.4rem;
+              border-radius: 9999px;
+              display: block;
+              opacity: 0.82;
             }
 
             .nav-link:hover {
-              color: var(--text-primary);
+              color: #000000;
+              opacity: 1;
+              background: rgba(17, 17, 17, 0.06);
             }
 
-            .nav-link:hover::after {
-              width: 100%;
+            .nav-link.active {
+              color: #ffffff;
+              background: #000000;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+              opacity: 1;
             }
 
-            .nav-audio-btn {
-              background: transparent;
-              border: 1px dashed var(--text-secondary);
-              color: var(--text-primary);
-              font-family: var(--font-mono);
-              font-size: 10px;
-              font-weight: 700;
-              padding: 0.35rem 0.8rem;
-              cursor: pointer;
-              transition: var(--transition-fast);
-              text-transform: uppercase;
-              letter-spacing: 1px;
-              border-radius: 2px;
-            }
-
-            .nav-audio-btn:hover {
-              background: rgba(17, 17, 17, 0.04);
-              border-style: solid;
-              border-color: var(--primary-color);
-            }
-
-            .nav-audio-btn.muted {
-              border-color: var(--secondary-color);
-              color: var(--secondary-color);
-            }
-
-            .nav-audio-btn.muted:hover {
-              background: rgba(184, 144, 71, 0.05);
+            @media (max-width: 768px) {
+              .navbar-hud {
+                top: 1rem;
+                padding: 0.4rem 0.5rem;
+              }
+              .nav-link {
+                font-size: 10px;
+                padding: 0.4rem 0.9rem;
+                letter-spacing: 0.5px;
+              }
             }
           `}</style>
 
-          <div className="container nav-inner">
-            <div className="nav-logo">[ ARCHITECT ]</div>
-            
+          <div className="nav-inner">
             <ul className="nav-links">
               <li>
                 <a 
                   href="#home" 
-                  className="nav-link" 
-                  onMouseEnter={handleHover}
+                  className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'home')}
                 >
-                  SYSTEM_HOME
+                  Home
                 </a>
               </li>
               <li>
                 <a 
                   href="#projects" 
-                  className="nav-link" 
-                  onMouseEnter={handleHover}
+                  className={`nav-link ${activeSection === 'projects' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'projects')}
                 >
-                  ARCHIVES
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#about" 
+                  className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, 'about')}
+                >
+                  about me
                 </a>
               </li>
               <li>
                 <a 
                   href="#contact" 
-                  className="nav-link" 
-                  onMouseEnter={handleHover}
+                  className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'contact')}
                 >
-                  DATALINK
+                  Contact
                 </a>
-              </li>
-              <li>
-                <button 
-                  className={`nav-audio-btn ${!audioActive ? 'muted' : ''}`}
-                  onMouseEnter={handleHover}
-                  onClick={handleAudioToggle}
-                >
-                  {audioActive ? '[ AUDIO: ON ]' : '[ AUDIO: MUTED ]'}
-                </button>
               </li>
             </ul>
           </div>

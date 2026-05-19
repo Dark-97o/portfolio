@@ -1,6 +1,5 @@
 /* 🎌 High-End Cyberpunk Boot Loader Component */
 import React, { useState, useEffect } from 'react';
-import { AudioSynth } from '../services/AudioSynth';
 
 export default function BootLoader({ onBootComplete }) {
   const [logs, setLogs] = useState([]);
@@ -23,7 +22,6 @@ export default function BootLoader({ onBootComplete }) {
     const logInterval = setInterval(() => {
       if (lineIdx < diagnosticLines.length) {
         setLogs((prev) => [...prev, diagnosticLines[lineIdx]]);
-        AudioSynth.playBootDiagnostics();
         lineIdx++;
       } else {
         clearInterval(logInterval);
@@ -52,7 +50,6 @@ export default function BootLoader({ onBootComplete }) {
 
   const handleBootClick = () => {
     setInteracting(true);
-    AudioSynth.playBeepClick();
     // Soft scale-out exit animation
     setTimeout(() => {
       onBootComplete();

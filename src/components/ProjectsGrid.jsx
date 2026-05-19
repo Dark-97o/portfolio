@@ -1,6 +1,5 @@
 /* 🎌 Premium Editorial Cream Projects Grid Component */
 import React from 'react';
-import { AudioSynth } from '../services/AudioSynth';
 
 export const projectsData = [
   {
@@ -33,16 +32,9 @@ export const projectsData = [
 ];
 
 export default function ProjectsGrid({ onSelectProject }) {
-  const handleHover = () => {
-    AudioSynth.playHoverSweep();
-  };
-
   const handleClick = (e, project) => {
     e.preventDefault();
-    AudioSynth.playBeepClick();
-    setTimeout(() => {
-      onSelectProject(project);
-    }, 185);
+    onSelectProject(project);
   };
 
   return (
@@ -214,7 +206,6 @@ export default function ProjectsGrid({ onSelectProject }) {
               
               <button 
                 className="cyber-btn card-action-btn"
-                onMouseEnter={handleHover}
                 onClick={(e) => handleClick(e, project)}
               >
                 [ VIEW SYSTEM SPECIFICATIONS ]
