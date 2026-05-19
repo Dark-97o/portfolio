@@ -61,12 +61,12 @@ export default function CyberCursor() {
         context.beginPath();
         context.arc(this.x, this.y, this.size * opacity, 0, Math.PI * 2);
         
-        // Pure white glowing particles with a soft warm drop shadow so they pop over cream
-        context.fillStyle = `rgba(255, 255, 255, ${opacity * 0.95})`;
-        context.shadowColor = 'rgba(95, 89, 79, 0.25)';
-        context.shadowBlur = 5;
+        // Premium ink-black editorial particles with a soft drop shadow
+        context.fillStyle = `rgba(0, 0, 0, ${opacity * 0.95})`;
+        context.shadowColor = 'rgba(255, 255, 255, 0.2)';
+        context.shadowBlur = 4;
         context.shadowOffsetX = 1;
-        context.shadowOffsetY = 2;
+        context.shadowOffsetY = 1;
         
         context.fill();
         context.restore();

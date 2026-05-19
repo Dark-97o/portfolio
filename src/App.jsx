@@ -12,6 +12,7 @@ export default function App() {
   const [booted, setBooted] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeSection, setActiveSection] = useState('home');
+  const [showNavbar, setShowNavbar] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +58,7 @@ export default function App() {
       <EditorialCanvas />
 
       {/* Global Navbar Header HUD - Floating Glassmorphic Pill */}
-      {booted && (
+      {booted && showNavbar && (
         <header className="navbar-hud">
           <style>{`
             .navbar-hud {
@@ -199,6 +200,7 @@ export default function App() {
       {booted && (
         <main style={{ position: 'relative', zIndex: 2 }}>
           <Hero 
+            onWindowUnlocked={() => setShowNavbar(true)}
             onScrollToProjects={() => {
               const el = document.getElementById('projects');
               if (el) el.scrollIntoView({ behavior: 'smooth' });

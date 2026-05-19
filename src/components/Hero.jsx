@@ -6,12 +6,47 @@ import trainImg from '../assets/train.png';
 import winOpenImg from '../assets/winopen.png';
 import winCloseImg from '../assets/winclose.png';
 import winFrameImg from '../assets/winframe.png';
+import noteImg from '../assets/note.png';
 
-export default function Hero() {
+export default function Hero({ onWindowUnlocked }) {
   const [windowState, setWindowState] = useState(0);
+  const [processedNote, setProcessedNote] = useState(null);
   const cooldownRef = useRef(false);
   const touchStartRef = useRef(0);
   const stateRef = useRef(0);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = noteImg;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const diff = max - min;
+
+        // Isolate white paper texture card borders to make them 100% transparent
+        if (r > 215 && g > 215 && b > 215 && diff < 22) {
+          data[i + 3] = 0;
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+      setProcessedNote(canvas.toDataURL());
+    };
+  }, []);
 
   // Synchronize state ref to bypass closures inside window event listeners
   useEffect(() => {
@@ -20,8 +55,11 @@ export default function Hero() {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
+      if (onWindowUnlocked) {
+        onWindowUnlocked();
+      }
     }
-  }, [windowState]);
+  }, [windowState, onWindowUnlocked]);
 
   useEffect(() => {
     // Force scroll to top on load for perfect immersion
@@ -118,18 +156,16 @@ export default function Hero() {
           className="win-img win-frame" 
           style={{ opacity: windowState === 2 ? 1 : 0 }} 
         />
-
-        {/* Paper Note Prompt */}
+        {/* Paper Note Prompt with real note background image, bold scroll text, and SVG mouse icon */}
         <div className={`paper-note ${windowState > 0 ? 'fade-out' : ''}`}>
-          {/* Metallic Pin in the corner aligned right */}
-          <div className="paper-pin" />
-          
-          {/* Pulsing Mouse Icon */}
-          <div className="scroll-mouse-icon">
-            <div className="mouse-wheel" />
+          <img src={processedNote || noteImg} alt="Parchment note background" className="paper-note-bg" />
+          <div className="paper-content">
+            <svg className="mouse-icon" width="22" height="32" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="32" rx="10" stroke="black" strokeWidth="2.5" />
+              <circle cx="12" cy="11" r="2.5" fill="black" className="mouse-wheel-dot" />
+            </svg>
+            <p className="paper-text">SCROLL</p>
           </div>
-          
-          <p className="paper-text">Scroll</p>
         </div>
       </div>
 
@@ -257,107 +293,75 @@ export default function Hero() {
           pointer-events: none;
         }
 
-        /* Parchment Paper note prompt styles */
+        /* Parchment Paper note prompt styles using real image asset */
         .paper-note {
           position: absolute;
-          background: #faf6ee; /* Warm notebook cream paper */
-          background-image: linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-          background-size: 100% 24px;
-          border: 1px solid #e3dec9;
-          box-shadow: 
-            2px 2px 0px rgba(0, 0, 0, 0.04),
-            0 20px 45px rgba(0, 0, 0, 0.22), 
-            0 5px 15px rgba(0, 0, 0, 0.12);
-          padding: 1.8rem 2rem 1.3rem 2rem;
-          border-radius: 2px;
-          transform: rotate(-3deg);
-          animation: floatPaper 3s ease-in-out infinite;
+          width: 320px;
+          height: auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           z-index: 10000;
           pointer-events: none;
-          min-width: 130px;
-          max-width: 180px;
-          text-align: center;
-          transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+          animation: floatPaper 3.5s ease-in-out infinite;
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                      transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .paper-note-bg {
+          width: 100%;
+          height: auto;
+          display: block;
+          mix-blend-mode: multiply; /* Mathematically dissolves any solid white pixels in the image file */
         }
 
         .paper-note.fade-out {
           opacity: 0;
-          transform: translateY(60px) rotate(4deg);
+          transform: translateY(65px) rotate(4deg);
         }
 
-        /* Metallic pin styled in the top-right corner */
-        .paper-pin {
+        .paper-content {
           position: absolute;
-          top: -10px;
-          right: 12px;
-          width: 14px;
-          height: 14px;
-          background: #d12229; /* Deep red pin head */
-          border-radius: 50%;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.22), inset 0 2px 2px rgba(255,255,255,0.4);
-          transform: rotate(15deg);
-          z-index: 10001;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.55rem;
+          transform: rotate(-1.5deg); /* Match natural offset layout */
         }
 
-        .paper-pin::before {
-          content: '';
-          position: absolute;
-          bottom: -7px;
-          left: 5px;
-          width: 3px;
-          height: 9px;
-          background: #b1b1b1; /* Silver needle shaft */
-          transform: rotate(-15deg);
-          box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        .mouse-icon {
+          display: block;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
-        /* Pulsing mouse scroll icon */
-        .scroll-mouse-icon {
-          width: 22px;
-          height: 36px;
-          border: 2px solid #3e3328;
-          border-radius: 10px;
-          position: relative;
-          margin: 0 auto 0.75rem auto;
-        }
-
-        .mouse-wheel {
-          width: 4px;
-          height: 8px;
-          background: #3e3328;
-          border-radius: 2px;
-          position: absolute;
-          top: 6px;
-          left: 50%;
-          transform: translateX(-50%);
-          animation: scrollWheelPulse 1.6s ease-in-out infinite;
-        }
-
-        @keyframes scrollWheelPulse {
+        @keyframes scrollWheelAnim {
           0% {
+            transform: translateY(0);
             opacity: 1;
-            transform: translate(-50%, 0);
           }
           50% {
-            opacity: 0.3;
-            transform: translate(-50%, 5px);
+            transform: translateY(7px);
+            opacity: 0.2;
           }
           100% {
+            transform: translateY(0);
             opacity: 1;
-            transform: translate(-50%, 0);
           }
+        }
+
+        .mouse-wheel-dot {
+          animation: scrollWheelAnim 1.6s ease-in-out infinite;
         }
 
         .paper-text {
-          font-family: var(--font-display);
-          font-size: 0.85rem;
-          color: #3e3328; /* Soft warm charcoal brown */
-          font-weight: 800;
+          font-family: 'Playfair Display', 'Georgia', serif;
+          font-size: 1.05rem;
+          color: #000000; /* Pure premium ink black text */
+          font-weight: 900; /* Super bold extra-inked aesthetic */
           margin: 0;
           line-height: 1.2;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
+          letter-spacing: 0.15em; /* Elegant spaced typography */
+          text-align: center;
         }
 
         @keyframes floatPaper {
@@ -368,6 +372,7 @@ export default function Hero() {
             transform: translateY(-8px) rotate(-1.8deg);
           }
         }
+
 
         /* Centered presentation layout */
         .hero-container {
