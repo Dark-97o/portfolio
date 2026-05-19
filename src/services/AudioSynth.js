@@ -1,6 +1,6 @@
-/* 🎌 Web Audio API Cyber Synth Retro Sound System */
+/* 🎌 Custom Premium Editorial Sound Synthesis System */
 
-class CyberSynthSystem {
+class ElegantSynthSystem {
   constructor() {
     this.ctx = null;
     this.enabled = true;
@@ -25,7 +25,7 @@ class CyberSynthSystem {
         this.ctx.resume();
       }
 
-      // Elegant high-tech hover sound: high-frequency logarithmic sweep (sine wave)
+      // Elegant, soft acoustic hover: gentle low-frequency sine sweep (warm and premium)
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
 
@@ -33,14 +33,15 @@ class CyberSynthSystem {
       gain.connect(this.ctx.destination);
 
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(900, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(1600, this.ctx.currentTime + 0.12);
+      osc.frequency.setValueAtTime(320, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(480, this.ctx.currentTime + 0.15);
 
-      gain.gain.setValueAtTime(0.012, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.12);
+      // Super low, subtle acoustic volume
+      gain.gain.setValueAtTime(0.006, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.15);
 
       osc.start();
-      osc.stop(this.ctx.currentTime + 0.12);
+      osc.stop(this.ctx.currentTime + 0.15);
     } catch (e) {}
   }
 
@@ -54,22 +55,22 @@ class CyberSynthSystem {
         this.ctx.resume();
       }
 
-      // High-precision dual frequency beep (square wave) simulating high-end computer registry click
+      // Vintage mechanical typewriter key click: warm triangle click (very fast decay)
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
 
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(1400, this.ctx.currentTime);
-      osc.frequency.setValueAtTime(700, this.ctx.currentTime + 0.04);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+      osc.frequency.setValueAtTime(300, this.ctx.currentTime + 0.03);
 
-      gain.gain.setValueAtTime(0.025, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.06);
 
       osc.start();
-      osc.stop(this.ctx.currentTime + 0.08);
+      osc.stop(this.ctx.currentTime + 0.06);
     } catch (e) {}
   }
 
@@ -83,22 +84,22 @@ class CyberSynthSystem {
         this.ctx.resume();
       }
 
-      // low periodic scan hum
+      // Soft ambient pulse chime
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
 
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(180, this.ctx.currentTime);
-      osc.frequency.linearRampToValueAtTime(240, this.ctx.currentTime + 0.15);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(260, this.ctx.currentTime);
+      osc.frequency.linearRampToValueAtTime(340, this.ctx.currentTime + 0.2);
 
-      gain.gain.setValueAtTime(0.018, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.01, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.2);
 
       osc.start();
-      osc.stop(this.ctx.currentTime + 0.15);
+      osc.stop(this.ctx.currentTime + 0.2);
     } catch (e) {}
   }
 
@@ -117,18 +118,18 @@ class CyberSynthSystem {
       osc.connect(gain);
       gain.connect(this.ctx.destination);
 
-      osc.type = 'triangle';
-      const startPitch = this.enabled ? 350 : 700;
-      const endPitch = this.enabled ? 700 : 350;
+      osc.type = 'sine';
+      const startPitch = this.enabled ? 220 : 440;
+      const endPitch = this.enabled ? 440 : 220;
 
       osc.frequency.setValueAtTime(startPitch, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(endPitch, this.ctx.currentTime + 0.2);
+      osc.frequency.exponentialRampToValueAtTime(endPitch, this.ctx.currentTime + 0.25);
 
-      gain.gain.setValueAtTime(0.035, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.25);
 
       osc.start();
-      osc.stop(this.ctx.currentTime + 0.2);
+      osc.stop(this.ctx.currentTime + 0.25);
     } catch (e) {}
   }
 
@@ -139,4 +140,4 @@ class CyberSynthSystem {
   }
 }
 
-export const AudioSynth = new CyberSynthSystem();
+export const AudioSynth = new ElegantSynthSystem();

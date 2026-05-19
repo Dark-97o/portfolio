@@ -1,4 +1,4 @@
-/* 🎌 High-End Cyberpunk Projects Grid Component */
+/* 🎌 Premium Editorial Cream Projects Grid Component */
 import React from 'react';
 import { AudioSynth } from '../services/AudioSynth';
 
@@ -42,60 +42,60 @@ export default function ProjectsGrid({ onSelectProject }) {
     AudioSynth.playBeepClick();
     setTimeout(() => {
       onSelectProject(project);
-    }, 180);
+    }, 185);
   };
 
   return (
     <section className="projects-section" id="projects">
       <style>{`
         .projects-section {
-          padding: 5rem 0;
+          padding: 6rem 0;
           position: relative;
         }
 
         .projects-header {
           text-align: center;
-          margin-bottom: 4rem;
+          margin-bottom: 5rem;
         }
 
         .section-title {
-          font-family: 'Syne', sans-serif;
-          font-size: 2.8rem;
+          font-family: var(--font-display);
+          font-size: 3.2rem;
           font-weight: 800;
           text-transform: uppercase;
           color: var(--text-primary);
           margin-bottom: 0.5rem;
-          letter-spacing: 1px;
+          letter-spacing: -1px;
         }
 
         .section-subtitle {
           font-family: var(--font-mono);
           font-size: 11px;
-          color: var(--primary-color);
-          text-shadow: var(--glow-cyan);
-          letter-spacing: 2.5px;
+          color: var(--secondary-color);
+          letter-spacing: 3px;
           text-transform: uppercase;
         }
 
         .grid-container {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 2.5rem;
+          gap: 3rem;
           width: 100%;
         }
 
-        /* Whimsical Cybernetic Glowing Card */
+        /* Elegant paper card styling */
         .cyber-card {
-          background: rgba(11, 13, 22, 0.45);
-          border: 1px solid rgba(0, 240, 255, 0.15);
-          border-radius: 4px;
-          padding: 2rem;
+          background: rgba(255, 255, 255, 0.85);
+          border: var(--border-editorial);
+          border-radius: 2px;
+          padding: 2.2rem;
           position: relative;
           overflow: hidden;
           transition: var(--transition-normal);
           display: flex;
           flex-direction: column;
-          min-height: 380px;
+          min-height: 390px;
+          box-shadow: var(--shadow-soft);
           backdrop-filter: blur(10px);
         }
 
@@ -105,15 +105,21 @@ export default function ProjectsGrid({ onSelectProject }) {
           top: 0;
           left: 0;
           width: 100%;
-          height: 1px;
-          background: linear-gradient(90deg, var(--primary-color), transparent);
-          opacity: 0.7;
+          height: 2px;
+          background: var(--primary-color);
+          opacity: 0.8;
+          transform: scaleX(0);
+          transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .cyber-card:hover::before {
+          transform: scaleX(1);
         }
 
         .cyber-card:hover {
           border-color: var(--primary-color);
-          box-shadow: var(--glow-cyan), inset 0 0 15px rgba(0, 240, 255, 0.05);
-          transform: translateY(-5px);
+          box-shadow: var(--shadow-medium);
+          transform: translateY(-4px);
         }
 
         .card-meta {
@@ -122,40 +128,40 @@ export default function ProjectsGrid({ onSelectProject }) {
           font-family: var(--font-mono);
           font-size: 10px;
           color: var(--text-secondary);
-          margin-bottom: 1.5rem;
-          border-bottom: 1px dashed rgba(0, 240, 255, 0.12);
-          padding-bottom: 0.6rem;
+          margin-bottom: 1.8rem;
+          border-bottom: 1px dashed rgba(17, 17, 17, 0.08);
+          padding-bottom: 0.8rem;
         }
 
         .card-status {
-          color: var(--warn-color);
+          color: var(--secondary-color);
           font-weight: 700;
         }
 
         .card-title {
-          font-family: 'Oxanium', sans-serif;
-          font-size: 1.6rem;
-          font-weight: 700;
+          font-family: var(--font-display);
+          font-size: 1.7rem;
+          font-weight: 800;
           color: var(--text-primary);
           margin-bottom: 0.4rem;
-          letter-spacing: 0.5px;
+          letter-spacing: -0.5px;
         }
 
         .card-subtitle {
           font-family: var(--font-mono);
           font-size: 10px;
-          color: var(--secondary-color);
+          color: var(--text-secondary);
           font-weight: 700;
           letter-spacing: 1.5px;
-          margin-bottom: 1.2rem;
+          margin-bottom: 1.4rem;
           text-transform: uppercase;
         }
 
         .card-description {
-          font-size: 13.5px;
+          font-size: 14px;
           color: var(--text-secondary);
-          line-height: 1.6;
-          margin-bottom: 2rem;
+          line-height: 1.7;
+          margin-bottom: 2.2rem;
           flex-grow: 1;
         }
 
@@ -163,7 +169,7 @@ export default function ProjectsGrid({ onSelectProject }) {
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.8rem;
         }
 
         .card-tag {
@@ -171,9 +177,9 @@ export default function ProjectsGrid({ onSelectProject }) {
           font-size: 9px;
           font-weight: 700;
           color: var(--primary-color);
-          background: rgba(0, 240, 255, 0.06);
-          border: 1px solid rgba(0, 240, 255, 0.15);
-          padding: 0.2rem 0.5rem;
+          background: rgba(17, 17, 17, 0.03);
+          border: 1px solid rgba(17, 17, 17, 0.08);
+          padding: 0.25rem 0.6rem;
           border-radius: 2px;
         }
 
@@ -185,7 +191,7 @@ export default function ProjectsGrid({ onSelectProject }) {
       <div className="container">
         <div className="projects-header">
           <h2 className="section-title">ACTIVE_ARCHIVES</h2>
-          <div className="section-subtitle">[ REGISTRY OF DEPLOYED CYBER_SYSTEMS ]</div>
+          <div className="section-subtitle">[ REGISTRY OF DEPLOYED SPECIALIST SYSTEMS ]</div>
         </div>
 
         <div className="grid-container">
@@ -211,7 +217,7 @@ export default function ProjectsGrid({ onSelectProject }) {
                 onMouseEnter={handleHover}
                 onClick={(e) => handleClick(e, project)}
               >
-                [ LOAD_SYSTEM_DIAGNOSTICS ]
+                [ VIEW SYSTEM SPECIFICATIONS ]
               </button>
             </div>
           ))}

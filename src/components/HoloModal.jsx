@@ -1,16 +1,14 @@
-/* 🎌 Holographic Project Diagnostics Modal Component */
+/* 🎌 Custom Editorial Detail Sheet Overlay Component */
 import React, { useState, useEffect } from 'react';
 import { AudioSynth } from '../services/AudioSynth';
 
 export default function HoloModal({ project, onClose }) {
-  const [glitchActive, setGlitchActive] = useState(false);
+  const [flickerActive, setFlickerActive] = useState(false);
 
   useEffect(() => {
-    // Soft entering glitch burst sound
     AudioSynth.playBootDiagnostics();
-    // Minor visual glitch flicker
-    setGlitchActive(true);
-    const timer = setTimeout(() => setGlitchActive(false), 200);
+    setFlickerActive(true);
+    const timer = setTimeout(() => setFlickerActive(false), 150);
     return () => clearTimeout(timer);
   }, [project]);
 
@@ -21,14 +19,14 @@ export default function HoloModal({ project, onClose }) {
   const handleCloseClick = (e) => {
     e.preventDefault();
     AudioSynth.playBeepClick();
-    setGlitchActive(true);
+    setFlickerActive(true);
     setTimeout(() => {
       onClose();
     }, 180);
   };
 
   return (
-    <div className={`holo-overlay ${glitchActive ? 'holo-glitched' : ''}`}>
+    <div className={`holo-overlay ${flickerActive ? 'holo-glitched' : ''}`}>
       <style>{`
         .holo-overlay {
           position: fixed;
@@ -36,9 +34,9 @@ export default function HoloModal({ project, onClose }) {
           left: 0;
           width: 100vw;
           height: 100vh;
-          background: rgba(6, 7, 10, 0.85);
-          backdrop-filter: blur(15px);
-          -webkit-backdrop-filter: blur(15px);
+          background: rgba(250, 246, 240, 0.94);
+          backdrop-filter: blur(25px);
+          -webkit-backdrop-filter: blur(25px);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -47,27 +45,29 @@ export default function HoloModal({ project, onClose }) {
         }
 
         .holo-glitched {
-          filter: hue-rotate(90deg) contrast(1.5);
           opacity: 0.9;
+          filter: grayscale(1) contrast(1.1);
         }
 
         .holo-container {
           width: 100%;
-          max-width: 680px;
+          max-width: 660px;
           margin: 0 1.5rem;
-          border: 1px solid var(--primary-color);
-          box-shadow: var(--glow-cyan), inset 0 0 20px rgba(0, 240, 255, 0.08);
-          animation: modalEnter 0.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+          border: var(--border-editorial);
+          box-shadow: var(--shadow-medium);
+          background: var(--bg-primary);
+          animation: modalEnter 0.35s cubic-bezier(0.19, 1, 0.22, 1) forwards;
           overflow: hidden;
+          border-radius: 2px;
         }
 
         @keyframes modalEnter {
-          0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+          0% { transform: scale(0.96) translateY(15px); opacity: 0; }
           100% { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         .holo-body {
-          padding: 2.2rem;
+          padding: 2.5rem;
         }
 
         .holo-header-meta {
@@ -76,21 +76,21 @@ export default function HoloModal({ project, onClose }) {
           font-family: var(--font-mono);
           font-size: 10px;
           color: var(--text-secondary);
-          margin-bottom: 1rem;
+          margin-bottom: 1.2rem;
         }
 
         .holo-title {
-          font-family: 'Oxanium', sans-serif;
-          font-size: 2rem;
+          font-family: var(--font-display);
+          font-size: 2.2rem;
           font-weight: 800;
           color: var(--text-primary);
-          letter-spacing: 1px;
+          letter-spacing: -0.5px;
           line-height: 1.1;
         }
 
         .holo-subtitle {
           font-family: var(--font-mono);
-          font-size: 11px;
+          font-size: 10px;
           color: var(--secondary-color);
           font-weight: 700;
           letter-spacing: 2px;
@@ -102,7 +102,7 @@ export default function HoloModal({ project, onClose }) {
           display: grid;
           grid-template-columns: 1.2fr 0.8fr;
           gap: 2rem;
-          margin-bottom: 2rem;
+          margin-bottom: 2.2rem;
         }
 
         @media (max-width: 640px) {
@@ -113,16 +113,16 @@ export default function HoloModal({ project, onClose }) {
         }
 
         .diag-desc-panel {
-          font-size: 14px;
+          font-size: 14.5px;
           color: var(--text-secondary);
-          line-height: 1.6;
+          line-height: 1.7;
         }
 
         .diag-stats-panel {
-          background: rgba(0, 0, 0, 0.4);
-          border: 1px dashed rgba(0, 240, 255, 0.15);
-          padding: 1.2rem;
-          border-radius: 4px;
+          background: rgba(17, 17, 17, 0.02);
+          border: var(--border-light);
+          padding: 1.4rem;
+          border-radius: 2px;
           display: flex;
           flex-direction: column;
           gap: 0.8rem;
@@ -133,8 +133,8 @@ export default function HoloModal({ project, onClose }) {
         .stat-row {
           display: flex;
           justify-content: space-between;
-          border-bottom: 1px solid rgba(0, 240, 255, 0.05);
-          padding-bottom: 0.4rem;
+          border-bottom: 1px solid rgba(17, 17, 17, 0.05);
+          padding-bottom: 0.5rem;
         }
 
         .stat-label {
@@ -144,16 +144,15 @@ export default function HoloModal({ project, onClose }) {
         .stat-value {
           color: var(--primary-color);
           font-weight: 700;
-          text-shadow: var(--glow-cyan);
         }
 
-        /* Holographic Wave scan diagram */
+        /* Ambient Waveframe box styling */
         .holo-diagram-box {
           height: 100px;
-          border: 1px solid rgba(0, 240, 255, 0.12);
-          border-radius: 4px;
-          background: rgba(0, 240, 255, 0.01);
-          margin-bottom: 2rem;
+          border: var(--border-light);
+          border-radius: 2px;
+          background: rgba(17, 17, 17, 0.01);
+          margin-bottom: 2.2rem;
           position: relative;
           overflow: hidden;
           display: flex;
@@ -165,22 +164,21 @@ export default function HoloModal({ project, onClose }) {
           position: absolute;
           width: 100%;
           height: 1px;
-          background: rgba(0, 240, 255, 0.4);
+          background: rgba(17, 17, 17, 0.2);
           top: 50%;
-          box-shadow: 0 0 8px #00f0ff;
           animation: waveOscillate 2s infinite ease-in-out;
         }
 
         @keyframes waveOscillate {
-          0%, 100% { transform: translateY(-30px) scaleY(1); }
-          50% { transform: translateY(30px) scaleY(1.5); }
+          0%, 100% { transform: translateY(-25px) scaleY(1); }
+          50% { transform: translateY(25px) scaleY(1.3); }
         }
 
         .ascii-art {
           font-family: var(--font-mono);
           font-size: 9px;
-          color: rgba(0, 240, 255, 0.3);
-          line-height: 1.1;
+          color: rgba(17, 17, 17, 0.25);
+          line-height: 1.2;
           pointer-events: none;
           user-select: none;
         }
@@ -197,14 +195,14 @@ export default function HoloModal({ project, onClose }) {
 
       <div className="holo-container cyber-panel">
         <div className="cyber-panel-header">
-          <span className="cyber-panel-title">HOLO_DIAGNOSTICS // COMPILATION_ACTIVE</span>
-          <span className="cyber-panel-status" style={{ color: 'var(--secondary-color)', textShadow: 'var(--glow-magenta)' }}>SECURE_LINK</span>
+          <span className="cyber-panel-title">SYSTEM_DIAGNOSTICS // ARCHIVE_SPEC</span>
+          <span className="cyber-panel-status">SECURE DISPATCH</span>
         </div>
 
         <div className="holo-body">
           <div className="holo-header-meta">
             <span>REGISTRY_ID: {project.id.toUpperCase()}</span>
-            <span>STATUS: ONLINE</span>
+            <span>STATUS: ACTIVE</span>
           </div>
 
           <h3 className="holo-title">{project.title}</h3>
@@ -213,39 +211,38 @@ export default function HoloModal({ project, onClose }) {
           <div className="diag-grid">
             <div className="diag-desc-panel">
               <p style={{ marginBottom: '1.2rem' }}>{project.description}</p>
-              <p style={{ color: 'var(--text-primary)', fontSize: '13px' }}>
-                System processes represent a multi-layer framework integration. Compatible adapters run active checks across DOM structures to optimize runtime throughput and minimize CPU garbage footprints.
+              <p style={{ color: 'var(--text-primary)', fontSize: '13.5px' }}>
+                Integrating multi-layer rendering techniques to optimize display parameters, increase page contrast, and minimize structural latency on responsive viewports.
               </p>
             </div>
 
             <div className="diag-stats-panel">
               <div className="stat-row">
                 <span className="stat-label">INTEGRITY:</span>
-                <span className="stat-value" style={{ color: 'var(--warn-color)', textShadow: 'var(--glow-yellow)' }}>PASS</span>
+                <span className="stat-value" style={{ color: 'var(--secondary-color)' }}>PASS</span>
               </div>
               <div className="stat-row">
                 <span className="stat-label">COMPATIBILITY:</span>
                 <span className="stat-value">{project.compat}</span>
               </div>
               <div className="stat-row">
-                <span className="stat-label">THROUGHPUT:</span>
+                <span className="stat-label">FRAME RATE:</span>
                 <span className="stat-value">60 FPS</span>
               </div>
               <div className="stat-row">
-                <span className="stat-label">LINK_ENVELOPE:</span>
-                <span className="stat-value" style={{ color: 'var(--secondary-color)', textShadow: 'var(--glow-magenta)' }}>STABLE</span>
+                <span className="stat-label">LINK SECURITY:</span>
+                <span className="stat-value" style={{ color: 'var(--secondary-color)' }}>VERIFIED</span>
               </div>
             </div>
           </div>
 
-          {/* Immersive technical HUD waveform box */}
           <div className="holo-diagram-box">
             <div className="holo-diagram-line" />
             <pre className="ascii-art">
 {`+---------------------------------------------+
-|  [|||||||||||||||||||||||||||||||||||] 100% |
-|  COREFREQ: 4.8GHZ   // TEMPERATURE: 42C     |
-|  ACTIVE NETWORK NODES: [ 12 // 0 // 4 ]      |
+|  [===================================] 100% |
+|  ACCURACY INDEX: PASS  // NO LATENCY DETECTED|
+|  ACTIVE RENDER NODES: [ 10 // 0 // 2 ]      |
 +---------------------------------------------+`}
             </pre>
           </div>
@@ -257,10 +254,10 @@ export default function HoloModal({ project, onClose }) {
               onClick={(e) => {
                 e.preventDefault();
                 AudioSynth.playBeepClick();
-                alert(`Initializing immersive console simulation for ${project.title}...`);
+                alert(`Starting active link to ${project.title} production stream...`);
               }}
             >
-              [ INITIALIZE SIMULATION ]
+              [ CONNECT TO SYSTEM ]
             </button>
             
             <button 
@@ -268,7 +265,7 @@ export default function HoloModal({ project, onClose }) {
               onMouseEnter={handleHover}
               onClick={handleCloseClick}
             >
-              [ TERMINATE LINK ]
+              [ CLOSE REGISTRY ]
             </button>
           </div>
         </div>

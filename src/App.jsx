@@ -1,6 +1,6 @@
-/* 🎌 Project Neo-Tokyo: High-End React Cybernetic Portal - Main App Coordinator */
+/* 🎌 Project Cream & Obsidian: Premium Editorial App Coordinator */
 import React, { useState } from 'react';
-import CyberCanvas from './components/CyberCanvas';
+import EditorialCanvas from './components/EditorialCanvas';
 import CyberCursor from './components/CyberCursor';
 import Hero from './components/Hero';
 import ProjectsGrid from './components/ProjectsGrid';
@@ -35,15 +35,15 @@ export default function App() {
 
   return (
     <div className="app-container">
-      {/* Glitch Overlay scanlines and CRT flickers */}
+      {/* Editorial layout patterns */}
       <div className="scanlines-overlay" />
       <div className="crt-flicker-layer" />
 
       {/* Modern High-End Custom cursor */}
       <CyberCursor />
 
-      {/* Cyber Grid Node Canvas engine */}
-      <CyberCanvas />
+      {/* Elegant Organic Canvas backdrop */}
+      <EditorialCanvas />
 
       {/* Global Navbar Header HUD */}
       {booted && (
@@ -55,11 +55,11 @@ export default function App() {
               left: 0;
               width: 100%;
               z-index: 999;
-              background: rgba(6, 7, 10, 0.65);
-              backdrop-filter: blur(20px);
-              -webkit-backdrop-filter: blur(20px);
-              border-bottom: 1px solid rgba(0, 240, 255, 0.15);
-              box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+              background: rgba(250, 246, 240, 0.75);
+              backdrop-filter: blur(25px);
+              -webkit-backdrop-filter: blur(25px);
+              border-bottom: var(--border-editorial);
+              box-shadow: var(--shadow-soft);
               animation: navFadeIn 0.8s ease;
             }
 
@@ -76,12 +76,11 @@ export default function App() {
             }
 
             .nav-logo {
-              font-family: 'Oxanium', sans-serif;
-              font-size: 1.5rem;
+              font-family: var(--font-display);
+              font-size: 1.4rem;
               font-weight: 800;
               color: var(--primary-color);
-              text-shadow: var(--glow-cyan);
-              letter-spacing: 1px;
+              letter-spacing: -0.5px;
             }
 
             .nav-links {
@@ -111,8 +110,7 @@ export default function App() {
               left: 0;
               width: 0%;
               height: 1px;
-              background: var(--secondary-color);
-              box-shadow: var(--glow-magenta);
+              background: var(--primary-color);
               transition: var(--transition-fast);
             }
 
@@ -126,8 +124,8 @@ export default function App() {
 
             .nav-audio-btn {
               background: transparent;
-              border: 1px dashed var(--primary-color);
-              color: var(--primary-color);
+              border: 1px dashed var(--text-secondary);
+              color: var(--text-primary);
               font-family: var(--font-mono);
               font-size: 10px;
               font-weight: 700;
@@ -136,12 +134,13 @@ export default function App() {
               transition: var(--transition-fast);
               text-transform: uppercase;
               letter-spacing: 1px;
+              border-radius: 2px;
             }
 
             .nav-audio-btn:hover {
-              background: rgba(0, 240, 255, 0.06);
-              box-shadow: var(--glow-cyan);
+              background: rgba(17, 17, 17, 0.04);
               border-style: solid;
+              border-color: var(--primary-color);
             }
 
             .nav-audio-btn.muted {
@@ -150,13 +149,12 @@ export default function App() {
             }
 
             .nav-audio-btn.muted:hover {
-              background: rgba(255, 42, 109, 0.06);
-              box-shadow: var(--glow-magenta);
+              background: rgba(184, 144, 71, 0.05);
             }
           `}</style>
 
           <div className="container nav-inner">
-            <div className="nav-logo">[ NEO_TOKYO ]</div>
+            <div className="nav-logo">[ ARCHITECT ]</div>
             
             <ul className="nav-links">
               <li>
@@ -221,21 +219,21 @@ export default function App() {
           
           <ContactForm />
 
-          {/* Interactive technical footer HUD */}
+          {/* Elegant technical footer HUD */}
           <footer style={{
-            borderTop: '1px solid rgba(0, 240, 255, 0.15)',
+            borderTop: 'var(--border-editorial)',
             padding: '2.5rem 0',
             textAlign: 'center',
             fontFamily: 'var(--font-mono)',
             fontSize: '10px',
             color: 'var(--text-secondary)',
             letterSpacing: '1px',
-            background: 'rgba(6, 7, 10, 0.8)'
+            background: 'rgba(250, 246, 240, 0.95)'
           }}>
             <div className="container">
-              <div>PROJECT_NEO_TOKYO // COMPILATION SUCCESS // ALL SYSTEMS GREEN</div>
-              <div style={{ marginTop: '0.5rem', color: 'rgba(0, 240, 255, 0.4)' }}>
-                LATENCY // ACTIVE CONNECTIVITY: DETECTED // DESIGN_VER: R3.0
+              <div>PROJECT_ARCHITECT // COMPILATION SUCCESS // ALL INTERFACES GREEN</div>
+              <div style={{ marginTop: '0.5rem', color: 'var(--secondary-color)' }}>
+                LATENCY // ACTIVE CONNECTIVITY: VERIFIED // DESIGN_VER: R3.5
               </div>
             </div>
           </footer>

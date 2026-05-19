@@ -1,24 +1,22 @@
-/* 🎌 Cyberpunk Neo-Tokyo Hero Console Component */
+/* 🎌 High-End Editorial Cream & Obsidian Hero Component */
 import React, { useState, useEffect } from 'react';
 import { AudioSynth } from '../services/AudioSynth';
 
 export default function Hero({ onScrollToProjects, onScrollToContact }) {
   const [consoleLines, setConsoleLines] = useState([]);
-  const fullDiagnostics = [
-    "LOG: SYNAPSE_LINK_STABLE // STATUS: EXCELLENT",
-    "LOG: DECODING CREDENTIALS... [SUCCESS]",
-    "LOG: CURRENT_CLASS: SENIOR_REACT_HACKER",
-    "LOG: CURRENT_LEVEL: 99 // COMPILER: VITE_FAST",
-    "LOG: INITIATED REAL-TIME NEURAL RENDER DIRECTORY...",
-    "LOG: REGISTERING CLOUD MATRIX NETWORKS... [DONE]",
-    "LOG: READY FOR EXTERNAL COMPILATION // INITIALIZE_ENGAGEMENT..."
+  const specialties = [
+    "01 / HUMAN DESIGN SYSTEMS",
+    "02 / INTUITIVE INTERACTION KERNELS",
+    "03 / HIGH-PERFORMANCE REACT APPS",
+    "04 / DIGITAL ACOUSTIC SYNTHESIS",
+    "05 / SECURE SERVER DISPATCH NETS"
   ];
 
   useEffect(() => {
     let lineIdx = 0;
     const interval = setInterval(() => {
-      if (lineIdx < fullDiagnostics.length) {
-        setConsoleLines((prev) => [...prev, fullDiagnostics[lineIdx]]);
+      if (lineIdx < specialties.length) {
+        setConsoleLines((prev) => [...prev, specialties[lineIdx]]);
         AudioSynth.playBootDiagnostics();
         lineIdx++;
       } else {
@@ -43,7 +41,7 @@ export default function Hero({ onScrollToProjects, onScrollToContact }) {
     <section className="hero-section" id="home">
       <style>{`
         .hero-section {
-          padding: 8rem 0 5rem;
+          padding: 10rem 0 6rem;
           position: relative;
           display: flex;
           flex-direction: column;
@@ -52,8 +50,8 @@ export default function Hero({ onScrollToProjects, onScrollToContact }) {
 
         .hero-container {
           display: grid;
-          grid-template-columns: 1.1fr 0.9fr;
-          gap: 3rem;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 4rem;
           align-items: center;
           width: 100%;
         }
@@ -62,7 +60,7 @@ export default function Hero({ onScrollToProjects, onScrollToContact }) {
           .hero-container {
             grid-template-columns: 1fr;
             text-align: center;
-            gap: 2rem;
+            gap: 3rem;
           }
           .hero-text-box {
             display: flex;
@@ -74,127 +72,101 @@ export default function Hero({ onScrollToProjects, onScrollToContact }) {
           }
         }
 
-        /* Glitch effect styles */
-        .glitch-title {
-          font-family: 'Syne', sans-serif;
-          font-size: 5rem;
+        /* Luxurious Editorial Serif Headers */
+        .editorial-title {
+          font-family: var(--font-display);
+          font-size: 5.2rem;
           font-weight: 800;
           line-height: 0.95;
           text-transform: uppercase;
-          position: relative;
           color: var(--text-primary);
-          margin-bottom: 1.5rem;
+          margin-bottom: 2rem;
+          letter-spacing: -2px;
         }
 
-        .glitch-title::before,
-        .glitch-title::after {
-          content: 'NEO_CREATIVE';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: #06070a;
-        }
-
-        .glitch-title::before {
-          left: 2px;
-          text-shadow: -2px 0 #00f0ff;
-          clip: rect(44px, 450px, 56px, 0);
-          animation: glitch-1 4s infinite linear alternate-reverse;
-        }
-
-        .glitch-title::after {
-          left: -2px;
-          text-shadow: -2px 0 #ff2a6d, 0 2px #ff2a6d;
-          clip: rect(85px, 450px, 140px, 0);
-          animation: glitch-2 4s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-1 {
-          0% { clip-path: inset(40% 0 61% 0); }
-          20% { clip-path: inset(92% 0 1% 0); }
-          40% { clip-path: inset(25% 0 58% 0); }
-          60% { clip-path: inset(80% 0 5% 0); }
-          80% { clip-path: inset(11% 0 75% 0); }
-          100% { clip-path: inset(50% 0 30% 0); }
-        }
-
-        @keyframes glitch-2 {
-          0% { clip-path: inset(20% 0 80% 0); }
-          20% { clip-path: inset(62% 0 35% 0); }
-          40% { clip-path: inset(80% 0 10% 0); }
-          60% { clip-path: inset(15% 0 70% 0); }
-          80% { clip-path: inset(55% 0 20% 0); }
-          100% { clip-path: inset(30% 0 60% 0); }
+        .editorial-title span.serif-italic {
+          font-family: var(--font-serif);
+          font-style: italic;
+          font-weight: 400;
+          text-transform: none;
+          letter-spacing: 0px;
+          color: var(--secondary-color);
         }
 
         .tagline {
           font-family: var(--font-mono);
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 700;
-          color: var(--primary-color);
-          text-shadow: var(--glow-cyan);
-          letter-spacing: 2px;
+          color: var(--text-secondary);
+          letter-spacing: 3px;
           text-transform: uppercase;
-          margin-bottom: 0.8rem;
-          background: rgba(0, 240, 255, 0.05);
-          padding: 0.3rem 0.8rem;
-          border-radius: 2px;
-          display: inline-block;
+          margin-bottom: 1.2rem;
+          border-left: 2px solid var(--secondary-color);
+          padding-left: 0.8rem;
         }
 
         .description {
-          font-size: 15px;
+          font-size: 16px;
           color: var(--text-secondary);
-          margin-bottom: 2rem;
-          max-width: 500px;
-          line-height: 1.6;
+          margin-bottom: 2.5rem;
+          max-width: 520px;
+          line-height: 1.7;
         }
 
         .hero-btn-container {
           display: flex;
-          gap: 1rem;
+          gap: 1.2rem;
         }
 
-        /* Right panel diagnostics screen */
+        /* Right panel diagnostics styled as elegant registry */
         .hero-diagnostics {
           width: 100%;
-          max-width: 460px;
+          max-width: 440px;
           border-radius: 4px;
         }
 
         .diag-console {
-          padding: 1.2rem;
-          min-height: 220px;
+          padding: 1.5rem;
+          min-height: 240px;
           font-family: var(--font-mono);
           font-size: 11px;
-          color: var(--text-secondary);
+          color: var(--text-primary);
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.8rem;
+          background: rgba(255, 255, 255, 0.4);
         }
 
         .diag-line {
-          display: block;
-          line-height: 1.5;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px dashed rgba(17, 17, 17, 0.08);
+          padding-bottom: 0.5rem;
+          line-height: 1.6;
         }
 
         .diag-bullet {
           color: var(--secondary-color);
-          text-shadow: var(--glow-magenta);
-          margin-right: 6px;
+          font-weight: bold;
+        }
+
+        .active-marker {
+          color: var(--secondary-color);
+          font-size: 9px;
+          font-weight: bold;
+          text-transform: uppercase;
         }
       `}</style>
 
       <div className="container hero-container">
         <div className="hero-text-box">
-          <div className="tagline">[ IDENTITY DECODE SUCCESS ]</div>
-          <h1 className="glitch-title" data-text="NEO_CREATIVE">
-            NEO_CREATIVE
+          <div className="tagline">CREATIVE ARCHITECT // EST. 2026</div>
+          <h1 className="editorial-title">
+            Neo <span className="serif-italic">Creative</span>
           </h1>
           <p className="description">
-            SYSTEM REGISTERED // CLASS: FRONTEND SYSTEM HACKER // LEVEL: 99. Creating ultra-performance React applications with pixel-perfect layouts, interactive canvas physics, and synthetic soundscapes.
+            Crafting premium interactive digital portals with meticulous typography grids, organic motion canvas physics, and elegant custom acoustics.
           </p>
           
           <div className="hero-btn-container">
@@ -203,37 +175,42 @@ export default function Hero({ onScrollToProjects, onScrollToContact }) {
               onMouseEnter={handleHover}
               onClick={(e) => handleClick(e, onScrollToProjects)}
             >
-              [ View System Projects ]
+              [ Explore Archives ]
             </button>
             <button 
               className="cyber-btn cyber-btn-secondary"
               onMouseEnter={handleHover}
               onClick={(e) => handleClick(e, onScrollToContact)}
             >
-              [ Initiate Contact ]
+              [ Open Datalink ]
             </button>
           </div>
         </div>
 
         <div className="hero-diagnostics cyber-panel">
           <div className="cyber-panel-header">
-            <span className="cyber-panel-title">DIAGNOSTICS_MONITOR.EXE</span>
-            <span className="cyber-panel-status">ONLINE</span>
+            <span className="cyber-panel-title">SYSTEM_SPECIALTIES</span>
+            <span className="cyber-panel-status">ACTIVE</span>
           </div>
           
           <div className="diag-console">
             {consoleLines.map((line, idx) => (
               <span key={idx} className="diag-line">
-                <span className="diag-bullet">❯</span>
-                {line}
+                <span>
+                  <span className="diag-bullet">❯</span> {line}
+                </span>
+                <span className="active-marker">[OK]</span>
               </span>
             ))}
             <span className="diag-line" style={{
               animation: 'cursorBlink 1s infinite',
-              color: 'var(--primary-color)',
+              color: 'var(--secondary-color)',
               fontWeight: 'bold'
             }}>
-              <span className="diag-bullet">❯</span>_
+              <span>
+                <span className="diag-bullet">❯</span> LOADING INTERFACE NODES...
+              </span>
+              <span>_</span>
             </span>
           </div>
           
