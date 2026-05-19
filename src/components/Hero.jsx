@@ -69,8 +69,8 @@ export default function Hero() {
           backdrop-filter: blur(28px) saturate(110%);
           -webkit-backdrop-filter: blur(28px) saturate(110%);
           border: 1px solid rgba(255, 255, 255, 0.16);
-          border-radius: 20px;
-          padding: 3.5rem 3.5rem;
+          border-radius: 140px 12px 140px 12px; /* Extremely dramatic asymmetrical leaf silhouette */
+          padding: 0.9rem 1.8rem 0.9rem 3.8rem; /* Increased left padding to shift elements to the right */
           max-width: 760px; /* Wider fit for side-by-side layout */
           width: 90%;
           box-shadow: 0 45px 95px rgba(0, 0, 0, 0.3), 
@@ -78,7 +78,7 @@ export default function Hero() {
           display: flex;
           flex-direction: row; /* Horizontal alignment */
           align-items: center;
-          gap: 3.5rem;
+          gap: 2.2rem; /* Tightened element gap */
           margin-top: -2rem; /* Pull slightly upwards */
           animation: cardSlideIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
@@ -102,7 +102,7 @@ export default function Hero() {
         }
 
         .avatar-img {
-          width: 145px;
+          width: 105px; /* Shrunk width to directly reduce the image and card height */
           height: auto; /* natural free-form aspect ratio */
           border-radius: 0; /* completely raw corners */
           box-shadow: none; /* absolutely no frame shadows */
@@ -130,19 +130,21 @@ export default function Hero() {
           text-transform: uppercase;
           color: #ffffff; /* Solid White for maximum contrast over glass */
           letter-spacing: -1.5px;
-          margin: 0 0 1rem 0;
+          margin: 0 0 0.4rem 0; /* Shrunk bottom margin for height reduction */
         }
 
-        .editorial-title span.beige-highlight {
-          color: #dfcca7; /* High-contrast luxury sand beige */
+        .editorial-title span.name-black {
+          color: #000000; /* Crisp pure black highlight */
+          text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
         }
 
         /* Card Description */
         .description {
           font-family: var(--font-sans);
-          font-size: 14.5px;
-          color: rgba(255, 255, 255, 0.85); /* Highly readable off-white */
-          line-height: 1.7;
+          font-size: 16.5px; /* Increased size for high impact */
+          font-weight: 600; /* Bold typography */
+          color: rgba(255, 255, 255, 0.95); /* Highly readable high-contrast off-white */
+          line-height: 1.6;
           margin: 0; /* Clean terminal spacing as final block elements */
           max-width: 480px;
         }
@@ -151,8 +153,8 @@ export default function Hero() {
           .hero-profile-card {
             flex-direction: column; /* Stack vertically on mobile screen size */
             text-align: center;
-            padding: 2.5rem 1.8rem 2.5rem;
-            gap: 2rem;
+            padding: 1.4rem 1.4rem; /* Highly compact mobile height */
+            gap: 1.8rem;
           }
           .card-body {
             align-items: center;
@@ -179,12 +181,12 @@ export default function Hero() {
           <div className="card-body">
             {/* Heading Name */}
             <h1 className="editorial-title">
-              Hi, I'm <span className="beige-highlight">Subhranil Baul</span>
+              Hi, I'm <span className="name-black">Subhranil Baul</span>
             </h1>
 
             {/* Elegant Small description about Subhranil */}
             <p className="description">
-              Crafting premium interactive digital portals with meticulous typography grids, organic motion canvas physics, and elegant custom acoustics.
+              Final-year AI/ML Engineer & Full-Stack Developer specializing in edge AI and decentralized systems.
             </p>
           </div>
         </div>
