@@ -182,7 +182,7 @@ export default function Hero({ onWindowUnlocked }) {
 
       <style>{`
         .hero-section {
-          min-height: 100vh; /* Crisp fullscreen viewport height alignment */
+          min-height: 97vh; /* Perfectly balanced fit at 97vh */
           padding: 8rem 0;
           position: relative;
           display: flex;
@@ -296,16 +296,24 @@ export default function Hero({ onWindowUnlocked }) {
         /* Parchment Paper note prompt styles using real image asset */
         .paper-note {
           position: absolute;
-          width: 320px;
+          width: 220px; /* Elegant smaller dimension */
           height: auto;
           display: flex;
           justify-content: center;
           align-items: center;
           z-index: 10000;
           pointer-events: none;
-          animation: floatPaper 3.5s ease-in-out infinite;
+          right: calc(50% - 320px); /* Shifted to the right on desktop */
+          transform: rotate(-2.5deg); /* Stable tilted angle without floating animation */
           transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
                       transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (max-width: 1024px) {
+          .paper-note {
+            right: auto; /* Centered on tablet and mobile */
+            transform: rotate(-2.5deg);
+          }
         }
 
         .paper-note-bg {
@@ -313,6 +321,7 @@ export default function Hero({ onWindowUnlocked }) {
           height: auto;
           display: block;
           mix-blend-mode: multiply; /* Mathematically dissolves any solid white pixels in the image file */
+          filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.22)); /* Elegant shadow hugging the dynamic peach card boundaries */
         }
 
         .paper-note.fade-out {
@@ -325,7 +334,7 @@ export default function Hero({ onWindowUnlocked }) {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.55rem;
+          gap: 0.45rem;
           transform: rotate(-1.5deg); /* Match natural offset layout */
         }
 
@@ -354,23 +363,14 @@ export default function Hero({ onWindowUnlocked }) {
         }
 
         .paper-text {
-          font-family: 'Playfair Display', 'Georgia', serif;
-          font-size: 1.05rem;
+          font-family: var(--font-display), 'Outfit', sans-serif; /* Modern bold font used elsewhere */
+          font-size: 0.85rem; /* Balanced size for the smaller card */
           color: #000000; /* Pure premium ink black text */
-          font-weight: 900; /* Super bold extra-inked aesthetic */
+          font-weight: 900; /* Super bold extra-inked modern font */
           margin: 0;
           line-height: 1.2;
-          letter-spacing: 0.15em; /* Elegant spaced typography */
+          letter-spacing: 0.18em; /* Modern spaced uppercase tracking */
           text-align: center;
-        }
-
-        @keyframes floatPaper {
-          0%, 100% {
-            transform: translateY(0) rotate(-2.5deg);
-          }
-          50% {
-            transform: translateY(-8px) rotate(-1.8deg);
-          }
         }
 
 
@@ -407,17 +407,17 @@ export default function Hero({ onWindowUnlocked }) {
 
         .hero-state-2 {
           opacity: 1;
-          filter: blur(0px);
-          transform: translateY(0);
+          filter: none; /* Crucial: clears parent filter stacking context to restore child backdrop-blur! */
+          transform: none; /* Crucial: clears parent transform stacking context to restore child backdrop-blur! */
           pointer-events: all;
         }
 
         /* Horizontal Glassmorphic Card */
         .hero-profile-card {
-          background: rgba(255, 255, 255, 0.08); /* Frosted premium glass */
-          backdrop-filter: blur(28px) saturate(110%);
-          -webkit-backdrop-filter: blur(28px) saturate(110%);
-          border: 1px solid rgba(255, 255, 255, 0.16);
+          background: rgba(255, 255, 255, 0.12); /* Frosty premium glass */
+          backdrop-filter: blur(30px) saturate(120%);
+          -webkit-backdrop-filter: blur(30px) saturate(120%);
+          border: 1px solid rgba(255, 255, 255, 0.18);
           border-radius: 140px 12px 140px 12px; /* Extremely dramatic asymmetrical leaf silhouette */
           padding: 0.9rem 1.8rem 0.9rem 3.8rem; /* Increased left padding to shift elements to the right */
           max-width: 760px; /* Wider fit for side-by-side layout */

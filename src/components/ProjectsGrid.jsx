@@ -1,5 +1,6 @@
 /* 🎌 Premium Editorial Cream Projects Grid Component */
 import React from 'react';
+import repeatGraphicsImg from '../assets/repeatgraphics.png';
 
 export const projectsData = [
   {
@@ -41,8 +42,30 @@ export default function ProjectsGrid({ onSelectProject }) {
     <section className="projects-section" id="projects">
       <style>{`
         .projects-section {
-          padding: 6rem 0;
+          padding: 8rem 0 6rem 0; /* Expanded top padding to fit repeating banner */
           position: relative;
+        }
+
+        .repeat-graphics-banner {
+          width: 100%;
+          height: 52px; /* Generous height for a crisp repeating visual */
+          position: absolute;
+          top: 0;
+          left: 0;
+          overflow: hidden;
+          opacity: 0.95;
+          pointer-events: none;
+        }
+
+        .repeat-graphics-track {
+          width: 100%;
+          height: 100%;
+          background-image: url(${repeatGraphicsImg});
+          background-repeat: repeat-x;
+          background-size: auto 100%;
+          background-position: center left;
+          /* Real-time color translation filter: converts raw orange into a warm sand-beige tint */
+          filter: grayscale(1) sepia(0.8) saturate(1.2) brightness(0.75) contrast(1.1);
         }
 
         .projects-header {
@@ -179,6 +202,11 @@ export default function ProjectsGrid({ onSelectProject }) {
           width: 100%;
         }
       `}</style>
+
+      {/* Editorial repeating pattern separator banner at the starting of the section */}
+      <div className="repeat-graphics-banner">
+        <div className="repeat-graphics-track" />
+      </div>
 
       <div className="container">
         <div className="projects-header">
