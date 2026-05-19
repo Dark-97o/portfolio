@@ -1,225 +1,192 @@
-/* 🎌 High-End Editorial Cream & Obsidian Hero Component */
-import React, { useState, useEffect } from 'react';
+/* 🎌 High-End Editorial Cream & Obsidian Hero Component - Horizontal Glassmorphic Card */
+import React from 'react';
 import { AudioSynth } from '../services/AudioSynth';
+import heroVid from '../assets/hero_vid.mov';
+import avtImg from '../assets/avt.png';
 
-export default function Hero({ onScrollToProjects, onScrollToContact }) {
-  const [consoleLines, setConsoleLines] = useState([]);
-  const specialties = [
-    "01 / HUMAN DESIGN SYSTEMS",
-    "02 / INTUITIVE INTERACTION KERNELS",
-    "03 / HIGH-PERFORMANCE REACT APPS",
-    "04 / DIGITAL ACOUSTIC SYNTHESIS",
-    "05 / SECURE SERVER DISPATCH NETS"
-  ];
-
-  useEffect(() => {
-    let lineIdx = 0;
-    const interval = setInterval(() => {
-      if (lineIdx < specialties.length) {
-        setConsoleLines((prev) => [...prev, specialties[lineIdx]]);
-        AudioSynth.playBootDiagnostics();
-        lineIdx++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 450);
-
-    return () => clearInterval(interval);
-  }, []);
-
+export default function Hero() {
   const handleHover = () => {
     AudioSynth.playHoverSweep();
   };
 
-  const handleClick = (e, callback) => {
-    e.preventDefault();
-    AudioSynth.playBeepClick();
-    if (callback) setTimeout(callback, 200);
-  };
-
   return (
     <section className="hero-section" id="home">
+      {/* 100% Visible Background Video Loop (No Overlays) */}
+      <div className="hero-video-bg">
+        <video 
+          src={heroVid} 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+        />
+      </div>
+
       <style>{`
         .hero-section {
-          padding: 10rem 0 6rem;
+          min-height: 95vh; /* Expansive vertical viewport height */
+          padding: 8rem 0;
           position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          width: 100%;
         }
 
+        /* 100% Crisp Visible background video settings */
+        .hero-video-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          pointer-events: none;
+        }
+
+        .hero-video-bg video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 1.0; /* 100% clear cinematic presence */
+        }
+
+        /* Centered presentation layout */
         .hero-container {
-          display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
-          gap: 4rem;
+          display: flex;
+          justify-content: center;
           align-items: center;
           width: 100%;
+          position: relative;
+          z-index: 2;
         }
 
-        @media (max-width: 968px) {
-          .hero-container {
-            grid-template-columns: 1fr;
-            text-align: center;
-            gap: 3rem;
-          }
-          .hero-text-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-          .hero-diagnostics {
-            margin: 0 auto;
-          }
-        }
-
-        /* Luxurious Editorial Serif Headers */
-        .editorial-title {
-          font-family: var(--font-display);
-          font-size: 5.2rem;
-          font-weight: 800;
-          line-height: 0.95;
-          text-transform: uppercase;
-          color: var(--text-primary);
-          margin-bottom: 2rem;
-          letter-spacing: -2px;
-        }
-
-        .editorial-title span.serif-italic {
-          font-family: var(--font-serif);
-          font-style: italic;
-          font-weight: 400;
-          text-transform: none;
-          letter-spacing: 0px;
-          color: var(--secondary-color);
-        }
-
-        .tagline {
-          font-family: var(--font-mono);
-          font-size: 11px;
-          font-weight: 700;
-          color: var(--text-secondary);
-          letter-spacing: 3px;
-          text-transform: uppercase;
-          margin-bottom: 1.2rem;
-          border-left: 2px solid var(--secondary-color);
-          padding-left: 0.8rem;
-        }
-
-        .description {
-          font-size: 16px;
-          color: var(--text-secondary);
-          margin-bottom: 2.5rem;
-          max-width: 520px;
-          line-height: 1.7;
-        }
-
-        .hero-btn-container {
+        /* Horizontal Glassmorphic Card */
+        .hero-profile-card {
+          background: rgba(255, 255, 255, 0.08); /* Frosted premium glass */
+          backdrop-filter: blur(28px) saturate(110%);
+          -webkit-backdrop-filter: blur(28px) saturate(110%);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          border-radius: 20px;
+          padding: 3.5rem 3.5rem;
+          max-width: 760px; /* Wider fit for side-by-side layout */
+          width: 90%;
+          box-shadow: 0 45px 95px rgba(0, 0, 0, 0.3), 
+                      inset 0 1px 2px rgba(255, 255, 255, 0.12);
           display: flex;
-          gap: 1.2rem;
+          flex-direction: row; /* Horizontal alignment */
+          align-items: center;
+          gap: 3.5rem;
+          margin-top: -2rem; /* Pull slightly upwards */
+          animation: cardSlideIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
-        /* Right panel diagnostics styled as elegant registry */
-        .hero-diagnostics {
-          width: 100%;
-          max-width: 440px;
-          border-radius: 4px;
+        @keyframes cardSlideIn {
+          0% {
+            transform: translateY(35px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
+          }
         }
 
-        .diag-console {
-          padding: 1.5rem;
-          min-height: 240px;
-          font-family: var(--font-mono);
-          font-size: 11px;
-          color: var(--text-primary);
+        /* Raw free-floating avatar image (no frame, no border-radius, no shadow) */
+        .avatar-container {
+          position: relative;
+          flex-shrink: 0; /* Prevent avatar from shrinking */
+          display: inline-block;
+        }
+
+        .avatar-img {
+          width: 145px;
+          height: auto; /* natural free-form aspect ratio */
+          border-radius: 0; /* completely raw corners */
+          box-shadow: none; /* absolutely no frame shadows */
+          transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .avatar-container:hover .avatar-img {
+          transform: scale(1.04) translateY(-2px);
+        }
+
+        /* Card Content Block */
+        .card-body {
           display: flex;
           flex-direction: column;
-          gap: 0.8rem;
-          background: rgba(255, 255, 255, 0.4);
+          align-items: flex-start; /* Align name and description to the left */
+          text-align: left;
         }
 
-        .diag-line {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          border-bottom: 1px dashed rgba(17, 17, 17, 0.08);
-          padding-bottom: 0.5rem;
-          line-height: 1.6;
-        }
-
-        .diag-bullet {
-          color: var(--secondary-color);
-          font-weight: bold;
-        }
-
-        .active-marker {
-          color: var(--secondary-color);
-          font-size: 9px;
-          font-weight: bold;
+        /* Massive Centered Editorial Typography */
+        .editorial-title {
+          font-family: var(--font-display);
+          font-size: 2.8rem; /* Balanced size inside card */
+          font-weight: 900; /* Modern extra bold Outfit */
+          line-height: 1.15;
           text-transform: uppercase;
+          color: #ffffff; /* Solid White for maximum contrast over glass */
+          letter-spacing: -1.5px;
+          margin: 0 0 1rem 0;
+        }
+
+        .editorial-title span.beige-highlight {
+          color: #dfcca7; /* High-contrast luxury sand beige */
+        }
+
+        /* Card Description */
+        .description {
+          font-family: var(--font-sans);
+          font-size: 14.5px;
+          color: rgba(255, 255, 255, 0.85); /* Highly readable off-white */
+          line-height: 1.7;
+          margin: 0; /* Clean terminal spacing as final block elements */
+          max-width: 480px;
+        }
+
+        @media (max-width: 768px) {
+          .hero-profile-card {
+            flex-direction: column; /* Stack vertically on mobile screen size */
+            text-align: center;
+            padding: 2.5rem 1.8rem 2.5rem;
+            gap: 2rem;
+          }
+          .card-body {
+            align-items: center;
+            text-align: center;
+          }
+          .editorial-title {
+            font-size: 2.2rem;
+            letter-spacing: -1px;
+          }
+          .description {
+            font-size: 14px;
+          }
         }
       `}</style>
 
       <div className="container hero-container">
-        <div className="hero-text-box">
-          <div className="tagline">CREATIVE ARCHITECT // EST. 2026</div>
-          <h1 className="editorial-title">
-            Neo <span className="serif-italic">Creative</span>
-          </h1>
-          <p className="description">
-            Crafting premium interactive digital portals with meticulous typography grids, organic motion canvas physics, and elegant custom acoustics.
-          </p>
-          
-          <div className="hero-btn-container">
-            <button 
-              className="cyber-btn"
-              onMouseEnter={handleHover}
-              onClick={(e) => handleClick(e, onScrollToProjects)}
-            >
-              [ Explore Archives ]
-            </button>
-            <button 
-              className="cyber-btn cyber-btn-secondary"
-              onMouseEnter={handleHover}
-              onClick={(e) => handleClick(e, onScrollToContact)}
-            >
-              [ Open Datalink ]
-            </button>
+        <div className="hero-profile-card" onMouseEnter={handleHover}>
+          {/* Left aligned: Avatar display frame */}
+          <div className="avatar-container">
+            <img src={avtImg} alt="Subhranil Baul Portrait" className="avatar-img" />
           </div>
-        </div>
 
-        <div className="hero-diagnostics cyber-panel">
-          <div className="cyber-panel-header">
-            <span className="cyber-panel-title">SYSTEM_SPECIALTIES</span>
-            <span className="cyber-panel-status">ACTIVE</span>
+          {/* Right aligned: Card Body Contents */}
+          <div className="card-body">
+            {/* Heading Name */}
+            <h1 className="editorial-title">
+              Hi, I'm <span className="beige-highlight">Subhranil Baul</span>
+            </h1>
+
+            {/* Elegant Small description about Subhranil */}
+            <p className="description">
+              Crafting premium interactive digital portals with meticulous typography grids, organic motion canvas physics, and elegant custom acoustics.
+            </p>
           </div>
-          
-          <div className="diag-console">
-            {consoleLines.map((line, idx) => (
-              <span key={idx} className="diag-line">
-                <span>
-                  <span className="diag-bullet">❯</span> {line}
-                </span>
-                <span className="active-marker">[OK]</span>
-              </span>
-            ))}
-            <span className="diag-line" style={{
-              animation: 'cursorBlink 1s infinite',
-              color: 'var(--secondary-color)',
-              fontWeight: 'bold'
-            }}>
-              <span>
-                <span className="diag-bullet">❯</span> LOADING INTERFACE NODES...
-              </span>
-              <span>_</span>
-            </span>
-          </div>
-          
-          <style>{`
-            @keyframes cursorBlink {
-              0%, 100% { opacity: 0; }
-              50% { opacity: 1; }
-            }
-          `}</style>
         </div>
       </div>
     </section>

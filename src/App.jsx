@@ -1,5 +1,5 @@
 /* 🎌 Project Cream & Obsidian: Premium Editorial App Coordinator */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditorialCanvas from './components/EditorialCanvas';
 import CyberCursor from './components/CyberCursor';
 import Hero from './components/Hero';
@@ -13,6 +13,20 @@ export default function App() {
   const [booted, setBooted] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
   const [audioActive, setAudioActive] = useState(true);
+  const [showNavbar, setShowNavbar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Toggle navbar visibility once user scrolls down past 280px (scrolled over from hero)
+      if (window.scrollY > 280) {
+        setShowNavbar(true);
+      } else {
+        setShowNavbar(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleAudioToggle = (e) => {
     e.stopPropagation();
@@ -60,14 +74,12 @@ export default function App() {
               -webkit-backdrop-filter: blur(25px);
               border-bottom: var(--border-editorial);
               box-shadow: var(--shadow-soft);
-              animation: navFadeIn 0.8s ease;
+              transform: translateY(${showNavbar ? '0' : '-100%'});
+              opacity: ${showNavbar ? '1' : '0'};
+              transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+                          opacity 0.35s ease;
+              pointer-events: ${showNavbar ? 'auto' : 'none'};
             }
-
-            @keyframes navFadeIn {
-              0% { transform: translateY(-20px); opacity: 0; }
-              100% { transform: translateY(0); opacity: 1; }
-            }
-
             .nav-inner {
               display: flex;
               justify-content: space-between;
