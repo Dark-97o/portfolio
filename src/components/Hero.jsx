@@ -178,16 +178,57 @@ export default function Hero() {
           opacity: 0.9;
         }
 
-        .hero-train {
+        .hero-train-wrapper {
           position: absolute;
           bottom: 6px; /* Sits perfectly on top of the side-view rail */
           left: 0;
-          height: 100px; /* Reduced from 130px */
-          width: auto;
-          z-index: 2;
+          height: 100px;
+          display: flex;
+          align-items: center;
           pointer-events: none;
-          opacity: 0.95;
+          z-index: 2;
           animation: trainPass 18s linear infinite; /* Faster cruising speed */
+        }
+
+        .hero-train {
+          height: 100%;
+          width: auto;
+          display: block;
+          opacity: 0.95;
+          position: relative;
+          z-index: 2; /* Sits in front of the headlight and flare */
+        }
+
+        /* Ambient glowing headlight cone projecting forward */
+        .hero-train-light {
+          position: absolute;
+          top: -1px; /* Shifted down, mathematically centered with the flare at 59px */
+          right: 82%; /* Shifted even further inwards behind the cabin */
+          width: 480px; /* Extended dramatic volumetric reach */
+          height: 120px; /* Wider cone spread */
+          background: linear-gradient(
+            to left,
+            rgba(255, 235, 160, 0.6) 0%,
+            rgba(255, 235, 160, 0.18) 45%,
+            transparent 100%
+          );
+          clip-path: polygon(100% 45%, 0% 5%, 0% 95%, 100% 55%);
+          filter: blur(5px);
+          mix-blend-mode: screen;
+          z-index: 1; /* Sits behind the train image */
+        }
+
+        /* Sparking bright point-source flare at the headlight bulb */
+        .hero-train-flare {
+          position: absolute;
+          top: 59px; /* Shifted down to align perfectly with the physical headlight */
+          left: 22px; /* Shifted even deeper inside the front nose cabin */
+          width: 14px;
+          height: 14px;
+          background: #fffae0;
+          border-radius: 50%;
+          box-shadow: 0 0 15px 6px #ffeb8f, 0 0 30px 12px #ffeb8f;
+          z-index: 1; /* Sits behind the train image */
         }
 
         @keyframes trainPass {
@@ -195,14 +236,26 @@ export default function Hero() {
             transform: translateX(100vw);
           }
           100% {
-            transform: translateX(-100%);
+            transform: translateX(-300%); /* Absolutely guarantees the long light cone fully exits */
           }
         }
 
         @media (max-width: 768px) {
-          .hero-train {
-            height: 60px; /* Reduced from 80px */
+          .hero-train-wrapper {
+            height: 60px;
             bottom: 6px;
+          }
+          .hero-train-light {
+            width: 260px; /* Expanded mobile reach */
+            height: 80px; /* Expanded mobile height */
+            top: -3px; /* Shifted down, mathematically centered with mobile flare at 37px */
+          }
+          .hero-train-flare {
+            top: 37px; /* Shifted down for mobile scale */
+            left: 13px; /* Proportionately embedded for mobile scale behind nose */
+            width: 8px;
+            height: 8px;
+            box-shadow: 0 0 8px 3px #ffeb8f;
           }
           .hero-railroad {
             height: 6px;
@@ -236,8 +289,12 @@ export default function Hero() {
       {/* Custom styled black & brown railroad track border */}
       <div className="hero-railroad" />
 
-      {/* Ambient passing train aligned to the bottom */}
-      <img src={trainImg} alt="Ambient passing train" className="hero-train" />
+      {/* Ambient passing train aligned to the bottom with headlight beam */}
+      <div className="hero-train-wrapper">
+        <div className="hero-train-light" />
+        <div className="hero-train-flare" />
+        <img src={trainImg} alt="Ambient passing train" className="hero-train" />
+      </div>
     </section>
   );
 }
