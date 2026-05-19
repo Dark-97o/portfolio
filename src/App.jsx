@@ -62,7 +62,7 @@ export default function App() {
           <style>{`
             .navbar-hud {
               position: fixed;
-              top: 1.5rem;
+              top: 2.8rem; /* Lowered further for extra headroom and alignment */
               left: 50%;
               transform: translateX(-50%);
               z-index: 999;

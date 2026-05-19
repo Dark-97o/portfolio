@@ -1,15 +1,140 @@
-/* 🎌 High-End Editorial Cream & Obsidian Hero Component - Horizontal Glassmorphic Card */
-import React from 'react';
+/* 🎌 High-End Editorial Cream & Obsidian Hero Component - Immersive Window Scroll Overlay */
+import React, { useState, useEffect, useRef } from 'react';
 import heroVid from '../assets/hero_vid.mov';
 import avtImg from '../assets/avt.png';
 import trainImg from '../assets/train.png';
+import winOpenImg from '../assets/winopen.png';
+import winCloseImg from '../assets/winclose.png';
+import winFrameImg from '../assets/winframe.png';
 
 export default function Hero() {
+  const [windowState, setWindowState] = useState(0);
+  const cooldownRef = useRef(false);
+  const touchStartRef = useRef(0);
+  const stateRef = useRef(0);
+
+  // Synchronize state ref to bypass closures inside window event listeners
+  useEffect(() => {
+    stateRef.current = windowState;
+    if (windowState < 2) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [windowState]);
+
+  useEffect(() => {
+    // Force scroll to top on load for perfect immersion
+    window.scrollTo(0, 0);
+
+    const handleWheel = (e) => {
+      if (stateRef.current >= 2) return;
+
+      // Intercept and cancel actual page scroll
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+
+      if (cooldownRef.current) return;
+
+      const deltaY = e.deltaY;
+      if (Math.abs(deltaY) > 20) {
+        cooldownRef.current = true;
+        if (stateRef.current === 0) {
+          setWindowState(1);
+          setTimeout(() => { cooldownRef.current = false; }, 1000);
+        } else if (stateRef.current === 1) {
+          setWindowState(2);
+          document.body.style.overflow = 'auto';
+          setTimeout(() => { cooldownRef.current = false; }, 1000);
+        }
+      }
+    };
+
+    const handleTouchStart = (e) => {
+      if (stateRef.current >= 2) return;
+      touchStartRef.current = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e) => {
+      if (stateRef.current >= 2) return;
+
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+
+      if (cooldownRef.current) return;
+
+      const touchEnd = e.touches[0].clientY;
+      const deltaY = touchStartRef.current - touchEnd;
+
+      if (Math.abs(deltaY) > 30) {
+        cooldownRef.current = true;
+        if (stateRef.current === 0) {
+          setWindowState(1);
+          setTimeout(() => { cooldownRef.current = false; }, 1000);
+        } else if (stateRef.current === 1) {
+          setWindowState(2);
+          document.body.style.overflow = 'auto';
+          setTimeout(() => { cooldownRef.current = false; }, 1000);
+        }
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   return (
     <section className="hero-section" id="home">
-      {/* 100% Visible Background Video Loop (No Overlays) */}
-      <div className="hero-video-bg">
+      {/* Immersive Window Onboarding System */}
+      <div className={`window-overlay-container state-${windowState}`}>
+        {/* Closed Window */}
+        <img 
+          src={winCloseImg} 
+          alt="Closed window" 
+          className="win-img win-close" 
+          style={{ opacity: windowState === 0 ? 1 : 0 }} 
+        />
+        {/* Open Window */}
+        <img 
+          src={winOpenImg} 
+          alt="Open window" 
+          className="win-img win-open" 
+          style={{ opacity: windowState === 1 ? 1 : 0 }} 
+        />
+        {/* Window Frame Border */}
+        <img 
+          src={winFrameImg} 
+          alt="Window frame border" 
+          className="win-img win-frame" 
+          style={{ opacity: windowState === 2 ? 1 : 0 }} 
+        />
+
+        {/* Paper Note Prompt */}
+        <div className={`paper-note ${windowState > 0 ? 'fade-out' : ''}`}>
+          {/* Metallic Pin in the corner aligned right */}
+          <div className="paper-pin" />
+          
+          {/* Pulsing Mouse Icon */}
+          <div className="scroll-mouse-icon">
+            <div className="mouse-wheel" />
+          </div>
+          
+          <p className="paper-text">Scroll</p>
+        </div>
+      </div>
+
+      {/* 100% Crisp Visible background video loop with transitions */}
+      <div className={`hero-video-bg video-state-${windowState}`}>
         <video 
           src={heroVid} 
           autoPlay 
@@ -21,7 +146,7 @@ export default function Hero() {
 
       <style>{`
         .hero-section {
-          min-height: 95vh; /* Expansive vertical viewport height */
+          min-height: 100vh; /* Crisp fullscreen viewport height alignment */
           padding: 8rem 0;
           position: relative;
           display: flex;
@@ -32,7 +157,7 @@ export default function Hero() {
           width: 100%;
         }
 
-        /* 100% Crisp Visible background video settings */
+        /* Background Video transitions */
         .hero-video-bg {
           position: absolute;
           top: 0;
@@ -41,13 +166,207 @@ export default function Hero() {
           height: 100%;
           z-index: 1;
           pointer-events: none;
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                      filter 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-video-bg video {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          opacity: 1.0; /* 100% clear cinematic presence */
+        }
+
+        .video-state-0 {
+          opacity: 0;
+          filter: blur(15px);
+        }
+
+        .video-state-1 {
+          opacity: 0.7;
+          filter: blur(4px);
+        }
+
+        .video-state-2 {
+          opacity: 1.0;
+          filter: blur(0px);
+        }
+
+        /* Immersive Window Onboarding Overlay */
+        .window-overlay-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          z-index: 99999;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: background 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                      backdrop-filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .window-overlay-container.state-0 {
+          background: #12100e; /* Fully opaque obsidian loading overlay */
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          pointer-events: all;
+        }
+
+        .window-overlay-container.state-1 {
+          background: rgba(18, 16, 14, 0.45);
+          backdrop-filter: blur(5px) saturate(110%);
+          -webkit-backdrop-filter: blur(5px) saturate(110%);
+          pointer-events: all;
+        }
+
+        .window-overlay-container.state-2 {
+          background: transparent;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          pointer-events: none; /* Fully click-through for absolute interaction */
+        }
+
+        .win-img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                      transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Closed window: slides/zooms slightly on transition */
+        .win-close {
+          z-index: 100;
+        }
+        .state-1 .win-close, .state-2 .win-close {
+          transform: scale(1.04);
+        }
+
+        /* Open window */
+        .win-open {
+          z-index: 99;
+        }
+
+        /* Vintage frame border */
+        .win-frame {
+          z-index: 99998;
+          pointer-events: none;
+        }
+
+        /* Parchment Paper note prompt styles */
+        .paper-note {
+          position: absolute;
+          background: #faf6ee; /* Warm notebook cream paper */
+          background-image: linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+          background-size: 100% 24px;
+          border: 1px solid #e3dec9;
+          box-shadow: 
+            2px 2px 0px rgba(0, 0, 0, 0.04),
+            0 20px 45px rgba(0, 0, 0, 0.22), 
+            0 5px 15px rgba(0, 0, 0, 0.12);
+          padding: 1.8rem 2rem 1.3rem 2rem;
+          border-radius: 2px;
+          transform: rotate(-3deg);
+          animation: floatPaper 3s ease-in-out infinite;
+          z-index: 10000;
+          pointer-events: none;
+          min-width: 130px;
+          max-width: 180px;
+          text-align: center;
+          transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .paper-note.fade-out {
+          opacity: 0;
+          transform: translateY(60px) rotate(4deg);
+        }
+
+        /* Metallic pin styled in the top-right corner */
+        .paper-pin {
+          position: absolute;
+          top: -10px;
+          right: 12px;
+          width: 14px;
+          height: 14px;
+          background: #d12229; /* Deep red pin head */
+          border-radius: 50%;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.22), inset 0 2px 2px rgba(255,255,255,0.4);
+          transform: rotate(15deg);
+          z-index: 10001;
+        }
+
+        .paper-pin::before {
+          content: '';
+          position: absolute;
+          bottom: -7px;
+          left: 5px;
+          width: 3px;
+          height: 9px;
+          background: #b1b1b1; /* Silver needle shaft */
+          transform: rotate(-15deg);
+          box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Pulsing mouse scroll icon */
+        .scroll-mouse-icon {
+          width: 22px;
+          height: 36px;
+          border: 2px solid #3e3328;
+          border-radius: 10px;
+          position: relative;
+          margin: 0 auto 0.75rem auto;
+        }
+
+        .mouse-wheel {
+          width: 4px;
+          height: 8px;
+          background: #3e3328;
+          border-radius: 2px;
+          position: absolute;
+          top: 6px;
+          left: 50%;
+          transform: translateX(-50%);
+          animation: scrollWheelPulse 1.6s ease-in-out infinite;
+        }
+
+        @keyframes scrollWheelPulse {
+          0% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+          }
+          50% {
+            opacity: 0.3;
+            transform: translate(-50%, 5px);
+          }
+          100% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+          }
+        }
+
+        .paper-text {
+          font-family: var(--font-display);
+          font-size: 0.85rem;
+          color: #3e3328; /* Soft warm charcoal brown */
+          font-weight: 800;
+          margin: 0;
+          line-height: 1.2;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+
+        @keyframes floatPaper {
+          0%, 100% {
+            transform: translateY(0) rotate(-2.5deg);
+          }
+          50% {
+            transform: translateY(-8px) rotate(-1.8deg);
+          }
         }
 
         /* Centered presentation layout */
@@ -58,6 +377,34 @@ export default function Hero() {
           width: 100%;
           position: relative;
           z-index: 2;
+        }
+
+        /* Background state adjustment according to onboarding */
+        .hero-container, .hero-railroad, .hero-train-wrapper {
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                      filter 1s cubic-bezier(0.16, 1, 0.3, 1),
+                      transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-state-0 {
+          opacity: 0;
+          filter: blur(12px);
+          transform: translateY(30px);
+          pointer-events: none;
+        }
+
+        .hero-state-1 {
+          opacity: 0.45;
+          filter: blur(3px);
+          transform: translateY(15px);
+          pointer-events: none;
+        }
+
+        .hero-state-2 {
+          opacity: 1;
+          filter: blur(0px);
+          transform: translateY(0);
+          pointer-events: all;
         }
 
         /* Horizontal Glassmorphic Card */
@@ -91,7 +438,7 @@ export default function Hero() {
           }
         }
 
-        /* Raw free-floating avatar image (no frame, no border-radius, no shadow) */
+        /* Raw free-floating avatar image */
         .avatar-container {
           position: relative;
           flex-shrink: 0; /* Prevent avatar from shrinking */
@@ -99,10 +446,10 @@ export default function Hero() {
         }
 
         .avatar-img {
-          width: 105px; /* Shrunk width to directly reduce the image and card height */
-          height: auto; /* natural free-form aspect ratio */
-          border-radius: 0; /* completely raw corners */
-          box-shadow: none; /* absolutely no frame shadows */
+          width: 105px;
+          height: auto;
+          border-radius: 0;
+          box-shadow: none;
           transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -114,43 +461,43 @@ export default function Hero() {
         .card-body {
           display: flex;
           flex-direction: column;
-          align-items: flex-start; /* Align name and description to the left */
+          align-items: flex-start;
           text-align: left;
         }
 
         /* Massive Centered Editorial Typography */
         .editorial-title {
           font-family: var(--font-display);
-          font-size: 2.8rem; /* Balanced size inside card */
-          font-weight: 900; /* Modern extra bold Outfit */
+          font-size: 2.8rem;
+          font-weight: 900;
           line-height: 1.15;
           text-transform: uppercase;
-          color: #ffffff; /* Solid White for maximum contrast over glass */
+          color: #ffffff;
           letter-spacing: -1.5px;
-          margin: 0 0 0.4rem 0; /* Shrunk bottom margin for height reduction */
+          margin: 0 0 0.4rem 0;
         }
 
         .editorial-title span.name-black {
-          color: #000000; /* Crisp pure black highlight */
+          color: #000000;
           text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
         }
 
         /* Card Description */
         .description {
           font-family: var(--font-sans);
-          font-size: 16.5px; /* Increased size for high impact */
-          font-weight: 600; /* Bold typography */
-          color: rgba(255, 255, 255, 0.95); /* Highly readable high-contrast off-white */
+          font-size: 16.5px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.95);
           line-height: 1.6;
-          margin: 0; /* Clean terminal spacing as final block elements */
+          margin: 0;
           max-width: 480px;
         }
 
         @media (max-width: 768px) {
           .hero-profile-card {
-            flex-direction: column; /* Stack vertically on mobile screen size */
+            flex-direction: column;
             text-align: center;
-            padding: 1.4rem 1.4rem; /* Highly compact mobile height */
+            padding: 1.4rem 1.4rem;
             gap: 1.8rem;
           }
           .card-body {
@@ -264,7 +611,8 @@ export default function Hero() {
         }
       `}</style>
 
-      <div className="container hero-container">
+      {/* Main hero card */}
+      <div className={`container hero-container hero-state-${windowState}`}>
         <div className="hero-profile-card" id="about">
           {/* Left aligned: Avatar display frame */}
           <div className="avatar-container">
@@ -287,10 +635,10 @@ export default function Hero() {
       </div>
 
       {/* Custom styled black & brown railroad track border */}
-      <div className="hero-railroad" />
+      <div className={`hero-railroad hero-state-${windowState}`} />
 
       {/* Ambient passing train aligned to the bottom with headlight beam */}
-      <div className="hero-train-wrapper">
+      <div className={`hero-train-wrapper hero-state-${windowState}`}>
         <div className="hero-train-light" />
         <div className="hero-train-flare" />
         <img src={trainImg} alt="Ambient passing train" className="hero-train" />
