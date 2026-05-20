@@ -1,6 +1,7 @@
 /* 🎌 Project Cream & Obsidian: Premium Work & Project Intelligence Showcase */
 import React, { useState } from 'react';
 import trainbg from '../assets/trainbg.mp4';
+import pfimg from '../assets/pmimg.png';
 
 const PROJECTS = [
   {
@@ -115,6 +116,160 @@ const renderFolderFrontIcon = (index) => {
 
 
 
+const FallingLeavesCanvas = () => {
+  const canvasRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+
+    const resizeCanvas = () => {
+      const parent = canvas.parentElement;
+      if (parent) {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = parent.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const leafCount = 18; // Subtle and elegant density
+    const leaves = [];
+    const olivePalette = [
+      'rgba(85, 107, 47, ',  // Rich Olive Green
+      'rgba(96, 108, 56, ',  // Sage Olive
+      'rgba(75, 83, 32, '    // Deep Olive
+    ];
+
+    const parent = canvas.parentElement;
+    const h = parent && parent.clientHeight > 0 ? parent.clientHeight : 420;
+
+    for (let i = 0; i < leafCount; i++) {
+      leaves.push({
+        xRatio: Math.random(), // Dynamic ratio so expanding boards stretch leaves smoothly across the page
+        y: Math.random() * h * 1.5 - h * 0.5,
+        size: Math.random() * 4.0 + 5.0, // Highly visible, razor-sharp leaf sizes (5.0px to 9.0px)
+        speedY: Math.random() * 0.35 + 0.25, // Slower, premium Ghibli drifting speed
+        swaySpeed: Math.random() * 0.02 + 0.008,
+        swayAngle: Math.random() * Math.PI * 2,
+        swayRadius: Math.random() * 12 + 4,
+        angle: Math.random() * Math.PI * 2,
+        spinSpeed: Math.random() * 0.012 - 0.006,
+        color: olivePalette[Math.floor(Math.random() * olivePalette.length)],
+        opacity: Math.random() * 0.22 + 0.08
+      });
+    }
+
+    const drawLeaf = (ctx, x, y, size, angle, color, opacity) => {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+
+      ctx.beginPath();
+      ctx.moveTo(0, -size);
+      ctx.quadraticCurveTo(size * 0.6, -size * 0.1, 0, size);
+      ctx.quadraticCurveTo(-size * 0.6, -size * 0.1, 0, -size);
+      ctx.fillStyle = color + opacity + ')';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(0, -size);
+      ctx.lineTo(0, size);
+      ctx.strokeStyle = 'rgba(40, 50, 20, ' + (opacity * 0.4) + ')';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+
+      ctx.restore();
+    };
+
+    const animate = () => {
+      if (!ctx || !canvas) return;
+
+      const parentEl = canvas.parentElement;
+      if (parentEl) {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = parentEl.getBoundingClientRect();
+        const targetWidth = rect.width * dpr;
+        const targetHeight = rect.height * dpr;
+
+        // Auto-scale resolution dynamically during CSS grid expansion animations
+        if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+          canvas.style.width = `${rect.width}px`;
+          canvas.style.height = `${rect.height}px`;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+      }
+      
+      // High-DPI safe clear using identity transform
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+
+      const currentWidth = canvas.clientWidth || 900;
+      const currentHeight = canvas.clientHeight || 420;
+
+      for (let i = 0; i < leafCount; i++) {
+        const leaf = leaves[i];
+        leaf.y += leaf.speedY;
+        leaf.swayAngle += leaf.swaySpeed;
+        
+        // Calculate dynamic horizontal position using ratio and container dimensions
+        const baseX = leaf.xRatio * currentWidth;
+        const currentX = baseX + Math.sin(leaf.swayAngle) * leaf.swayRadius;
+        leaf.angle += leaf.spinSpeed;
+
+        if (leaf.y > currentHeight + 15) {
+          leaf.y = -15;
+          leaf.xRatio = Math.random();
+          leaf.speedY = Math.random() * 0.35 + 0.25;
+        }
+
+        if (currentX < -15) {
+          leaf.xRatio = 1.0; // wrap smoothly to the right
+        } else if (currentX > currentWidth + 15) {
+          leaf.xRatio = 0.0; // wrap smoothly to the left
+        }
+
+        drawLeaf(ctx, currentX, leaf.y, leaf.size, leaf.angle, leaf.color, leaf.opacity);
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 0
+      }}
+    />
+  );
+};
+
 export default function WorkExperience() {
   const [activeFolder, setActiveFolder] = useState(null);
 
@@ -142,30 +297,19 @@ export default function WorkExperience() {
             <div className="telemetry-log" style={{ color: '#a64b38' }}>RL_SIGNAL // WAIT_TIME: -28% // SUMO</div>
           </div>
         );
-      case 1: // PactFlow — Stellar chain / smart contract nodes
+      case 1: // PactFlow — Transparent Platform Image with custom 3D rotation anim
         return (
-          <div className="visual-container grid-anim">
-            <svg viewBox="0 0 100 100" className="visual-svg">
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#3d7a8a" strokeWidth="1" strokeDasharray="4,3" />
-              {/* contract nodes */}
-              <circle cx="50" cy="12" r="5" fill="#3d7a8a" className="pulse-dot" />
-              <circle cx="84" cy="31" r="5" fill="#3d7a8a" className="pulse-dot" />
-              <circle cx="84" cy="69" r="5" fill="#3d7a8a" className="pulse-dot" />
-              <circle cx="50" cy="88" r="5" fill="#3d7a8a" className="pulse-dot" />
-              <circle cx="16" cy="69" r="5" fill="#3d7a8a" className="pulse-dot" />
-              <circle cx="16" cy="31" r="5" fill="#3d7a8a" className="pulse-dot" />
-              {/* centre escrow lock */}
-              <circle cx="50" cy="50" r="9" fill="none" stroke="#97b836" strokeWidth="1.5" />
-              <circle cx="50" cy="50" r="4" fill="#97b836" />
-              {/* connecting spokes */}
-              <line x1="50" y1="17" x2="50" y2="41" stroke="#3d7a8a" strokeWidth="1" />
-              <line x1="79" y1="34" x2="59" y2="46" stroke="#3d7a8a" strokeWidth="1" />
-              <line x1="79" y1="66" x2="59" y2="54" stroke="#3d7a8a" strokeWidth="1" />
-              <line x1="50" y1="83" x2="50" y2="59" stroke="#3d7a8a" strokeWidth="1" />
-              <line x1="21" y1="66" x2="41" y2="54" stroke="#3d7a8a" strokeWidth="1" />
-              <line x1="21" y1="34" x2="41" y2="46" stroke="#3d7a8a" strokeWidth="1" />
-            </svg>
-            <div className="telemetry-log">PACTFLOW // ESCROW_LOCKED // XLM: 95/5</div>
+          <div className="visual-container" style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', perspective: '1000px' }}>
+            <img 
+              src={pfimg} 
+              alt="PactFlow Freelance Platform UI" 
+              className="pactflow-floating-img"
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'contain'
+              }} 
+            />
           </div>
         );
       case 2: // IoT Wheelchair — Bluetooth sensor fusion rings
@@ -462,7 +606,7 @@ export default function WorkExperience() {
         .folder-container.active {
           width: 100%;
           max-width: 900px;
-          height: 480px;
+          height: 420px;
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
@@ -588,6 +732,8 @@ export default function WorkExperience() {
           height: 100%;
           align-items: center;
           margin-top: 1.5rem;
+          position: relative;
+          z-index: 1;
         }
 
         @media (max-width: 768px) {
@@ -607,8 +753,8 @@ export default function WorkExperience() {
         .project-visual-pane {
           width: 100%;
           height: 100%;
-          min-height: 250px;
-          max-height: 320px;
+          min-height: 200px;
+          max-height: 270px;
           background: #12100e; /* dark panel */
           border-radius: 8px;
           border: 1px solid rgba(18, 16, 14, 0.15);
@@ -619,6 +765,12 @@ export default function WorkExperience() {
           justify-content: center;
           align-items: center;
           box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .project-visual-pane.transparent-pane {
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
         }
 
         .visual-container {
@@ -683,6 +835,25 @@ export default function WorkExperience() {
         @keyframes bounceNodes {
           0%, 100% { transform: translateY(0) scale(1); }
           50% { transform: translateY(-4px) scale(0.96); }
+        }
+
+        .pactflow-floating-img {
+          animation: rotate3DLeftRight 9s ease-in-out infinite;
+          transform-style: preserve-3d;
+          border: none !important;
+          box-shadow: none !important;
+        }
+
+        @keyframes rotate3DLeftRight {
+          0% {
+            transform: rotateY(-8deg) rotateX(1deg) scale(0.98);
+          }
+          50% {
+            transform: rotateY(8deg) rotateX(-1deg) scale(1.02);
+          }
+          100% {
+            transform: rotateY(-8deg) rotateX(1deg) scale(0.98);
+          }
         }
 
         /* Interactive Smart Card graphics mockup */
@@ -805,7 +976,7 @@ export default function WorkExperience() {
         .project-links-row {
           display: flex;
           gap: 1rem;
-          margin-top: auto;
+          margin-top: 1.25rem;
         }
 
         .project-link-btn {
@@ -1071,6 +1242,7 @@ export default function WorkExperience() {
                 <div className="folder-file">
                   {isActive ? (
                     <div className="active-file-content">
+                      <FallingLeavesCanvas />
                       {/* Close Trigger */}
                       <button
                         className="close-file-btn"
@@ -1084,7 +1256,7 @@ export default function WorkExperience() {
 
                       <div className="project-expanded-grid">
                         {/* Custom Dynamic Architecture Visual Panel */}
-                        <div className="project-visual-pane">
+                        <div className={`project-visual-pane ${index === 1 ? 'transparent-pane' : ''}`}>
                           {renderProjectVisual(project, index)}
                         </div>
 

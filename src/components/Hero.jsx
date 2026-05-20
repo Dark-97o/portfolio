@@ -591,7 +591,7 @@ export default function Hero({ onWindowUnlocked }) {
           align-items: center;
           pointer-events: none;
           z-index: 2;
-          animation: trainPass 12s linear infinite; /* Faster cruising speed */
+          animation: trainPass 10s linear infinite; /* Faster cruising speed */
         }
 
         .hero-train {
@@ -641,7 +641,7 @@ export default function Hero({ onWindowUnlocked }) {
             transform: translateX(100vw);
           }
           100% {
-            transform: translateX(-300%); /* Absolutely guarantees the long light cone fully exits */
+            transform: translateX(-330%); /* Absolutely guarantees the long light cone fully exits */
           }
         }
 
