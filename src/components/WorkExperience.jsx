@@ -4,104 +4,108 @@ import trainbg from '../assets/trainbg.mp4';
 
 const PROJECTS = [
   {
-    title: 'Edge-Cognition Engine',
-    label: 'Edge Cognition',
-    role: 'Lead Architect',
+    title: 'Smart Traffic Signal',
+    label: 'Traffic RL',
+    role: 'RL Engineer',
+    color: '#a64b38', // Crimson Rust
+    darkerColor: '#8a3c2c',
+    tags: ['Python', 'Q-Learning', 'SUMO', 'Reinforcement Learning', 'GIS'],
+    longDesc: 'Designed and built a reinforcement learning–based adaptive traffic signal control system using Q-Learning and the SUMO simulation engine. Dynamically optimized signal phase timings across intersections, reducing average wait time by 28% and improving overall traffic throughput by 18.7% across simulated urban corridors.',
+    github: 'https://github.com',
+    live: 'https://github.com'
+  },
+  {
+    title: 'PactFlow Protocol',
+    label: 'PactFlow',
+    role: 'Full-Stack Web3 Dev',
+    color: '#3d7a8a', // Muted Teal
+    darkerColor: '#30616e',
+    tags: ['Soroban (Rust)', 'Stellar Network', 'React', 'Firebase', 'Web3'],
+    longDesc: 'Architected and deployed 4 Soroban smart contracts (Escrow, Registry, NFT Marketplace, Reputation) on Stellar Testnet enabling trustless freelance job matching with XLM escrow locking and 95/5 fee splits. Built a full-stack dApp with multi-wallet auth (Freighter, xBull), on-chain reputation scoring, NFT market with 10% royalty engine, and dispute resolution — onboarding 6 real users with live feedback iterations.',
+    github: 'https://github.com/Dark-97o/PactFlow',
+    live: 'https://pact-flow-pi.vercel.app'
+  },
+  {
+    title: 'IoT Smart Wheelchair',
+    label: 'Smart Wheelchair',
+    role: 'Embedded Systems Engineer',
     color: '#8fa749', // Sage Olive
     darkerColor: '#75883d',
-    tags: ['C++', 'Python', 'Raspberry Pi', 'TensorFlow Lite', 'IoT'],
-    longDesc: 'Engineered a highly optimized, hardware-accelerated client-side neural network inference library. Tailored specifically for low-power edge platforms and micro-controllers. Achieved real-time object classification and semantic segmentation at sub-12ms latency thresholds with mathematically scaled quantization weights.',
-    github: 'https://github.com',
-    live: 'https://github.com'
+    tags: ['IoT', 'Raspberry Pi', 'Bluetooth', 'Embedded C', 'Sensor Fusion'],
+    longDesc: 'Engineered an IoT-based smart wheelchair with multi-modal control (gesture, touch, Bluetooth) and autonomous pathfinding. Achieved 87.6% gesture recognition accuracy via accelerometer and gyroscope sensor fusion. Designed to address mobility challenges for 1M+ physically disabled individuals in India per Census 2011 data.',
+    github: 'https://devfolio.co/projects/gesture-controlled-wheelchair-5468',
+    live: 'https://devfolio.co/projects/gesture-controlled-wheelchair-5468'
   },
   {
-    title: 'De-Pay Protocol',
-    label: 'De-Pay Stellar',
-    role: 'Smart Contract Dev',
-    color: '#3d7a8a', // Muted Indigo/Teal
-    darkerColor: '#30616e',
-    tags: ['Soroban', 'Stellar Network', 'Rust', 'REST APIs', 'NodeJS'],
-    longDesc: 'A sub-second decentralized multi-asset transaction router built on the Stellar network. Deployed Soroban-based smart contract liquidity pools enabling trustless automated path-finding and atomic swaps. Integrated real-time RPC node polling to stream payment metrics dynamically.',
-    github: 'https://github.com',
-    live: 'https://github.com'
-  },
-  {
-    title: 'Decentralized AI Grid',
-    label: 'Decentralized AI',
-    role: 'AI Researcher',
+    title: 'AceHack 5.0 Website',
+    label: 'AceHack',
+    role: 'Lead Frontend Dev',
     color: '#2c2c2e', // Deep Charcoal
     darkerColor: '#1c1c1e',
-    tags: ['Python', 'Web3', 'Federated Learning', 'PyTorch', 'Cloudflare'],
-    longDesc: 'Designed a peer-to-peer federated learning network utilizing zero-knowledge proofs to train deep convolutional neural networks. Implemented consensus algorithms across distributed IoT micro-nodes to aggregate gradient model updates without compromising data sovereignty.',
-    github: 'https://github.com',
-    live: 'https://github.com'
+    tags: ['HTML', 'CSS', 'JavaScript', 'Deployment', 'UI/UX'],
+    longDesc: 'Designed and deployed the official AceHack 5.0 hackathon website, successfully supporting over 5,000 participant registrations. Built with vanilla HTML, CSS, and JavaScript with a performance-first approach — handling high traffic load during registration bursts and delivering a polished, brand-accurate event experience.',
+    github: 'https://github.com/AceHack-Hackathon/AceHack-website',
+    live: 'https://acehack.uem.edu.in/'
   },
   {
-    title: 'Soroban Smart Wallet',
-    label: 'Soroban Wallet',
+    title: 'Pradyog & ACM Websites',
+    label: 'Club Websites',
     role: 'Core Developer',
     color: '#b58933', // Warm Amber Gold
     darkerColor: '#946f27',
-    tags: ['Stellar', 'Rust', 'JavaScript', 'Google Cloud', 'Firebase'],
-    longDesc: 'Architected a premium biometrics-secured smart contract wallet on Stellar. Features gasless transaction sponsorship, automated recurring subscription streams, and advanced multi-signature session recovery keys managed via decentralized cloud infrastructure.',
-    github: 'https://github.com',
-    live: 'https://github.com'
-  },
-  {
-    title: 'Urban Sim Engine',
-    label: 'Urban Simulator',
-    role: 'Systems Engineer',
-    color: '#a64b38', // Crimson Rust
-    darkerColor: '#8a3c2c',
-    tags: ['SUMO Simulator', 'C++', 'Python', 'GIS Data', 'Git'],
-    longDesc: 'Programmed microscopic traffic flow routing simulators mimicking real-time urban mobility bottlenecks. Embedded decentralized reinforcement learning models inside simulated edge traffic signals to dynamically self-optimize lane schedules based on vehicular congestion queues.',
-    github: 'https://github.com',
-    live: 'https://github.com'
+    tags: ['React', 'Vite', 'Tailwind CSS', 'Cloudflare', 'Firebase'],
+    longDesc: 'Built and maintained two student organization websites — Pradyog Student Club and ACM UEMJ — serving 300+ active club members combined. Engineered with React + Vite for blazing-fast performance, hosted via Cloudflare CDN, and integrated Firebase for real-time data management and event registration flows.',
+    github: 'https://pradyog.netlify.app/',
+    live: 'https://acm-uemj.uem.edu.in/'
   }
 ];
 
 const renderFolderFrontIcon = (index) => {
   const size = "42";
   switch (index) {
-    case 0: // Edge-Cognition
+    case 0: // Smart Traffic Signal — traffic light icon
       return (
-        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
-          <rect x="5" y="5" width="14" height="14" rx="2" />
-          <path d="M9 9h6v6H9z" />
-          <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4" />
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.85" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <rect x="8" y="2" width="8" height="20" rx="3" />
+          <circle cx="12" cy="7" r="2" fill="currentColor" opacity="0.9" />
+          <circle cx="12" cy="12" r="2" fill="currentColor" opacity="0.5" />
+          <circle cx="12" cy="17" r="2" fill="currentColor" opacity="0.3" />
+          <line x1="8" y1="12" x2="4" y2="12" strokeDasharray="2,2" />
+          <line x1="16" y1="12" x2="20" y2="12" strokeDasharray="2,2" />
         </svg>
       );
-    case 1: // De-Pay
+    case 1: // PactFlow — smart contract / chain link icon
       return (
-        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
-          <path d="M12 2L2 22l10-6 10 6L12 2z" />
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.85" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
         </svg>
       );
-    case 2: // Decentralized AI
+    case 2: // IoT Wheelchair — accessibility / signal icon
       return (
-        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
-          <circle cx="12" cy="12" r="3" />
-          <circle cx="4" cy="4" r="2" />
-          <circle cx="20" cy="4" r="2" />
-          <circle cx="4" cy="20" r="2" />
-          <circle cx="20" cy="20" r="2" />
-          <line x1="5.5" y1="5.5" x2="10" y2="10" />
-          <line x1="18.5" y1="5.5" x2="14" y2="10" />
-          <line x1="5.5" y1="18.5" x2="10" y2="14" />
-          <line x1="18.5" y1="18.5" x2="14" y2="14" />
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.85" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <circle cx="12" cy="5" r="2" />
+          <path d="M12 7v5l3 3" />
+          <path d="M9 14H6l-1 4h10l-1-4h-2" />
+          <circle cx="9" cy="20" r="1" />
+          <circle cx="17" cy="20" r="1" />
+          <path d="M5 9c2-1.5 4.5-2 7-1.5" strokeDasharray="2,2" />
         </svg>
       );
-    case 3: // Soroban Smart Wallet
+    case 3: // AceHack — code/brackets icon
       return (
-        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
-          <rect x="3" y="11" width="18" height="10" rx="2" />
-          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.85" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <polyline points="16 18 22 12 16 6" />
+          <polyline points="8 6 2 12 8 18" />
+          <line x1="14" y1="4" x2="10" y2="20" />
         </svg>
       );
-    case 4: // Urban Sim Engine
+    case 4: // Pradyog / ACM — globe / community icon
       return (
-        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
-          <path d="M3 21h18M5 21V7l8-4v18M13 21v-6h4v6M17 21V11l4-2v12" />
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.85" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <circle cx="12" cy="12" r="10" />
+          <line x1="2" y1="12" x2="22" y2="12" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
         </svg>
       );
     default:
@@ -109,92 +113,128 @@ const renderFolderFrontIcon = (index) => {
   }
 };
 
+
+
 export default function WorkExperience() {
   const [activeFolder, setActiveFolder] = useState(null);
 
-  // High-fidelity active dynamic illustrations
+  // High-fidelity active dynamic illustrations — matched to real projects
   const renderProjectVisual = (project, index) => {
     switch (index) {
-      case 0: // Edge-Cognition
-        return (
-          <div className="visual-container circuit-anim">
-            <svg viewBox="0 0 100 100" className="visual-svg">
-              <rect x="35" y="35" width="30" height="30" rx="4" fill="none" stroke="#8fa749" strokeWidth="2" />
-              <circle cx="50" cy="50" r="8" fill="#8fa749" opacity="0.2" />
-              <line x1="50" y1="15" x2="50" y2="35" stroke="#8fa749" strokeWidth="1.5" strokeDasharray="3,3" />
-              <line x1="50" y1="65" x2="50" y2="85" stroke="#8fa749" strokeWidth="1.5" strokeDasharray="3,3" />
-              <line x1="15" y1="50" x2="35" y2="50" stroke="#8fa749" strokeWidth="1.5" strokeDasharray="3,3" />
-              <line x1="65" y1="50" x2="85" y2="50" stroke="#8fa749" strokeWidth="1.5" strokeDasharray="3,3" />
-              <circle cx="50" cy="15" r="3" fill="#8fa749" className="pulse-dot" />
-              <circle cx="50" cy="85" r="3" fill="#8fa749" className="pulse-dot" />
-              <circle cx="15" cy="50" r="3" fill="#8fa749" className="pulse-dot" />
-              <circle cx="85" cy="50" r="3" fill="#8fa749" className="pulse-dot" />
-            </svg>
-            <div className="telemetry-log">COGNITION_ONLINE // INFERENCE: 11.4ms</div>
-          </div>
-        );
-      case 1: // De-Pay
-        return (
-          <div className="visual-container grid-anim">
-            <svg viewBox="0 0 100 100" className="visual-svg">
-              <circle cx="50" cy="50" r="40" fill="none" stroke="#3d7a8a" strokeWidth="1" strokeDasharray="4,4" />
-              <path d="M 15 50 Q 50 15 85 50" fill="none" stroke="#3d7a8a" strokeWidth="2" />
-              <path d="M 15 50 Q 50 85 85 50" fill="none" stroke="#3d7a8a" strokeWidth="2" />
-              <circle cx="50" cy="15" r="4" fill="#3d7a8a" />
-              <circle cx="50" cy="85" r="4" fill="#3d7a8a" />
-              <line x1="15" y1="50" x2="85" y2="50" stroke="#3d7a8a" strokeWidth="1.5" />
-            </svg>
-            <div className="telemetry-log">STELLAR_DE_PAY // PATH_FINDER: GREEN</div>
-          </div>
-        );
-      case 2: // AI Grid
-        return (
-          <div className="visual-container node-anim">
-            <svg viewBox="0 0 100 100" className="visual-svg">
-              <polygon points="50,15 85,38 85,78 50,90 15,78 15,38" fill="none" stroke="#2c2c2e" strokeWidth="1.5" />
-              <line x1="50" y1="15" x2="50" y2="90" stroke="#2c2c2e" strokeWidth="1" opacity="0.4" />
-              <line x1="15" y1="38" x2="85" y2="78" stroke="#2c2c2e" strokeWidth="1" opacity="0.4" />
-              <line x1="15" y1="78" x2="85" y2="38" stroke="#2c2c2e" strokeWidth="1" opacity="0.4" />
-              <circle cx="50" cy="50" r="5" fill="#97b836" />
-              <circle cx="50" cy="15" r="4" fill="#2c2c2e" />
-              <circle cx="85" cy="38" r="4" fill="#2c2c2e" />
-              <circle cx="85" cy="78" r="4" fill="#2c2c2e" />
-              <circle cx="50" cy="90" r="4" fill="#2c2c2e" />
-              <circle cx="15" cy="78" r="4" fill="#2c2c2e" />
-              <circle cx="15" cy="38" r="4" fill="#2c2c2e" />
-            </svg>
-            <div className="telemetry-log">FEDERATED_NET // NODES: 6/6 ACTIVE</div>
-          </div>
-        );
-      case 3: // Wallet
-        return (
-          <div className="visual-container card-anim">
-            <div className="smart-card-mockup">
-              <div className="card-logo">SOROBAN</div>
-              <div className="card-chip" />
-              <div className="card-number">•••• •••• •••• 97B8</div>
-              <div className="card-footer">
-                <span>SUBHRANIL BAUL</span>
-                <span>SECURE // GASLESS</span>
-              </div>
-            </div>
-            <div className="telemetry-log" style={{ color: '#b58933' }}>BIOMETRIC_LOCK: VALIDATED</div>
-          </div>
-        );
-      case 4: // Urban Sim
+      case 0: // Smart Traffic Signal — city grid with pulsing intersections
         return (
           <div className="visual-container sim-anim">
             <svg viewBox="0 0 100 100" className="visual-svg">
-              <line x1="10" y1="35" x2="90" y2="35" stroke="#a64b38" strokeWidth="6" />
-              <line x1="10" y1="65" x2="90" y2="65" stroke="#a64b38" strokeWidth="6" />
-              <line x1="35" y1="10" x2="35" y2="90" stroke="#a64b38" strokeWidth="6" />
-              <line x1="65" y1="10" x2="65" y2="90" stroke="#a64b38" strokeWidth="6" />
-              <circle cx="35" cy="35" r="5" fill="#97b836" className="pulse-dot" />
-              <circle cx="65" cy="65" r="5" fill="#97b836" className="pulse-dot" />
-              <circle cx="65" cy="35" r="5" fill="#a64b38" className="pulse-dot" />
-              <circle cx="35" cy="65" r="5" fill="#a64b38" className="pulse-dot" />
+              {/* road grid */}
+              <line x1="10" y1="35" x2="90" y2="35" stroke="#a64b38" strokeWidth="5" />
+              <line x1="10" y1="65" x2="90" y2="65" stroke="#a64b38" strokeWidth="5" />
+              <line x1="35" y1="10" x2="35" y2="90" stroke="#a64b38" strokeWidth="5" />
+              <line x1="65" y1="10" x2="65" y2="90" stroke="#a64b38" strokeWidth="5" />
+              {/* traffic signal dots at each intersection */}
+              <circle cx="35" cy="35" r="6" fill="#97b836" className="pulse-dot" />
+              <circle cx="65" cy="65" r="6" fill="#97b836" className="pulse-dot" />
+              <circle cx="65" cy="35" r="6" fill="#fbbf24" className="pulse-dot" />
+              <circle cx="35" cy="65" r="6" fill="#a64b38" className="pulse-dot" />
+              {/* vehicle blips */}
+              <rect x="44" y="32" width="8" height="5" rx="2" fill="rgba(250,246,240,0.6)" />
+              <rect x="62" y="44" width="5" height="8" rx="2" fill="rgba(250,246,240,0.6)" />
             </svg>
-            <div className="telemetry-log" style={{ color: '#a64b38' }}>MOBILITY_FLOW: OPTIMAL // SUMO</div>
+            <div className="telemetry-log" style={{ color: '#a64b38' }}>RL_SIGNAL // WAIT_TIME: -28% // SUMO</div>
+          </div>
+        );
+      case 1: // PactFlow — Stellar chain / smart contract nodes
+        return (
+          <div className="visual-container grid-anim">
+            <svg viewBox="0 0 100 100" className="visual-svg">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#3d7a8a" strokeWidth="1" strokeDasharray="4,3" />
+              {/* contract nodes */}
+              <circle cx="50" cy="12" r="5" fill="#3d7a8a" className="pulse-dot" />
+              <circle cx="84" cy="31" r="5" fill="#3d7a8a" className="pulse-dot" />
+              <circle cx="84" cy="69" r="5" fill="#3d7a8a" className="pulse-dot" />
+              <circle cx="50" cy="88" r="5" fill="#3d7a8a" className="pulse-dot" />
+              <circle cx="16" cy="69" r="5" fill="#3d7a8a" className="pulse-dot" />
+              <circle cx="16" cy="31" r="5" fill="#3d7a8a" className="pulse-dot" />
+              {/* centre escrow lock */}
+              <circle cx="50" cy="50" r="9" fill="none" stroke="#97b836" strokeWidth="1.5" />
+              <circle cx="50" cy="50" r="4" fill="#97b836" />
+              {/* connecting spokes */}
+              <line x1="50" y1="17" x2="50" y2="41" stroke="#3d7a8a" strokeWidth="1" />
+              <line x1="79" y1="34" x2="59" y2="46" stroke="#3d7a8a" strokeWidth="1" />
+              <line x1="79" y1="66" x2="59" y2="54" stroke="#3d7a8a" strokeWidth="1" />
+              <line x1="50" y1="83" x2="50" y2="59" stroke="#3d7a8a" strokeWidth="1" />
+              <line x1="21" y1="66" x2="41" y2="54" stroke="#3d7a8a" strokeWidth="1" />
+              <line x1="21" y1="34" x2="41" y2="46" stroke="#3d7a8a" strokeWidth="1" />
+            </svg>
+            <div className="telemetry-log">PACTFLOW // ESCROW_LOCKED // XLM: 95/5</div>
+          </div>
+        );
+      case 2: // IoT Wheelchair — Bluetooth sensor fusion rings
+        return (
+          <div className="visual-container circuit-anim">
+            <svg viewBox="0 0 100 100" className="visual-svg">
+              {/* sensor signal rings */}
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#8fa749" strokeWidth="0.8" strokeDasharray="3,5" opacity="0.4" />
+              <circle cx="50" cy="50" r="26" fill="none" stroke="#8fa749" strokeWidth="1" strokeDasharray="3,4" opacity="0.65" />
+              <circle cx="50" cy="50" r="14" fill="none" stroke="#8fa749" strokeWidth="1.5" />
+              {/* chair body */}
+              <circle cx="50" cy="50" r="6" fill="#8fa749" />
+              {/* Bluetooth symbol arms */}
+              <line x1="50" y1="30" x2="58" y2="38" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
+              <line x1="50" y1="30" x2="42" y2="38" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
+              <line x1="50" y1="70" x2="58" y2="62" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
+              <line x1="50" y1="70" x2="42" y2="62" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
+              <line x1="50" y1="30" x2="50" y2="70" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
+              {/* pulse dots at sensor endpoints */}
+              <circle cx="50" cy="12" r="3" fill="#8fa749" className="pulse-dot" />
+              <circle cx="88" cy="50" r="3" fill="#8fa749" className="pulse-dot" />
+              <circle cx="12" cy="50" r="3" fill="#8fa749" className="pulse-dot" />
+            </svg>
+            <div className="telemetry-log">GESTURE_ACC: 87.6% // BT_CTRL: ACTIVE</div>
+          </div>
+        );
+      case 3: // AceHack — browser/code window mockup
+        return (
+          <div className="visual-container node-anim">
+            <div className="smart-card-mockup" style={{ background: 'linear-gradient(135deg, #2c2c2e 0%, #1a1a1c 100%)', width: '210px', height: '130px', boxShadow: '0 8px 25px rgba(0,0,0,0.5)' }}>
+              {/* browser chrome bar */}
+              <div style={{ display: 'flex', gap: '5px', marginBottom: '8px' }}>
+                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#ff5f57' }} />
+                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#fbbf24' }} />
+                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#97b836' }} />
+              </div>
+              {/* code lines */}
+              <div style={{ fontFamily: 'monospace', fontSize: '7px', color: '#97b836', lineHeight: 1.7 }}>
+                <div><span style={{ color: '#7c9ef5' }}>&lt;div</span> <span style={{ color: '#fbbf24' }}>class</span>=<span style={{ color: '#fb923c' }}>&quot;acehack&quot;</span><span style={{ color: '#7c9ef5' }}>&gt;</span></div>
+                <div style={{ paddingLeft: 10 }}><span style={{ color: '#97b836' }}>// 5000+ registrations</span></div>
+                <div><span style={{ color: '#7c9ef5' }}>&lt;/div&gt;</span></div>
+              </div>
+              <div style={{ marginTop: 'auto', fontFamily: 'monospace', fontSize: '6.5px', color: 'rgba(250,246,240,0.45)', letterSpacing: '0.5px' }}>ACEHACK 5.0 // LIVE</div>
+            </div>
+            <div className="telemetry-log" style={{ color: '#2c7a7a' }}>REGISTRATIONS: 5000+ // DEPLOYED</div>
+          </div>
+        );
+      case 4: // Pradyog / ACM — globe community network
+        return (
+          <div className="visual-container node-anim">
+            <svg viewBox="0 0 100 100" className="visual-svg">
+              {/* globe outline */}
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#b58933" strokeWidth="1.5" />
+              {/* latitude lines */}
+              <ellipse cx="50" cy="50" rx="38" ry="15" fill="none" stroke="#b58933" strokeWidth="0.8" opacity="0.5" />
+              <line x1="12" y1="50" x2="88" y2="50" stroke="#b58933" strokeWidth="0.8" opacity="0.5" />
+              {/* meridian */}
+              <ellipse cx="50" cy="50" rx="18" ry="38" fill="none" stroke="#b58933" strokeWidth="0.8" opacity="0.5" />
+              {/* member dots */}
+              <circle cx="38" cy="38" r="4" fill="#97b836" className="pulse-dot" />
+              <circle cx="62" cy="42" r="4" fill="#97b836" className="pulse-dot" />
+              <circle cx="45" cy="62" r="4" fill="#97b836" className="pulse-dot" />
+              <circle cx="68" cy="60" r="3" fill="#b58933" className="pulse-dot" />
+              {/* connections */}
+              <line x1="38" y1="38" x2="62" y2="42" stroke="#97b836" strokeWidth="0.8" opacity="0.6" />
+              <line x1="62" y1="42" x2="45" y2="62" stroke="#97b836" strokeWidth="0.8" opacity="0.6" />
+              <line x1="45" y1="62" x2="68" y2="60" stroke="#b58933" strokeWidth="0.8" opacity="0.6" />
+            </svg>
+            <div className="telemetry-log" style={{ color: '#b58933' }}>MEMBERS: 300+ // 2 SITES LIVE</div>
           </div>
         );
       default:
@@ -453,7 +493,7 @@ export default function WorkExperience() {
           width: 100%;
           height: 100%;
           transform: translateY(-30px);
-          padding: 2.2rem;
+          padding: 1.5rem 2.2rem;
           border-radius: 12px;
           box-shadow: 0 35px 80px rgba(0, 0, 0, 0.6);
           overflow-y: auto;
@@ -516,22 +556,28 @@ export default function WorkExperience() {
           position: absolute;
           top: 0;
           right: 0;
-          background: none;
+          background: #dc2626;
+          color: #faf6f0;
           border: none;
           font-family: var(--font-mono);
-          font-size: 10px;
+          font-size: 9px;
           font-weight: 700;
-          color: #12100e;
-          letter-spacing: 1.5px;
+          letter-spacing: 1.2px;
           cursor: pointer;
-          padding: 0.5rem;
+          padding: 0.5rem 1rem;
+          border-radius: 50px;
           z-index: 60;
-          transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .close-file-btn:hover {
-          color: #97b836;
-          transform: scale(1.05);
+          background: #ef4444;
+          transform: translateY(-1px) scale(1.03);
+          box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
         }
 
         .project-expanded-grid {
@@ -726,22 +772,22 @@ export default function WorkExperience() {
           color: #97b836;
           letter-spacing: 1.5px;
           text-transform: uppercase;
-          margin-bottom: 1rem;
+          margin-bottom: 0.5rem;
         }
 
         .project-expanded-desc {
           font-family: var(--font-sans);
           font-size: 13.5px;
-          line-height: 1.6;
+          line-height: 1.55;
           color: rgba(18, 16, 14, 0.75);
-          margin-bottom: 1.5rem;
+          margin-bottom: 0.85rem;
         }
 
         .project-expanded-tags {
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
-          margin-bottom: 1.8rem;
+          margin-bottom: 1rem;
         }
 
         .expanded-tag {
@@ -1033,7 +1079,7 @@ export default function WorkExperience() {
                           setActiveFolder(null);
                         }}
                       >
-                        ✕ CLOSE ARCHIVE
+                        ✕ CLOSE
                       </button>
 
                       <div className="project-expanded-grid">
@@ -1054,18 +1100,62 @@ export default function WorkExperience() {
                           </div>
 
                           <div className="project-links-row">
-                            <a href={project.github} target="_blank" rel="noreferrer" className="project-link-btn github">
-                              <span>Source Metrics</span>
-                              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                              </svg>
-                            </a>
-                            <a href={project.live} target="_blank" rel="noreferrer" className="project-link-btn live">
-                              <span>Launch Client</span>
-                              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-                              </svg>
-                            </a>
+                            {index === 0 && (
+                              /* Smart Traffic Signal — no external repo/demo */
+                              null
+                            )}
+                            {index === 1 && (<>
+                              <a href={project.github} target="_blank" rel="noreferrer" className="project-link-btn github">
+                                <span>GitHub Repo</span>
+                                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
+                                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                                </svg>
+                              </a>
+                              <a href={project.live} target="_blank" rel="noreferrer" className="project-link-btn live">
+                                <span>Live Demo</span>
+                                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
+                                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                                </svg>
+                              </a>
+                            </>)}
+                            {index === 2 && (
+                              /* IoT Wheelchair — Devfolio project link */
+                              <a href={project.github} target="_blank" rel="noreferrer" className="project-link-btn" style={{ background: '#3770FF', color: '#faf6f0', border: '1px solid #3770FF' }}>
+                                <span>View on Devfolio</span>
+                                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
+                                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                                </svg>
+                              </a>
+                            )}
+                            {index === 3 && (<>
+                              <a href={project.github} target="_blank" rel="noreferrer" className="project-link-btn github">
+                                <span>GitHub Repo</span>
+                                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
+                                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                                </svg>
+                              </a>
+                              <a href={project.live} target="_blank" rel="noreferrer" className="project-link-btn live">
+                                <span>Live Site</span>
+                                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
+                                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                                </svg>
+                              </a>
+                            </>)}
+                            {index === 4 && (<>
+                              {/* Club Websites — Pradyog (orange) + ACM UEMJ (cyan) */}
+                              <a href="https://pradyog.netlify.app/" target="_blank" rel="noreferrer" className="project-link-btn" style={{ background: '#f97316', color: '#faf6f0', border: '1px solid #f97316' }}>
+                                <span>Pradyog</span>
+                                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
+                                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                                </svg>
+                              </a>
+                              <a href="https://acm-uemj.uem.edu.in/" target="_blank" rel="noreferrer" className="project-link-btn" style={{ background: 'transparent', color: '#06b6d4', border: '1.5px solid #06b6d4' }}>
+                                <span>ACM UEMJ</span>
+                                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
+                                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                                </svg>
+                              </a>
+                            </>)}
                           </div>
                         </div>
                       </div>
