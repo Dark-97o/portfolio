@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
 import HoloModal from './components/HoloModal';
 import ContactForm from './components/ContactForm';
+import resumePdf from './assets/Subhranil_Baul.pdf';
 import './App.css';
 
 export default function App() {
@@ -140,6 +141,35 @@ export default function App() {
               opacity: 1;
             }
 
+            .resume-btn {
+              background: #97b836ff; /* Premium sage/olive green color */
+              color: #ffffff !important;
+              text-decoration: none;
+              font-family: var(--font-mono);
+              font-size: 11px;
+              font-weight: 800;
+              letter-spacing: 1px;
+              text-transform: uppercase;
+              padding: 0.5rem 1.4rem;
+              border-radius: 9999px;
+              margin-left: 0.75rem; /* Gap between pill items and download action */
+              box-shadow: 0 4px 12px rgba(151, 184, 54, 0.25);
+              transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+              display: inline-block;
+              border: 1px solid rgba(17, 17, 17, 0.05);
+            }
+
+            .resume-btn:hover {
+              background: #809c2dff; /* Deepened natural olive green on hover */
+              transform: translateY(-1px);
+              box-shadow: 0 6px 16px rgba(151, 184, 54, 0.35);
+            }
+
+            .resume-btn:active {
+              transform: translateY(0);
+              box-shadow: 0 2px 8px rgba(151, 184, 54, 0.2);
+            }
+
             @media (max-width: 768px) {
               .navbar-hud {
                 top: 1rem;
@@ -148,6 +178,12 @@ export default function App() {
               .nav-link {
                 font-size: 10px;
                 padding: 0.4rem 0.9rem;
+                letter-spacing: 0.5px;
+              }
+              .resume-btn {
+                font-size: 10px;
+                padding: 0.4rem 1.1rem;
+                margin-left: 0.5rem;
                 letter-spacing: 0.5px;
               }
             }
@@ -183,6 +219,14 @@ export default function App() {
                 </a>
               </li>
             </ul>
+
+            <a 
+              href={resumePdf} 
+              download="Subhranil_Baul_Resume.pdf" 
+              className="resume-btn"
+            >
+              Resume
+            </a>
           </div>
         </header>
       )}

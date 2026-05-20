@@ -132,7 +132,7 @@ function FallingLeavesCanvas() {
 }
 
 export default function AboutMe() {
-  const roles = ['Developer', 'engineer', 'designer', 'researcher', 'photographer', 'strategist'];
+  const roles = ['Developer', 'engineer', 'designer', 'researcher', 'strategist'];
   const [roleIndex, setRoleIndex] = useState(0);
   const [animate, setAnimate] = useState(true);
 
@@ -146,7 +146,7 @@ export default function AboutMe() {
     }, 1200);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [roles.length]);
 
   return (
     <section className="about-section" id="about">
@@ -259,13 +259,13 @@ export default function AboutMe() {
           filter: sepia(0.08) contrast(1.04);
         }
 
-        /* Massive Solid-Filled olive green text in front - Non-stroke, ultra-bold, tight letter spacing */
+        /* Massive Solid-Filled lighter olive green text in front - Non-stroke, ultra-bold, tight letter spacing */
         .text-infront {
           position: absolute;
           font-family: var(--font-display); /* Outfit display font */
-          font-size: clamp(3.2rem, 6.5vw, 5rem); /* Significantly enlarged visual scale */
+          font-size: clamp(3.8rem, 7.5vw, 6rem); /* Significantly enlarged visual scale */
           font-weight: 900; /* Ultra-bold weight */
-          color: #556b2f; /* Solid premium Olive Green fill (non-stroke!) */
+          color: #97b836ff; /* Solid premium lighter Olive Green fill (non-stroke!) */
           -webkit-text-stroke: 0; /* Deactivated stroke border */
           z-index: 3;
           bottom: 70px; /* Centered overlapping lower portion of image */
@@ -294,34 +294,50 @@ export default function AboutMe() {
 
         /* Right Side Details */
         .about-header {
-          margin-bottom: 2.5rem;
+          margin-bottom: 2rem;
+        }
+
+        .about-section-title {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5.2vw, 3.8rem); /* Sleek single line scale */
+          font-weight: 900;
+          color: #12100e;
+          text-transform: uppercase;
+          letter-spacing: -0.04em; /* Compressed Display scale */
+          line-height: 1.1;
+          margin: 0;
+        }
+
+        .about-section-title .accent {
+          color: #97b836ff; /* Lighter Sage/Olive green trailing highlight */
+          font-weight: 900;
         }
 
         .about-summary {
-          margin-bottom: 3rem;
+          margin-bottom: 2rem;
         }
 
         .summary-paragraph {
           font-family: var(--font-display);
-          font-size: 1.15rem;
-          line-height: 1.7;
+          font-size: 1.12rem;
+          line-height: 1.65;
           color: #12100e;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.2rem;
           letter-spacing: -0.2px;
         }
 
         .summary-paragraph.secondary {
-          font-size: 1rem;
+          font-size: 0.98rem;
           color: var(--text-secondary);
-          line-height: 1.6;
+          line-height: 1.55;
         }
 
-        /* Dashboard Education Card */
+        /* Dashboard Education Card - Reduced height and compact geometry */
         .education-card {
           background: rgba(255, 255, 255, 0.45);
           border: var(--border-editorial);
           border-radius: 4px;
-          padding: 2.2rem;
+          padding: 0.6rem 1.2rem; /* Even more compact padding */
           box-shadow: 0 10px 40px rgba(95, 89, 79, 0.05);
           position: relative;
           overflow: hidden;
@@ -331,26 +347,26 @@ export default function AboutMe() {
 
         .edu-uni {
           font-family: var(--font-display);
-          font-size: 1.65rem;
+          font-size: 1.20rem; /* Sleeker size to perfectly fit longer name */
           font-weight: 800;
           color: #12100e;
-          margin: 0 0 0.5rem 0;
+          margin: 0 0 0.1rem 0; /* Minimal bottom margin */
           letter-spacing: -0.5px;
         }
 
         .edu-degree {
           font-family: var(--font-mono);
-          font-size: 11px;
+          font-size: 10px;
           font-weight: 600;
           color: var(--text-secondary);
           margin: 0;
-          line-height: 1.5;
+          line-height: 1.4;
         }
 
         .edu-divider {
           height: 1px;
           background: dashed rgba(17, 17, 17, 0.15);
-          margin: 1.5rem 0;
+          margin: 0.4rem 0; /* Minimal vertical spacing to shrink card height even more */
         }
 
         .edu-gpa {
@@ -369,7 +385,7 @@ export default function AboutMe() {
 
         .gpa-value {
           font-family: var(--font-display);
-          font-size: 1.85rem;
+          font-size: 1.40rem;
           font-weight: 900;
           color: #12100e;
           letter-spacing: -0.5px;
@@ -381,9 +397,9 @@ export default function AboutMe() {
 
       {/* Editorial repeating pattern separator banner attached statically to top of section */}
       <div className="repeat-graphics-banner">
-        <div 
-          className="repeat-graphics-track" 
-          style={{ backgroundImage: `url(${repeatGraphicsImg})` }} 
+        <div
+          className="repeat-graphics-track"
+          style={{ backgroundImage: `url(${repeatGraphicsImg})` }}
         />
       </div>
 
@@ -393,7 +409,7 @@ export default function AboutMe() {
           <div className="photo-visual-stack">
             {/* Outline Watermark Text centered behind the image */}
             <div className="text-behind">ASPIRING</div>
-            
+
             {/* Minimal Portrait Image Frame */}
             <div className="propic-img-frame">
               <img src={propicImg} alt="Subhranil Baul portrait" className="propic-img" />
@@ -401,15 +417,16 @@ export default function AboutMe() {
 
             {/* Solid Foreground Toggling Role Label */}
             <div className={`text-infront ${animate ? 'word-fade-in' : 'word-fade-out'}`}>
-              {roles[roleIndex]}
+              {roles[roleIndex % roles.length] || roles[0]}
             </div>
           </div>
 
           {/* Right Side: Text summary and Academic registry HUD */}
           <div className="about-details">
             <div className="about-header">
-              <h2 className="section-title">ABOUT ME</h2>
-              <div className="section-subtitle">[ ACADEMIC REGISTRY ]</div>
+              <h2 className="about-section-title">
+                ABOUT <span className="accent">ME.</span>
+              </h2>
             </div>
 
             <div className="about-summary">
@@ -424,14 +441,14 @@ export default function AboutMe() {
             {/* Academic Registry Education Card */}
             <div className="education-card">
               <div className="edu-content">
-                <h3 className="edu-uni">Heritage Institute of Technology</h3>
+                <h3 className="edu-uni">University of Engineering and Management Jaipur</h3>
                 <h4 className="edu-degree">Bachelor of Technology in Computer Science & Engineering (AI & ML)</h4>
-                
+
                 <div className="edu-divider" />
-                
+
                 <div className="edu-gpa">
                   <span className="gpa-label">CUMULATIVE GPA:</span>
-                  <span className="gpa-value">9.18 / 10.0</span>
+                  <span className="gpa-value">8.6 / 10.0</span>
                 </div>
               </div>
             </div>
