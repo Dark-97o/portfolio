@@ -131,8 +131,9 @@ function FallingLeavesCanvas() {
   );
 }
 
+const ROLES = ['developer', 'engineer', 'designer', 'researcher', 'strategist'];
+
 export default function AboutMe() {
-  const roles = ['Developer', 'engineer', 'designer', 'researcher', 'strategist'];
   const [roleIndex, setRoleIndex] = useState(0);
   const [animate, setAnimate] = useState(true);
 
@@ -140,13 +141,13 @@ export default function AboutMe() {
     const interval = setInterval(() => {
       setAnimate(false);
       setTimeout(() => {
-        setRoleIndex((prev) => (prev + 1) % roles.length);
+        setRoleIndex((prev) => (prev + 1) % ROLES.length);
         setAnimate(true);
       }, 150); // Quick fade-out cooldown before word flip
     }, 1200);
 
     return () => clearInterval(interval);
-  }, [roles.length]);
+  }, []);
 
   return (
     <section className="about-section" id="about">
@@ -417,7 +418,7 @@ export default function AboutMe() {
 
             {/* Solid Foreground Toggling Role Label */}
             <div className={`text-infront ${animate ? 'word-fade-in' : 'word-fade-out'}`}>
-              {roles[roleIndex % roles.length] || roles[0]}
+              {ROLES[roleIndex % ROLES.length] || ROLES[0]}
             </div>
           </div>
 
