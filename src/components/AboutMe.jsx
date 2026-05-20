@@ -133,6 +133,18 @@ function FallingLeavesCanvas() {
 
 const ROLES = ['developer', 'engineer', 'designer', 'researcher', 'strategist'];
 
+const TECH_STACK_1 = [
+  'Python', 'JavaScript', 'Java', 'C', 'C++', 'Rust', 'SQL', 'React', 'Vite',
+  'HTML5', 'CSS3', 'Tailwind CSS', 'Web3', 'Node.js', 'Google Cloud Platform',
+  'Firebase', 'Cloudflare', 'Git'
+];
+
+const TECH_STACK_2 = [
+  'GitHub', 'REST APIs', 'Soroban/Stellar', 'Raspberry Pi', 'IoT', 'VS Code',
+  'Excel', 'PowerPoint', 'EmailJS', 'SUMO', 'Open Office', 'MySQL',
+  'Antigravity', 'Stitch', 'Spline'
+];
+
 export default function AboutMe() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [animate, setAnimate] = useState(true);
@@ -179,8 +191,8 @@ export default function AboutMe() {
           background-size: auto 100%;
           /* Infinite horizontal scroll */
           animation: repeatScroll 45s linear infinite;
-          /* Color-shifting filter cascade translating orange pixels to soft warm sand/cream tint */
-          filter: grayscale(1) sepia(0.8) saturate(1.2) brightness(0.75) contrast(1.1);
+          /* Refined color-shifting filter cascade matching your exact signature olive-sage green tone */
+          filter: sepia(1) hue-rotate(33deg) saturate(1.8) brightness(0.87) contrast(1.25);
         }
 
         @keyframes repeatScroll {
@@ -211,7 +223,7 @@ export default function AboutMe() {
         .photo-visual-stack {
           position: relative;
           width: 100%;
-          height: 580px;
+          height: 650px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -239,7 +251,7 @@ export default function AboutMe() {
 
         /* Minimal Raw Portrait Photo Frame - No border, No shadow, No roundness */
         .propic-img-frame {
-          width: 370px;
+          width: min(500px, 92vw);
           height: auto;
           z-index: 2;
           overflow: hidden;
@@ -391,6 +403,120 @@ export default function AboutMe() {
           color: #12100e;
           letter-spacing: -0.5px;
         }
+
+        /* Tech Stack Marquee Section styles */
+        .tech-marquee-wrapper {
+          margin-top: 3.8rem; /* Flows beautifully below the main grid content */
+          display: flex;
+          flex-direction: column;
+          gap: 1.2rem; /* Comfortable row spacing */
+          width: 100%;
+          overflow: visible;
+        }
+
+        .tech-marquee-container {
+          background: rgba(255, 255, 255, 0.05); /* Premium glassmorphism container */
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 20px;
+          padding: 0.9rem 0;
+          width: 100%;
+          overflow: hidden;
+          position: relative;
+          box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 
+                      0 15px 35px rgba(0, 0, 0, 0.05);
+          display: flex;
+          align-items: center;
+        }
+
+        /* Ambient fading mask edges */
+        .tech-marquee-container::before,
+        .tech-marquee-container::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 120px;
+          z-index: 2;
+          pointer-events: none;
+        }
+
+        .tech-marquee-container::before {
+          left: 0;
+          background: linear-gradient(to right, var(--bg-primary) 0%, transparent 100%);
+        }
+
+        .tech-marquee-container::after {
+          right: 0;
+          background: linear-gradient(to left, var(--bg-primary) 0%, transparent 100%);
+        }
+
+        .tech-marquee-track {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 1.8rem;
+          width: max-content;
+          will-change: transform;
+        }
+
+        .track-ltr {
+          animation: marqueeLTR 40s linear infinite;
+        }
+
+        .track-rtl {
+          animation: marqueeRTL 40s linear infinite;
+        }
+
+        @keyframes marqueeLTR {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+
+        @keyframes marqueeRTL {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .tech-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.65rem;
+          background: rgba(255, 255, 255, 0.35); /* Double-layered pill glass */
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 9999px;
+          padding: 0.5rem 1.15rem;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+          transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+          white-space: nowrap;
+          cursor: pointer;
+        }
+
+        .tech-pill:hover {
+          background: rgba(151, 184, 54, 0.18);
+          border-color: rgba(151, 184, 54, 0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 15px rgba(151, 184, 54, 0.12);
+        }
+
+        .tech-pill-dot {
+          width: 6.5px;
+          height: 6.5px;
+          border-radius: 50%;
+          background: #97b836ff;
+          box-shadow: 0 0 6px rgba(151, 184, 54, 0.85);
+        }
+
+        .tech-pill-text {
+          font-family: var(--font-sans);
+          font-size: 13.5px;
+          font-weight: 700;
+          color: #12100e;
+          letter-spacing: -0.2px;
+        }
       `}</style>
 
       {/* Dynamic falling organic olive leaves background canvas */}
@@ -452,6 +578,33 @@ export default function AboutMe() {
                   <span className="gpa-value">8.6 / 10.0</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tech Stack Horizontal Dual Marquees Section (Full Width below the grid) */}
+        <div className="tech-marquee-wrapper">
+          {/* Row 1: Left-to-Right Loop */}
+          <div className="tech-marquee-container">
+            <div className="tech-marquee-track track-ltr">
+              {[...TECH_STACK_1, ...TECH_STACK_1].map((tech, i) => (
+                <div className="tech-pill" key={`ltr-${i}`}>
+                  <span className="tech-pill-dot" />
+                  <span className="tech-pill-text">{tech}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2: Right-to-Left Loop */}
+          <div className="tech-marquee-container">
+            <div className="tech-marquee-track track-rtl">
+              {[...TECH_STACK_2, ...TECH_STACK_2].map((tech, i) => (
+                <div className="tech-pill" key={`rtl-${i}`}>
+                  <span className="tech-pill-dot" />
+                  <span className="tech-pill-text">{tech}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

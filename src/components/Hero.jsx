@@ -423,6 +423,7 @@ export default function Hero({ onWindowUnlocked }) {
 
         /* Horizontal Glassmorphic Card */
         .hero-profile-card {
+          position: relative; /* Anchor for absolute border text svg overlay */
           background: rgba(255, 255, 255, 0.12); /* Frosty premium glass */
           backdrop-filter: blur(30px) saturate(120%);
           -webkit-backdrop-filter: blur(30px) saturate(120%);
@@ -439,6 +440,46 @@ export default function Hero({ onWindowUnlocked }) {
           gap: 2.2rem; /* Tightened element gap */
           margin-top: -2rem; /* Pull slightly upwards */
           animation: cardSlideIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .card-border-text-wrap {
+          position: absolute;
+          top: -20px;
+          left: -20px;
+          right: -20px;
+          bottom: -20px;
+          pointer-events: none;
+          z-index: 10;
+        }
+
+        .card-border-text-svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+          overflow: visible;
+        }
+
+        .card-border-text-path {
+          fill: none;
+          stroke: transparent;
+        }
+
+        .card-border-text-content {
+          font-family: var(--font-mono);
+          font-size: 11.5px; /* Extremely visible and premium readable size */
+          font-weight: 900; /* Ultra-bold weight */
+          text-transform: uppercase;
+          letter-spacing: 0.16em;
+          fill: #ffffff; /* Premium white fill */
+          /* Dynamic shadow outline to pop vividly on top of both light/dark dynamic background video colors */
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 
+                       0 0 1px rgba(0, 0, 0, 0.9);
+        }
+
+        @media (max-width: 768px) {
+          .card-border-text-wrap {
+            display: none; /* Keep mobile presentation clean and high-speed */
+          }
         }
 
         @keyframes cardSlideIn {
@@ -499,12 +540,14 @@ export default function Hero({ onWindowUnlocked }) {
         /* Card Description */
         .description {
           font-family: var(--font-sans);
-          font-size: 16.5px;
+          font-size: 15.5px; /* Slightly adjusted to accommodate capitalized tracking */
           font-weight: 600;
-          color: rgba(255, 255, 255, 0.95);
+          color: rgba(255, 255, 255, 0.95); /* Reverted back to elegant high-contrast white */
           line-height: 1.6;
           margin: 0;
           max-width: 480px;
+          text-transform: uppercase; /* Highly sophisticated uppercase formatting */
+          letter-spacing: 0.04em; /* Spaced modern letter-spacing tracking */
         }
 
         @media (max-width: 768px) {
@@ -548,11 +591,12 @@ export default function Hero({ onWindowUnlocked }) {
           align-items: center;
           pointer-events: none;
           z-index: 2;
-          animation: trainPass 18s linear infinite; /* Faster cruising speed */
+          animation: trainPass 12s linear infinite; /* Faster cruising speed */
         }
 
         .hero-train {
-          height: 100%;
+          top: 14px;
+          height: 80%;
           width: auto;
           display: block;
           opacity: 0.95;
@@ -563,10 +607,10 @@ export default function Hero({ onWindowUnlocked }) {
         /* Ambient glowing headlight cone projecting forward */
         .hero-train-light {
           position: absolute;
-          top: -1px; /* Shifted down, mathematically centered with the flare at 59px */
+          top: 32px; /* Shifted down, mathematically centered with the flare at 59px */
           right: 82%; /* Shifted even further inwards behind the cabin */
           width: 480px; /* Extended dramatic volumetric reach */
-          height: 120px; /* Wider cone spread */
+          height: 80px; /* Wider cone spread */
           background: linear-gradient(
             to left,
             rgba(255, 235, 160, 0.6) 0%,
@@ -628,6 +672,23 @@ export default function Hero({ onWindowUnlocked }) {
         {/* Main hero card */}
         <div className={`container hero-container hero-state-${windowState}`}>
           <div className="hero-profile-card" id="about">
+            {/* Let's Work Together Border Text overlay */}
+            <div className="card-border-text-wrap">
+              <svg className="card-border-text-svg" viewBox="0 0 800 240" preserveAspectRatio="none">
+                <path
+                  id="card-perimeter"
+                  className="card-border-text-path"
+                  d="M 160,0 L 788,0 A 12 12 0 0 1 800,12 L 800,80 A 160 160 0 0 1 640,240 L 12,240 A 12 12 0 0 1 0,228 L 0,160 A 160 160 0 0 1 160,0 Z"
+                />
+                <text className="card-border-text-content">
+                  <textPath href="#card-perimeter" startOffset="0%">
+                    LET'S WORK TOGETHER • LET'S WORK TOGETHER • LET'S WORK TOGETHER • LET'S WORK TOGETHER • LET'S WORK TOGETHER • LET'S WORK TOGETHER • LET'S WORK TOGETHER •
+                    <animate attributeName="startOffset" from="0%" to="100%" dur="28s" repeatCount="indefinite" />
+                  </textPath>
+                </text>
+              </svg>
+            </div>
+
             {/* Left aligned: Avatar display frame */}
             <div className="avatar-container">
               <img src={avtImg} alt="Subhranil Baul Portrait" className="avatar-img" />
