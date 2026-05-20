@@ -61,12 +61,12 @@ export default function CyberCursor() {
         context.beginPath();
         context.arc(this.x, this.y, this.size * opacity, 0, Math.PI * 2);
         
-        // Premium ink-black editorial particles with a soft drop shadow
-        context.fillStyle = `rgba(0, 0, 0, ${opacity * 0.95})`;
-        context.shadowColor = 'rgba(255, 255, 255, 0.2)';
-        context.shadowBlur = 4;
-        context.shadowOffsetX = 1;
-        context.shadowOffsetY = 1;
+        // Premium Obsidian Ink-black particles with solid contrast
+        context.fillStyle = `rgba(18, 16, 14, ${opacity * 0.95})`;
+        context.shadowColor = 'rgba(0, 0, 0, 0)';
+        context.shadowBlur = 0;
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 0;
         
         context.fill();
         context.restore();

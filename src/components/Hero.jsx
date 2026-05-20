@@ -7,6 +7,7 @@ import winOpenImg from '../assets/winopen.png';
 import winCloseImg from '../assets/winclose.png';
 import winFrameImg from '../assets/winframe.png';
 import noteImg from '../assets/note.png';
+import { createPortal } from 'react-dom';
 
 export default function Hero({ onWindowUnlocked }) {
   const [windowState, setWindowState] = useState(0);
@@ -132,59 +133,67 @@ export default function Hero({ onWindowUnlocked }) {
   }, []);
 
   return (
-    <section className="hero-section" id="home">
-      {/* Immersive Window Onboarding System */}
-      <div className={`window-overlay-container state-${windowState}`}>
-        {/* Closed Window */}
-        <img 
-          src={winCloseImg} 
-          alt="Closed window" 
-          className="win-img win-close" 
-          style={{ opacity: windowState === 0 ? 1 : 0 }} 
-        />
-        {/* Open Window */}
-        <img 
-          src={winOpenImg} 
-          alt="Open window" 
-          className="win-img win-open" 
-          style={{ opacity: windowState === 1 ? 1 : 0 }} 
-        />
-        {/* Window Frame Border */}
-        <img 
-          src={winFrameImg} 
-          alt="Window frame border" 
-          className="win-img win-frame" 
-          style={{ opacity: windowState === 2 ? 1 : 0 }} 
-        />
-        {/* Paper Note Prompt with real note background image, bold scroll text, and SVG mouse icon */}
-        <div className={`paper-note ${windowState > 0 ? 'fade-out' : ''}`}>
-          <img src={processedNote || noteImg} alt="Parchment note background" className="paper-note-bg" />
-          <div className="paper-content">
-            <svg className="mouse-icon" width="22" height="32" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="2" width="20" height="32" rx="10" stroke="black" strokeWidth="2.5" />
-              <circle cx="12" cy="11" r="2.5" fill="black" className="mouse-wheel-dot" />
-            </svg>
-            <p className="paper-text">SCROLL</p>
+    <>
+      {/* Immersive Window Onboarding System rendered via Portal to body to sit on top of everything */}
+      {createPortal(
+        <div className={`window-overlay-container state-${windowState}`}>
+          {/* Closed Window */}
+          <img
+            src={winCloseImg}
+            alt="Closed window"
+            className="win-img win-close"
+            style={{ opacity: windowState === 0 ? 1 : 0 }}
+          />
+          {/* Open Window */}
+          <img
+            src={winOpenImg}
+            alt="Open window"
+            className="win-img win-open"
+            style={{ opacity: windowState === 1 ? 1 : 0 }}
+          />
+          {/* Window Frame Border */}
+          <img
+            src={winFrameImg}
+            alt="Window frame border"
+            className="win-img win-frame"
+            style={{ opacity: windowState === 2 ? 1 : 0 }}
+          />
+          {/* Paper Note Prompt with real note background image, bold scroll text, and SVG mouse icon */}
+          <div className={`paper-note ${windowState > 0 ? 'fade-out' : ''}`}>
+            <img src={processedNote || noteImg} alt="Parchment note background" className="paper-note-bg" />
+            <div className="paper-content">
+              <svg className="mouse-icon" width="22" height="32" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="32" rx="10" stroke="black" strokeWidth="2.5" />
+                <circle cx="12" cy="11" r="2.5" fill="black" className="mouse-wheel-dot" />
+              </svg>
+              <p className="paper-text">SCROLL</p>
+            </div>
           </div>
+        </div>,
+        document.body
+      )}
+
+      <section className="hero-section" id="home">
+
+        {/* 100% Crisp Visible background video loop with transitions */}
+        <div className={`hero-video-bg video-state-${windowState}`}>
+          <video
+            src={heroVid}
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
         </div>
-      </div>
 
-      {/* 100% Crisp Visible background video loop with transitions */}
-      <div className={`hero-video-bg video-state-${windowState}`}>
-        <video 
-          src={heroVid} 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-        />
-      </div>
-
-      <style>{`
+        <style>{`
         .hero-section {
-          min-height: 97vh; /* Perfectly balanced fit at 97vh */
+          position: sticky;
+          top: 0;
+          height: 97vh; /* 105vh height for an immersive reveal scroll */
+          min-height: 97vh;
           padding: 8rem 0;
-          position: relative;
+          z-index: 1;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -616,38 +625,39 @@ export default function Hero({ onWindowUnlocked }) {
         }
       `}</style>
 
-      {/* Main hero card */}
-      <div className={`container hero-container hero-state-${windowState}`}>
-        <div className="hero-profile-card" id="about">
-          {/* Left aligned: Avatar display frame */}
-          <div className="avatar-container">
-            <img src={avtImg} alt="Subhranil Baul Portrait" className="avatar-img" />
-          </div>
+        {/* Main hero card */}
+        <div className={`container hero-container hero-state-${windowState}`}>
+          <div className="hero-profile-card" id="about">
+            {/* Left aligned: Avatar display frame */}
+            <div className="avatar-container">
+              <img src={avtImg} alt="Subhranil Baul Portrait" className="avatar-img" />
+            </div>
 
-          {/* Right aligned: Card Body Contents */}
-          <div className="card-body">
-            {/* Heading Name */}
-            <h1 className="editorial-title">
-              Hi, I'm <span className="name-black">Subhranil Baul</span>
-            </h1>
+            {/* Right aligned: Card Body Contents */}
+            <div className="card-body">
+              {/* Heading Name */}
+              <h1 className="editorial-title">
+                Hi, I'm <span className="name-black">Subhranil Baul</span>
+              </h1>
 
-            {/* Elegant Small description about Subhranil */}
-            <p className="description">
-              Final-year AI/ML Engineer & Full-Stack Developer specializing in edge AI and decentralized systems.
-            </p>
+              {/* Elegant Small description about Subhranil */}
+              <p className="description">
+                Final-year AI/ML Engineer & Full-Stack Developer specializing in edge AI and decentralized systems.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Custom styled black & brown railroad track border */}
-      <div className={`hero-railroad hero-state-${windowState}`} />
+        {/* Custom styled black & brown railroad track border */}
+        <div className={`hero-railroad hero-state-${windowState}`} />
 
-      {/* Ambient passing train aligned to the bottom with headlight beam */}
-      <div className={`hero-train-wrapper hero-state-${windowState}`}>
-        <div className="hero-train-light" />
-        <div className="hero-train-flare" />
-        <img src={trainImg} alt="Ambient passing train" className="hero-train" />
-      </div>
-    </section>
+        {/* Ambient passing train aligned to the bottom with headlight beam */}
+        <div className={`hero-train-wrapper hero-state-${windowState}`}>
+          <div className="hero-train-light" />
+          <div className="hero-train-flare" />
+          <img src={trainImg} alt="Ambient passing train" className="hero-train" />
+        </div>
+      </section>
+    </>
   );
 }

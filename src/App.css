@@ -15,3 +15,12 @@
   90% { opacity: 0.8; }
   100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
 }
+
+/* Scrollable content wrapper for reveal overlap parallax */
+.scrollable-content-wrapper {
+  position: relative;
+  z-index: 10;
+  background: var(--bg-primary); /* Solid luxurious alabaster cream */
+  box-shadow: 0 -20px 45px rgba(17, 17, 17, 0.04); /* Premium soft lift shadow */
+  width: 100%;
+}

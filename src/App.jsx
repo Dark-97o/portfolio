@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import EditorialCanvas from './components/EditorialCanvas';
 import CyberCursor from './components/CyberCursor';
 import Hero from './components/Hero';
-import ProjectsGrid from './components/ProjectsGrid';
+import AboutMe from './components/AboutMe';
 import HoloModal from './components/HoloModal';
 import ContactForm from './components/ContactForm';
 import './App.css';
@@ -16,7 +16,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'projects', 'contact'];
+      const sections = ['home', 'about', 'contact'];
       let currentSection = 'home';
       
       for (const section of sections) {
@@ -166,15 +166,6 @@ export default function App() {
               </li>
               <li>
                 <a 
-                  href="#projects" 
-                  className={`nav-link ${activeSection === 'projects' ? 'active' : ''}`}
-                  onClick={(e) => handleNavClick(e, 'projects')}
-                >
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a 
                   href="#about" 
                   className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'about')}
@@ -202,7 +193,7 @@ export default function App() {
           <Hero 
             onWindowUnlocked={() => setShowNavbar(true)}
             onScrollToProjects={() => {
-              const el = document.getElementById('projects');
+              const el = document.getElementById('about');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
             onScrollToContact={() => {
@@ -211,28 +202,30 @@ export default function App() {
             }}
           />
           
-          <ProjectsGrid onSelectProject={(project) => setSelectedProject(project)} />
-          
-          <ContactForm />
+          <div className="scrollable-content-wrapper">
+            <AboutMe />
+            
+            <ContactForm />
 
-          {/* Elegant technical footer HUD */}
-          <footer style={{
-            borderTop: 'var(--border-editorial)',
-            padding: '2.5rem 0',
-            textAlign: 'center',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '10px',
-            color: 'var(--text-secondary)',
-            letterSpacing: '1px',
-            background: 'rgba(250, 246, 240, 0.95)'
-          }}>
-            <div className="container">
-              <div>PROJECT_ARCHITECT // COMPILATION SUCCESS // ALL INTERFACES GREEN</div>
-              <div style={{ marginTop: '0.5rem', color: 'var(--secondary-color)' }}>
-                LATENCY // ACTIVE CONNECTIVITY: VERIFIED // DESIGN_VER: R3.5
+            {/* Elegant technical footer HUD */}
+            <footer style={{
+              borderTop: 'var(--border-editorial)',
+              padding: '2.5rem 0',
+              textAlign: 'center',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '10px',
+              color: 'var(--text-secondary)',
+              letterSpacing: '1px',
+              background: 'rgba(250, 246, 240, 0.95)'
+            }}>
+              <div className="container">
+                <div>PROJECT_ARCHITECT // COMPILATION SUCCESS // ALL INTERFACES GREEN</div>
+                <div style={{ marginTop: '0.5rem', color: 'var(--secondary-color)' }}>
+                  LATENCY // ACTIVE CONNECTIVITY: VERIFIED // DESIGN_VER: R3.5
+                </div>
               </div>
-            </div>
-          </footer>
+            </footer>
+          </div>
         </main>
       )}
 
