@@ -60,6 +60,55 @@ const PROJECTS = [
   }
 ];
 
+const renderFolderFrontIcon = (index) => {
+  const size = "42";
+  switch (index) {
+    case 0: // Edge-Cognition
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <rect x="5" y="5" width="14" height="14" rx="2" />
+          <path d="M9 9h6v6H9z" />
+          <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4" />
+        </svg>
+      );
+    case 1: // De-Pay
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <path d="M12 2L2 22l10-6 10 6L12 2z" />
+        </svg>
+      );
+    case 2: // Decentralized AI
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <circle cx="12" cy="12" r="3" />
+          <circle cx="4" cy="4" r="2" />
+          <circle cx="20" cy="4" r="2" />
+          <circle cx="4" cy="20" r="2" />
+          <circle cx="20" cy="20" r="2" />
+          <line x1="5.5" y1="5.5" x2="10" y2="10" />
+          <line x1="18.5" y1="5.5" x2="14" y2="10" />
+          <line x1="5.5" y1="18.5" x2="10" y2="14" />
+          <line x1="18.5" y1="18.5" x2="14" y2="14" />
+        </svg>
+      );
+    case 3: // Soroban Smart Wallet
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <rect x="3" y="11" width="18" height="10" rx="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      );
+    case 4: // Urban Sim Engine
+      return (
+        <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" style={{ color: 'rgba(250, 246, 240, 0.85)' }}>
+          <path d="M3 21h18M5 21V7l8-4v18M13 21v-6h4v6M17 21V11l4-2v12" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
 export default function WorkExperience() {
   const [activeFolder, setActiveFolder] = useState(null);
 
@@ -285,6 +334,21 @@ export default function WorkExperience() {
           z-index: 10;
           transform-origin: bottom center;
           transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .folder-front-image {
+          margin-bottom: 2rem;
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .folder-container:hover .folder-front-image {
+          transform: scale(1.15) translateY(-3px);
         }
 
         /* Back pocket boundary */
@@ -322,8 +386,8 @@ export default function WorkExperience() {
         .folder-front-label {
           position: absolute;
           bottom: 22px;
-          left: 15px;
-          right: 15px;
+          left: 10px;
+          right: 10px;
           font-family: var(--font-display);
           font-size: 11.5px;
           font-weight: 900;
@@ -333,6 +397,9 @@ export default function WorkExperience() {
           text-transform: uppercase;
           word-wrap: break-word;
           line-height: 1.25;
+          text-align: center;
+          text-decoration: underline;
+          text-underline-offset: 4px;
         }
 
         /* 3D opening physical micro-interactions on hover */
@@ -341,7 +408,7 @@ export default function WorkExperience() {
         }
 
         .folder-container:hover:not(.active) .folder-file {
-          transform: translate(32px, -18px) rotate(4deg); /* Pops out to the right and diagonal! */
+          transform: translate(25px, -60px) rotate(4deg); /* Pops out much higher to showcase READ MORE! */
         }
 
         /* non-active folders fall down out of view when one folder is active */
@@ -837,7 +904,7 @@ export default function WorkExperience() {
           font-size: clamp(1.1rem, 2.5vw, 1.45rem);
           font-weight: 900;
           letter-spacing: -0.03em;
-          color: #97b836ff; /* Sage Olive Green */
+          color: #faf6f0; /* Pure Alabaster White */
           text-transform: uppercase;
           margin: 0 0 0.15rem 0;
         }
@@ -854,8 +921,8 @@ export default function WorkExperience() {
 
         .pub-conference-name {
           font-family: var(--font-mono);
-          font-size: 9px;
-          color: rgba(250, 246, 240, 0.5);
+          font-size: 11px;
+          color: rgba(250, 246, 240, 0.65);
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
@@ -1005,19 +1072,23 @@ export default function WorkExperience() {
                     </div>
                   ) : (
                     <div className="compact-file-content">
-                      <h4 className="project-compact-title">{project.title}</h4>
-                      <div className="read-more-indicator">
+                      <div className="read-more-indicator" style={{ marginBottom: '0.4rem', marginTop: 0 }}>
                         <span>READ MORE</span>
                         <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="3" fill="none">
                           <polyline points="9 18 15 12 9 6" />
                         </svg>
                       </div>
+                      <h4 className="project-compact-title">{project.title}</h4>
                     </div>
                   )}
                 </div>
 
                 {/* Front flap folder cover */}
-                <div className="folder-front" />
+                <div className="folder-front">
+                  <div className="folder-front-image">
+                    {renderFolderFrontIcon(index)}
+                  </div>
+                </div>
 
                 {/* Stamp/Label on front cover showing actual project label */}
                 <div className="folder-front-label" style={{ opacity: isActive ? 0 : 1 }}>
@@ -1032,13 +1103,15 @@ export default function WorkExperience() {
         <div className={`publication-card ${activeFolder !== null ? 'hidden' : ''}`}>
           <div className="pub-card-left">
             <div className="pub-meta-content">
-              <h5 className="pub-card-heading">Publication.</h5>
-              <h4 className="pub-paper-title">Decentralized Trust Architecture for Smart Infrastructure Telemetry</h4>
-              <span className="pub-conference-name">IEEE International Conference on Smart Cities & IoT (ICSC 2026)</span>
+              <h5 className="pub-card-heading">
+                MY RESEARCH PAPER <span style={{ color: '#97b836ff' }}>PUBLICATION</span>
+              </h5>
+              <h4 className="pub-paper-title">TensorFlow, Computer Vision, and Edge AI-based Face Recognition Attendance Monitoring System Using Raspberry Pi 5</h4>
+              <span className="pub-conference-name">IEMECON 2025 — 13th International Conference on Intelligent Embedded, MicroElectronics, Communication, and Optical Networks</span>
             </div>
           </div>
           <div className="pub-card-right">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="pub-link-btn">
+            <a href="https://ieeexplore.ieee.org/document/11365706" target="_blank" rel="noreferrer" className="pub-link-btn">
               <span>READ PAPER</span>
               <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
