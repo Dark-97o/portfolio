@@ -154,11 +154,11 @@ export default function WorkExperience() {
   };
 
   return (
-    <section className="work-section" id="work">
+    <section className="work-section" id="work" style={{ paddingTop: '11.5rem', paddingBottom: '6rem' }}>
       <style>{`
         .work-section {
           min-height: 100vh;
-          padding: 5rem 0 8rem 0;
+          padding: 0;
           background: #12100e; /* Luxurious obsidian ink */
           position: sticky;
           top: 0;
@@ -194,6 +194,7 @@ export default function WorkExperience() {
           z-index: 3;
           width: min(1200px, 92vw);
           margin: 0 auto;
+          padding-top: 0;
         }
 
         .work-header {
@@ -786,17 +787,17 @@ export default function WorkExperience() {
 
         /* Premium Obsidian Glassmorphic Publication Card styling */
         .publication-card {
-          margin: 4.5rem auto 0 auto;
+          margin: 2.8rem auto 0 auto;
           background: rgba(255, 255, 255, 0.025);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.07);
-          border-radius: 16px;
-          padding: 1.8rem 2.2rem;
+          border-radius: 12px;
+          padding: 1.1rem 1.8rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          width: min(820px, 100%);
+          width: min(1080px, 100%);
           box-sizing: border-box;
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
           transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -827,23 +828,23 @@ export default function WorkExperience() {
         .pub-meta-content {
           display: flex;
           flex-direction: column;
-          gap: 0.35rem;
+          gap: 0.2rem;
           text-align: left;
         }
 
         .pub-card-heading {
           font-family: var(--font-display);
-          font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+          font-size: clamp(1.1rem, 2.5vw, 1.45rem);
           font-weight: 900;
           letter-spacing: -0.03em;
           color: #97b836ff; /* Sage Olive Green */
           text-transform: uppercase;
-          margin: 0 0 0.4rem 0;
+          margin: 0 0 0.15rem 0;
         }
 
         .pub-paper-title {
           font-family: var(--font-display);
-          font-size: 1.25rem;
+          font-size: 1.05rem;
           font-weight: 800;
           letter-spacing: -0.01em;
           color: #faf6f0; /* Alabaster Cream */
@@ -853,7 +854,7 @@ export default function WorkExperience() {
 
         .pub-conference-name {
           font-family: var(--font-mono);
-          font-size: 10px;
+          font-size: 9px;
           color: rgba(250, 246, 240, 0.5);
           text-transform: uppercase;
           letter-spacing: 0.5px;
@@ -869,10 +870,10 @@ export default function WorkExperience() {
           gap: 0.6rem;
           background: #7c3aed; /* Scholar Royal Purple */
           color: #ffffff;
-          padding: 0.8rem 1.6rem;
+          padding: 0.55rem 1.15rem;
           border-radius: 30px;
           font-family: var(--font-mono);
-          font-size: 11px;
+          font-size: 9.5px;
           font-weight: 700;
           letter-spacing: 1px;
           text-decoration: none;
@@ -926,7 +927,7 @@ export default function WorkExperience() {
       </video>
       <div className="work-video-overlay" />
 
-      <div className="work-container">
+      <div className="work-container" style={{ paddingTop: '3.5rem' }}>
         <div className={`work-header ${activeFolder !== null ? 'hidden' : ''}`}>
           <h2 className="work-section-title">
             MY PROJECT <span className="accent">ARCHIVES.</span>
