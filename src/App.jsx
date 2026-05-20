@@ -4,6 +4,7 @@ import EditorialCanvas from './components/EditorialCanvas';
 import CyberCursor from './components/CyberCursor';
 import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
+import WorkExperience from './components/WorkExperience';
 import HoloModal from './components/HoloModal';
 import ContactForm from './components/ContactForm';
 import resumePdf from './assets/Subhranil_Baul.pdf';
@@ -17,7 +18,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'contact'];
+      const sections = ['home', 'about', 'work', 'contact'];
       let currentSection = 'home';
       
       for (const section of sections) {
@@ -211,6 +212,15 @@ export default function App() {
               </li>
               <li>
                 <a 
+                  href="#work" 
+                  className={`nav-link ${activeSection === 'work' ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, 'work')}
+                >
+                  work
+                </a>
+              </li>
+              <li>
+                <a 
                   href="#contact" 
                   className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'contact')}
@@ -248,6 +258,7 @@ export default function App() {
           
           <div className="scrollable-content-wrapper">
             <AboutMe />
+            <WorkExperience />
             
             <ContactForm />
 
