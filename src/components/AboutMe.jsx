@@ -240,7 +240,7 @@ export default function AboutMe() {
         /* Minimal Raw Portrait Photo Frame - No border, No shadow, No roundness */
         .propic-img-frame {
           width: 370px;
-          height: 480px;
+          height: auto;
           z-index: 2;
           overflow: hidden;
           border-radius: 0; /* Square-cut edges */
@@ -255,8 +255,8 @@ export default function AboutMe() {
 
         .propic-img {
           width: 100%;
-          height: 100%;
-          object-fit: cover;
+          height: auto;
+          display: block;
           filter: sepia(0.08) contrast(1.04);
         }
 
