@@ -157,13 +157,19 @@ export default function WorkExperience() {
     <section className="work-section" id="work">
       <style>{`
         .work-section {
-          padding: 8rem 0;
+          min-height: 100vh;
+          padding: 5rem 0 8rem 0;
           background: #12100e; /* Luxurious obsidian ink */
-          position: relative;
+          position: sticky;
+          top: 0;
+          z-index: 10;
           width: 100%;
           overflow: hidden;
           box-shadow: 0 -30px 100px rgba(18, 16, 14, 0.5); /* visually overlays about section beautifully */
-          z-index: 12;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          box-sizing: border-box;
         }
 
         /* Fullscreen volumetric loop background video */
@@ -174,22 +180,13 @@ export default function WorkExperience() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          opacity: 0.45;
+          opacity: 0.9;
           z-index: 1;
           pointer-events: none;
         }
 
         .work-video-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: radial-gradient(circle at 50% 50%, rgba(18, 16, 14, 0.02) 0%, rgba(18, 16, 14, 0.35) 100%);
-          backdrop-filter: blur(3px);
-          -webkit-backdrop-filter: blur(3px);
-          z-index: 2;
-          pointer-events: none;
+          display: none;
         }
 
         .work-container {
@@ -201,7 +198,7 @@ export default function WorkExperience() {
 
         .work-header {
           text-align: center;
-          margin-bottom: 5rem;
+          margin-bottom: 5.2rem;
           transition: opacity 0.5s ease;
         }
 
@@ -239,10 +236,15 @@ export default function WorkExperience() {
           align-items: flex-end;
           gap: 2.2rem;
           width: 100%;
-          height: 520px;
+          height: 280px;
           position: relative;
           overflow: visible;
           padding-bottom: 2rem;
+          transition: height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .folders-row.has-active {
+          height: 520px;
         }
 
         /* Individual Folder Card system */
@@ -781,6 +783,141 @@ export default function WorkExperience() {
             height: 540px;
           }
         }
+
+        /* Premium Obsidian Glassmorphic Publication Card styling */
+        .publication-card {
+          margin: 4.5rem auto 0 auto;
+          background: rgba(255, 255, 255, 0.025);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          border-radius: 16px;
+          padding: 1.8rem 2.2rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: min(820px, 100%);
+          box-sizing: border-box;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .publication-card.hidden {
+          opacity: 0;
+          transform: translateY(40px);
+          pointer-events: none;
+          height: 0;
+          padding-top: 0;
+          padding-bottom: 0;
+          margin-top: 0;
+          margin-bottom: 0;
+          border-color: transparent;
+          overflow: hidden;
+        }
+
+        .pub-card-left {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          flex: 1;
+        }
+
+        .pub-meta-content {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+          text-align: left;
+        }
+
+        .pub-card-heading {
+          font-family: var(--font-display);
+          font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+          font-weight: 900;
+          letter-spacing: -0.03em;
+          color: #97b836ff; /* Sage Olive Green */
+          text-transform: uppercase;
+          margin: 0 0 0.4rem 0;
+        }
+
+        .pub-paper-title {
+          font-family: var(--font-display);
+          font-size: 1.25rem;
+          font-weight: 800;
+          letter-spacing: -0.01em;
+          color: #faf6f0; /* Alabaster Cream */
+          margin: 0;
+          line-height: 1.35;
+        }
+
+        .pub-conference-name {
+          font-family: var(--font-mono);
+          font-size: 10px;
+          color: rgba(250, 246, 240, 0.5);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .pub-card-right {
+          margin-left: 2rem;
+        }
+
+        .pub-link-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.6rem;
+          background: #7c3aed; /* Scholar Royal Purple */
+          color: #ffffff;
+          padding: 0.8rem 1.6rem;
+          border-radius: 30px;
+          font-family: var(--font-mono);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-decoration: none;
+          box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pub-link-btn:hover {
+          background: #8b5cf6;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(124, 58, 237, 0.5);
+        }
+
+        .pub-link-btn:active {
+          transform: translateY(0);
+        }
+
+        /* Hover interaction for the card itself */
+        .publication-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.04);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive styling for the publication card */
+        @media (max-width: 768px) {
+          .publication-card {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: flex-start;
+            padding: 1.5rem;
+            margin-top: 3rem;
+          }
+
+          .pub-card-right {
+            margin-left: 0;
+            width: 100%;
+          }
+
+          .pub-link-btn {
+            width: 100%;
+            justify-content: center;
+          }
+        }
       `}</style>
 
       {/* Dynamic volumetric train loop video background */}
@@ -800,7 +937,7 @@ export default function WorkExperience() {
           {PROJECTS.map((project, index) => {
             const isActive = activeFolder === index;
             return (
-              <div 
+              <div
                 className={`folder-container ${isActive ? 'active' : ''}`}
                 key={index}
                 style={{ '--folder-color': project.color, '--folder-darker-color': project.darkerColor }}
@@ -821,7 +958,7 @@ export default function WorkExperience() {
                   {isActive ? (
                     <div className="active-file-content">
                       {/* Close Trigger */}
-                      <button 
+                      <button
                         className="close-file-btn"
                         onClick={(e) => {
                           e.stopPropagation();
@@ -847,12 +984,12 @@ export default function WorkExperience() {
                               <span className="expanded-tag" key={i}>{tag}</span>
                             ))}
                           </div>
-                          
+
                           <div className="project-links-row">
                             <a href={project.github} target="_blank" rel="noreferrer" className="project-link-btn github">
                               <span>Source Metrics</span>
                               <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                               </svg>
                             </a>
                             <a href={project.live} target="_blank" rel="noreferrer" className="project-link-btn live">
@@ -888,6 +1025,25 @@ export default function WorkExperience() {
               </div>
             );
           })}
+        </div>
+
+        {/* Dedicated Peer-Reviewed Glassmorphic Publication Card */}
+        <div className={`publication-card ${activeFolder !== null ? 'hidden' : ''}`}>
+          <div className="pub-card-left">
+            <div className="pub-meta-content">
+              <h5 className="pub-card-heading">Publication.</h5>
+              <h4 className="pub-paper-title">Decentralized Trust Architecture for Smart Infrastructure Telemetry</h4>
+              <span className="pub-conference-name">IEEE International Conference on Smart Cities & IoT (ICSC 2026)</span>
+            </div>
+          </div>
+          <div className="pub-card-right">
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="pub-link-btn">
+              <span>READ PAPER</span>
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2.5" fill="none">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* Ambient Guide instructions HUD removed */}

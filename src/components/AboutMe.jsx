@@ -296,6 +296,22 @@ function getTechIcon(techName) {
 export default function AboutMe() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [animate, setAnimate] = useState(true);
+  const [sectionHeight, setSectionHeight] = useState(0);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setSectionHeight(entry.target.offsetHeight || entry.target.getBoundingClientRect().height);
+      }
+    });
+    
+    resizeObserver.observe(el);
+    return () => resizeObserver.disconnect();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -310,14 +326,20 @@ export default function AboutMe() {
   }, []);
 
   return (
-    <section className="about-section" id="about">
+    <section 
+      ref={sectionRef} 
+      className="about-section" 
+      id="about"
+      style={{
+        position: 'sticky',
+        top: sectionHeight ? `calc(100vh - ${sectionHeight}px)` : '0px',
+        zIndex: 5
+      }}
+    >
       <style>{`
         .about-section {
           padding: 8rem 0;
           background: var(--bg-primary); /* Alabaster Cream */
-          position: sticky;
-          top: 0;
-          z-index: 5;
           width: 100%;
           overflow: hidden;
         }

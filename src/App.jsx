@@ -6,7 +6,6 @@ import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
 import WorkExperience from './components/WorkExperience';
 import HoloModal from './components/HoloModal';
-import ContactForm from './components/ContactForm';
 import resumePdf from './assets/Subhranil_Baul.pdf';
 import './App.css';
 
@@ -18,7 +17,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'work', 'contact'];
+      const sections = ['home', 'about', 'work'];
       let currentSection = 'home';
       
       for (const section of sections) {
@@ -219,15 +218,6 @@ export default function App() {
                   work
                 </a>
               </li>
-              <li>
-                <a 
-                  href="#contact" 
-                  className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
-                  onClick={(e) => handleNavClick(e, 'contact')}
-                >
-                  Contact
-                </a>
-              </li>
             </ul>
 
             <a 
@@ -250,17 +240,11 @@ export default function App() {
               const el = document.getElementById('about');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            onScrollToContact={() => {
-              const el = document.getElementById('contact');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
           />
           
           <div className="scrollable-content-wrapper">
             <AboutMe />
             <WorkExperience />
-            
-            <ContactForm />
 
             {/* Elegant technical footer HUD */}
             <footer style={{
