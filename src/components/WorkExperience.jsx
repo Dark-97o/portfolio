@@ -1,7 +1,11 @@
 /* 🎌 Project Cream & Obsidian: Premium Work & Project Intelligence Showcase */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import trainbg from '../assets/trainbg.mp4';
 import pfimg from '../assets/pmimg.png';
+import tsimg from '../assets/tsimg.gif';
+import gwimg from '../assets/gwimg.png';
+import ahimg from '../assets/ahimg.png';
+import caimg from '../assets/caimg.png';
 
 const PROJECTS = [
   {
@@ -272,29 +276,39 @@ const FallingLeavesCanvas = () => {
 
 export default function WorkExperience() {
   const [activeFolder, setActiveFolder] = useState(null);
+  const [sectionHeight, setSectionHeight] = useState(0);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setSectionHeight(entry.target.offsetHeight || entry.target.getBoundingClientRect().height);
+      }
+    });
+    
+    resizeObserver.observe(el);
+    return () => resizeObserver.disconnect();
+  }, []);
 
   // High-fidelity active dynamic illustrations — matched to real projects
   const renderProjectVisual = (project, index) => {
     switch (index) {
-      case 0: // Smart Traffic Signal — city grid with pulsing intersections
+      case 0: // Smart Traffic Signal — City traffic RL GIF
         return (
-          <div className="visual-container sim-anim">
-            <svg viewBox="0 0 100 100" className="visual-svg">
-              {/* road grid */}
-              <line x1="10" y1="35" x2="90" y2="35" stroke="#a64b38" strokeWidth="5" />
-              <line x1="10" y1="65" x2="90" y2="65" stroke="#a64b38" strokeWidth="5" />
-              <line x1="35" y1="10" x2="35" y2="90" stroke="#a64b38" strokeWidth="5" />
-              <line x1="65" y1="10" x2="65" y2="90" stroke="#a64b38" strokeWidth="5" />
-              {/* traffic signal dots at each intersection */}
-              <circle cx="35" cy="35" r="6" fill="#97b836" className="pulse-dot" />
-              <circle cx="65" cy="65" r="6" fill="#97b836" className="pulse-dot" />
-              <circle cx="65" cy="35" r="6" fill="#fbbf24" className="pulse-dot" />
-              <circle cx="35" cy="65" r="6" fill="#a64b38" className="pulse-dot" />
-              {/* vehicle blips */}
-              <rect x="44" y="32" width="8" height="5" rx="2" fill="rgba(250,246,240,0.6)" />
-              <rect x="62" y="44" width="5" height="8" rx="2" fill="rgba(250,246,240,0.6)" />
-            </svg>
-            <div className="telemetry-log" style={{ color: '#a64b38' }}>RL_SIGNAL // WAIT_TIME: -28% // SUMO</div>
+          <div className="visual-container" style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', perspective: '1000px' }}>
+            <img 
+              src={tsimg} 
+              alt="Smart Traffic Signal Simulation" 
+              className="pactflow-floating-img"
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'contain'
+              }} 
+            />
           </div>
         );
       case 1: // PactFlow — Transparent Platform Image with custom 3D rotation anim
@@ -312,73 +326,49 @@ export default function WorkExperience() {
             />
           </div>
         );
-      case 2: // IoT Wheelchair — Bluetooth sensor fusion rings
+      case 2: // IoT Wheelchair — Bluetooth sensor fusion
         return (
-          <div className="visual-container circuit-anim">
-            <svg viewBox="0 0 100 100" className="visual-svg">
-              {/* sensor signal rings */}
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#8fa749" strokeWidth="0.8" strokeDasharray="3,5" opacity="0.4" />
-              <circle cx="50" cy="50" r="26" fill="none" stroke="#8fa749" strokeWidth="1" strokeDasharray="3,4" opacity="0.65" />
-              <circle cx="50" cy="50" r="14" fill="none" stroke="#8fa749" strokeWidth="1.5" />
-              {/* chair body */}
-              <circle cx="50" cy="50" r="6" fill="#8fa749" />
-              {/* Bluetooth symbol arms */}
-              <line x1="50" y1="30" x2="58" y2="38" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
-              <line x1="50" y1="30" x2="42" y2="38" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
-              <line x1="50" y1="70" x2="58" y2="62" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
-              <line x1="50" y1="70" x2="42" y2="62" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
-              <line x1="50" y1="30" x2="50" y2="70" stroke="rgba(250,246,240,0.7)" strokeWidth="2" />
-              {/* pulse dots at sensor endpoints */}
-              <circle cx="50" cy="12" r="3" fill="#8fa749" className="pulse-dot" />
-              <circle cx="88" cy="50" r="3" fill="#8fa749" className="pulse-dot" />
-              <circle cx="12" cy="50" r="3" fill="#8fa749" className="pulse-dot" />
-            </svg>
-            <div className="telemetry-log">GESTURE_ACC: 87.6% // BT_CTRL: ACTIVE</div>
+          <div className="visual-container" style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', perspective: '1000px' }}>
+            <img 
+              src={gwimg} 
+              alt="IoT Smart Wheelchair Project" 
+              className="pactflow-floating-img"
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'contain'
+              }} 
+            />
           </div>
         );
-      case 3: // AceHack — browser/code window mockup
+      case 3: // AceHack — Hackathon Website mockup
         return (
-          <div className="visual-container node-anim">
-            <div className="smart-card-mockup" style={{ background: 'linear-gradient(135deg, #2c2c2e 0%, #1a1a1c 100%)', width: '210px', height: '130px', boxShadow: '0 8px 25px rgba(0,0,0,0.5)' }}>
-              {/* browser chrome bar */}
-              <div style={{ display: 'flex', gap: '5px', marginBottom: '8px' }}>
-                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#ff5f57' }} />
-                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#fbbf24' }} />
-                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#97b836' }} />
-              </div>
-              {/* code lines */}
-              <div style={{ fontFamily: 'monospace', fontSize: '7px', color: '#97b836', lineHeight: 1.7 }}>
-                <div><span style={{ color: '#7c9ef5' }}>&lt;div</span> <span style={{ color: '#fbbf24' }}>class</span>=<span style={{ color: '#fb923c' }}>&quot;acehack&quot;</span><span style={{ color: '#7c9ef5' }}>&gt;</span></div>
-                <div style={{ paddingLeft: 10 }}><span style={{ color: '#97b836' }}>// 5000+ registrations</span></div>
-                <div><span style={{ color: '#7c9ef5' }}>&lt;/div&gt;</span></div>
-              </div>
-              <div style={{ marginTop: 'auto', fontFamily: 'monospace', fontSize: '6.5px', color: 'rgba(250,246,240,0.45)', letterSpacing: '0.5px' }}>ACEHACK 5.0 // LIVE</div>
-            </div>
-            <div className="telemetry-log" style={{ color: '#2c7a7a' }}>REGISTRATIONS: 5000+ // DEPLOYED</div>
+          <div className="visual-container" style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', perspective: '1000px' }}>
+            <img 
+              src={ahimg} 
+              alt="AceHack 5.0 Hackathon Website" 
+              className="pactflow-floating-img"
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'contain'
+              }} 
+            />
           </div>
         );
-      case 4: // Pradyog / ACM — globe community network
+      case 4: // Pradyog / ACM — Club Activities
         return (
-          <div className="visual-container node-anim">
-            <svg viewBox="0 0 100 100" className="visual-svg">
-              {/* globe outline */}
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#b58933" strokeWidth="1.5" />
-              {/* latitude lines */}
-              <ellipse cx="50" cy="50" rx="38" ry="15" fill="none" stroke="#b58933" strokeWidth="0.8" opacity="0.5" />
-              <line x1="12" y1="50" x2="88" y2="50" stroke="#b58933" strokeWidth="0.8" opacity="0.5" />
-              {/* meridian */}
-              <ellipse cx="50" cy="50" rx="18" ry="38" fill="none" stroke="#b58933" strokeWidth="0.8" opacity="0.5" />
-              {/* member dots */}
-              <circle cx="38" cy="38" r="4" fill="#97b836" className="pulse-dot" />
-              <circle cx="62" cy="42" r="4" fill="#97b836" className="pulse-dot" />
-              <circle cx="45" cy="62" r="4" fill="#97b836" className="pulse-dot" />
-              <circle cx="68" cy="60" r="3" fill="#b58933" className="pulse-dot" />
-              {/* connections */}
-              <line x1="38" y1="38" x2="62" y2="42" stroke="#97b836" strokeWidth="0.8" opacity="0.6" />
-              <line x1="62" y1="42" x2="45" y2="62" stroke="#97b836" strokeWidth="0.8" opacity="0.6" />
-              <line x1="45" y1="62" x2="68" y2="60" stroke="#b58933" strokeWidth="0.8" opacity="0.6" />
-            </svg>
-            <div className="telemetry-log" style={{ color: '#b58933' }}>MEMBERS: 300+ // 2 SITES LIVE</div>
+          <div className="visual-container" style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', perspective: '1000px' }}>
+            <img 
+              src={caimg} 
+              alt="Pradyog and ACM Student Club Websites" 
+              className="pactflow-floating-img"
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'contain'
+              }} 
+            />
           </div>
         );
       default:
@@ -387,15 +377,23 @@ export default function WorkExperience() {
   };
 
   return (
-    <section className="work-section" id="work" style={{ paddingTop: '11.5rem', paddingBottom: '6rem' }}>
+    <section 
+      ref={sectionRef}
+      className="work-section" 
+      id="work" 
+      style={{ 
+        position: 'sticky',
+        top: sectionHeight ? `calc(100vh - ${sectionHeight}px)` : '0px',
+        zIndex: 10,
+        paddingTop: '6rem', 
+        paddingBottom: '4rem'
+      }}
+    >
       <style>{`
         .work-section {
           min-height: 100vh;
           padding: 0;
           background: #12100e; /* Luxurious obsidian ink */
-          position: sticky;
-          top: 0;
-          z-index: 10;
           width: 100%;
           overflow: hidden;
           box-shadow: 0 -30px 100px rgba(18, 16, 14, 0.5); /* visually overlays about section beautifully */
@@ -432,7 +430,7 @@ export default function WorkExperience() {
 
         .work-header {
           text-align: center;
-          margin-bottom: 5.2rem;
+          margin-bottom: 2.2rem;
           transition: opacity 0.5s ease;
         }
 
@@ -473,7 +471,7 @@ export default function WorkExperience() {
           height: 280px;
           position: relative;
           overflow: visible;
-          padding-bottom: 2rem;
+          padding-bottom: 0.8rem;
           transition: height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -1025,7 +1023,7 @@ export default function WorkExperience() {
           font-size: 9px;
           color: rgba(250, 246, 240, 0.3);
           letter-spacing: 1.8px;
-          margin-top: 3.5rem;
+          margin-top: 1.5rem;
           text-transform: uppercase;
           transition: all 0.5s ease;
         }
@@ -1071,7 +1069,7 @@ export default function WorkExperience() {
 
         /* Premium Obsidian Glassmorphic Publication Card styling */
         .publication-card {
-          margin: 2.8rem auto 0 auto;
+          margin: 1.2rem auto 0 auto;
           background: rgba(255, 255, 255, 0.025);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
@@ -1211,7 +1209,7 @@ export default function WorkExperience() {
       </video>
       <div className="work-video-overlay" />
 
-      <div className="work-container" style={{ paddingTop: '3.5rem' }}>
+      <div className="work-container" style={{ paddingTop: '1rem' }}>
         <div className={`work-header ${activeFolder !== null ? 'hidden' : ''}`}>
           <h2 className="work-section-title">
             MY PROJECT <span className="accent">ARCHIVES.</span>
@@ -1256,7 +1254,7 @@ export default function WorkExperience() {
 
                       <div className="project-expanded-grid">
                         {/* Custom Dynamic Architecture Visual Panel */}
-                        <div className={`project-visual-pane ${index === 1 ? 'transparent-pane' : ''}`}>
+                        <div className="project-visual-pane transparent-pane">
                           {renderProjectVisual(project, index)}
                         </div>
 

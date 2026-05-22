@@ -5,6 +5,7 @@ import CyberCursor from './components/CyberCursor';
 import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
 import WorkExperience from './components/WorkExperience';
+import Experience from './components/Experience';
 import HoloModal from './components/HoloModal';
 import resumePdf from './assets/Subhranil_Baul.pdf';
 import './App.css';
@@ -17,7 +18,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'work'];
+      const sections = ['home', 'about', 'work', 'experience'];
       let currentSection = 'home';
       
       for (const section of sections) {
@@ -218,6 +219,15 @@ export default function App() {
                   work
                 </a>
               </li>
+              <li>
+                <a 
+                  href="#experience" 
+                  className={`nav-link ${activeSection === 'experience' ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, 'experience')}
+                >
+                  experience
+                </a>
+              </li>
             </ul>
 
             <a 
@@ -245,6 +255,7 @@ export default function App() {
           <div className="scrollable-content-wrapper">
             <AboutMe />
             <WorkExperience />
+            <Experience />
 
             {/* Elegant technical footer HUD */}
             <footer style={{
