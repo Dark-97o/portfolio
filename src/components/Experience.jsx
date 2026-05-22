@@ -534,9 +534,15 @@ export default function Experience() {
           animation: floatBubble-2 6.5s ease-in-out infinite 0.8s;
           top: 2rem;
         }
-        .metric-chat-bubble.bubble-2 {
+        .metric-chat-bubble.bubble-2.bubble-index-0 {
           animation: floatBubble-3 6s ease-in-out infinite 1.6s;
-          top: 1rem;
+          top: -0.4rem;
+          right: -6.5rem;
+        }
+        .metric-chat-bubble.bubble-2.bubble-index-1 {
+          animation: floatBubble-1 5.8s ease-in-out infinite 0.8s;
+          top: 4.8rem; /* Shifted downward to avoid clipping */
+          right: -7.2rem; /* Shifted slightly outward to look natural and organic */
         }
 
         @keyframes floatBubble-1 {
@@ -555,11 +561,17 @@ export default function Experience() {
         /* Responsive adaptations for mobile stack */
         @media (max-width: 1024px) {
           .metric-chat-bubble {
-            right: 1.2rem;
-            top: -1.6rem !important;
             transform: scale(0.9);
             transform-origin: top right;
             box-shadow: 0 8px 20px rgba(151, 184, 54, 0.1);
+          }
+          .metric-chat-bubble.bubble-index-0 {
+            right: 1.2rem;
+            top: -1.6rem !important;
+          }
+          .metric-chat-bubble.bubble-index-1 {
+            right: 10.5rem; /* Shifted horizontally on mobile header to avoid overlapping */
+            top: -1.6rem !important;
           }
           .metric-chat-bubble::after {
             left: auto;
@@ -611,17 +623,15 @@ export default function Experience() {
         <div className="notebook-cards-stack">
           {EXPERIENCES.map((exp, idx) => (
             <div className="journal-notebook-card" key={idx}>
-              {/* Floating Metric Chat Bubble */}
-              {exp.metrics && exp.metrics.length > 0 && (
-                <div className={`metric-chat-bubble bubble-${idx}`}>
-                  {exp.metrics.map((metric, mIdx) => (
-                    <div className="metric-stat-item" key={mIdx}>
-                      <span className="metric-bubble-value">{metric.value}</span>
-                      <span className="metric-bubble-label">{metric.label}</span>
-                    </div>
-                  ))}
+              {/* Floating Metric Chat Bubble(s) */}
+              {exp.metrics && exp.metrics.map((metric, mIdx) => (
+                <div className={`metric-chat-bubble bubble-${idx} bubble-index-${mIdx}`} key={mIdx}>
+                  <div className="metric-stat-item">
+                    <span className="metric-bubble-value">{metric.value}</span>
+                    <span className="metric-bubble-label">{metric.label}</span>
+                  </div>
                 </div>
-              )}
+              ))}
 
               {/* Binder rings and book spine overlays */}
               <div className="journal-spine-overlay" />
