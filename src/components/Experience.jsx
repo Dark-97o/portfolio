@@ -176,21 +176,21 @@ export default function Experience() {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    
+
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
         setSectionHeight(entry.target.offsetHeight || entry.target.getBoundingClientRect().height);
       }
     });
-    
+
     resizeObserver.observe(el);
     return () => resizeObserver.disconnect();
   }, []);
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="experience-section" 
+    <section
+      ref={sectionRef}
+      className="experience-section"
       id="experience"
       style={{
         position: 'sticky',
@@ -212,7 +212,7 @@ export default function Experience() {
           box-sizing: border-box;
         }
 
-        /* Scenic Lake Background with Blend Overlays (centered and smaller) */
+        /* Scenic Lake Background with Blend Overlays (bigger and fixed) */
         .experience-lake-bg {
           position: absolute;
           top: 0;
@@ -220,10 +220,11 @@ export default function Experience() {
           width: 100%;
           height: 100%;
           background-image: url(${lakeImg});
-          background-size: 380px auto;
+          background-size: min(1200px, 90vw) auto;
           background-repeat: no-repeat;
-          background-position: center 25%;
-          opacity: 0.11;
+          background-position: center 75%;
+          background-attachment: fixed;
+          opacity: 0.25;
           mix-blend-mode: multiply;
           filter: sepia(0.22) contrast(1.1) brightness(0.96);
           pointer-events: none;
