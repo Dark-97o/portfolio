@@ -1,7 +1,7 @@
 /* 🎌 Project Cream & Obsidian: Premium Editorial About Me Component */
 import React, { useState, useEffect, useRef } from 'react';
 import propicImg from '../assets/propic.png';
-import repeatGraphicsImg from '../assets/repeatgraphics.png';
+import branchImg from '../assets/branch.png';
 
 // High-Performance Dynamic Falling Leaf Background Canvas
 function FallingLeavesCanvas() {
@@ -134,14 +134,14 @@ function FallingLeavesCanvas() {
 const ROLES = ['developer', 'engineer', 'designer', 'researcher', 'strategist'];
 
 const TECH_STACK_1 = [
-  'Python', 'JavaScript', 'Java', 'C', 'C++', 'Rust', 'SQL', 'React', 'Vite', 
-  'HTML5', 'CSS3', 'Tailwind CSS', 'Web3', 'Node.js', 'Google Cloud Platform', 
+  'Python', 'JavaScript', 'Java', 'C', 'C++', 'Rust', 'SQL', 'React', 'Vite',
+  'HTML5', 'CSS3', 'Tailwind CSS', 'Web3', 'Node.js', 'Google Cloud Platform',
   'Firebase', 'Cloudflare', 'Git'
 ];
 
 const TECH_STACK_2 = [
-  'GitHub', 'REST APIs', 'Soroban/Stellar', 'Raspberry Pi', 'IoT Systems', 
-  'VS Code', 'Excel', 'PowerPoint', 'EmailJS', 'SUMO', 
+  'GitHub', 'REST APIs', 'Soroban/Stellar', 'Raspberry Pi', 'IoT Systems',
+  'VS Code', 'Excel', 'PowerPoint', 'EmailJS', 'SUMO',
   'Open Office', 'MySQL', 'Antigravity', 'Stitch', 'Spline'
 ];
 
@@ -173,15 +173,15 @@ function getTechIcon(techName) {
   const cdnUrl = TECH_ICONS[techName];
   if (cdnUrl) {
     return (
-      <img 
-        src={cdnUrl} 
-        alt={`${techName} icon`} 
-        style={{ 
-          width: '22px', 
-          height: '22px', 
+      <img
+        src={cdnUrl}
+        alt={`${techName} icon`}
+        style={{
+          width: '22px',
+          height: '22px',
           objectFit: 'contain',
           filter: techName === 'GitHub' ? 'brightness(0.1)' : 'none' /* high contrast for GitHub */
-        }} 
+        }}
       />
     );
   }
@@ -302,13 +302,13 @@ export default function AboutMe() {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    
+
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
         setSectionHeight(entry.target.offsetHeight || entry.target.getBoundingClientRect().height);
       }
     });
-    
+
     resizeObserver.observe(el);
     return () => resizeObserver.disconnect();
   }, []);
@@ -326,9 +326,9 @@ export default function AboutMe() {
   }, []);
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="about-section" 
+    <section
+      ref={sectionRef}
+      className="about-section"
       id="about"
       style={{
         position: 'sticky',
@@ -344,32 +344,17 @@ export default function AboutMe() {
           overflow: hidden;
         }
 
-        /* Pinned statically to absolute top edge with 60px height */
-        .repeat-graphics-banner {
-          width: 100%;
-          height: 60px;
-          overflow: hidden;
+        .about-branch-overlay {
           position: absolute;
           top: 0;
-          left: 0;
-          z-index: 5;
+          left: 150px;
+          top: 30px;
+          width: min(450px, 35vw);
+          height: auto;
           pointer-events: none;
-        }
-
-        .repeat-graphics-track {
-          width: 200%;
-          height: 100%;
-          background-repeat: repeat-x;
-          background-size: auto 100%;
-          /* Infinite horizontal scroll */
-          animation: repeatScroll 45s linear infinite;
-          /* Refined color-shifting filter cascade matching your exact signature olive-sage green tone */
-          filter: sepia(1) hue-rotate(33deg) saturate(1.8) brightness(0.87) contrast(1.25);
-        }
-
-        @keyframes repeatScroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          z-index: 3;
+          opacity: 0.95;
+          transform: translate(-10%, -10%) rotate(-5deg);
         }
 
         .container {
@@ -691,16 +676,11 @@ export default function AboutMe() {
         }
       `}</style>
 
+      {/* Botanical decorative branch pinned to the top-left corner */}
+      <img src={branchImg} alt="" className="about-branch-overlay" />
+
       {/* Dynamic falling organic olive leaves background canvas */}
       <FallingLeavesCanvas />
-
-      {/* Editorial repeating pattern separator banner attached statically to top of section */}
-      <div className="repeat-graphics-banner">
-        <div
-          className="repeat-graphics-track"
-          style={{ backgroundImage: `url(${repeatGraphicsImg})` }}
-        />
-      </div>
 
       <div className="container">
         <div className="about-grid">

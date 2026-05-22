@@ -135,6 +135,9 @@ const EXPERIENCES = [
     bullets: [
       "Developed and deployed production ML models using Python and Scikit-learn; applied feature engineering and hyperparameter tuning to achieve 15% accuracy improvement.",
       "Built end-to-end data pipelines for data ingestion, preprocessing, and transformation to support model training, evaluation, and deployment workflows."
+    ],
+    metrics: [
+      { value: "+15%", label: "ML Accuracy" }
     ]
   },
   {
@@ -150,6 +153,9 @@ const EXPERIENCES = [
     ),
     bullets: [
       "Built two client-facing Python projects – a fully functional calculator and a Rock-Paper-Scissors game – with error handling and unit tests to ensure production-level code quality, reducing execution time by ~12%."
+    ],
+    metrics: [
+      { value: "-12%", label: "Execution Time" }
     ]
   },
   {
@@ -164,7 +170,12 @@ const EXPERIENCES = [
       </svg>
     ),
     bullets: [
-      "Delivered branding and visual design assets for clients including logos, social media creatives, and promotional materials."
+      "Delivered branding and visual design assets for clients including logos, social media creatives, and promotional materials.",
+      "Increased sales by 26% in 3 days, and added 8 badges for tier-based kits yielding 15% revenue growth."
+    ],
+    metrics: [
+      { value: "+26%", label: "Sales (3 Days)" },
+      { value: "+15%", label: "Revenue Boost" }
     ]
   }
 ];
@@ -222,7 +233,7 @@ export default function Experience() {
           background-image: url(${lakeImg});
           background-size: min(1200px, 90vw) auto;
           background-repeat: no-repeat;
-          background-position: center 75%;
+          background-position: center 100%;
           background-attachment: fixed;
           opacity: 0.25;
           mix-blend-mode: multiply;
@@ -445,7 +456,132 @@ export default function Experience() {
           font-weight: 900;
         }
 
+        /* Premium Floating Glassmorphic Metric Chat Bubbles */
+        .metric-chat-bubble {
+          position: absolute;
+          right: -6.5rem; /* Float off the right side of the card */
+          background: rgba(255, 255, 255, 0.9);
+          backdrop-filter: blur(12px) saturate(140%);
+          -webkit-backdrop-filter: blur(12px) saturate(140%);
+          border: 1.5px solid rgba(151, 184, 54, 0.35);
+          border-radius: 14px;
+          padding: 0.7rem 1.1rem;
+          display: flex;
+          gap: 1.1rem;
+          align-items: center;
+          box-shadow: 
+            0 12px 30px rgba(151, 184, 54, 0.12),
+            0 4px 10px rgba(17, 17, 17, 0.04),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+          z-index: 20;
+          pointer-events: none; /* Keep text underneath selectable */
+          transform-origin: bottom left;
+        }
+
+        .metric-chat-bubble::after {
+          content: '';
+          position: absolute;
+          bottom: 15px;
+          left: -6px;
+          width: 10px;
+          height: 10px;
+          background: #ffffff;
+          border-left: 1.5px solid rgba(151, 184, 54, 0.35);
+          border-bottom: 1.5px solid rgba(151, 184, 54, 0.35);
+          transform: rotate(45deg);
+          box-shadow: -2px 2px 2px rgba(151, 184, 54, 0.03);
+          z-index: -1;
+        }
+
+        .metric-stat-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .metric-stat-item:not(:last-child) {
+          border-right: 1.2px dashed rgba(151, 184, 54, 0.25);
+          padding-right: 1.1rem;
+        }
+
+        .metric-bubble-value {
+          font-family: var(--font-display);
+          font-size: 1.2rem;
+          font-weight: 850;
+          color: #809c2d; /* Premium sage/olive tone */
+          line-height: 1.1;
+          margin-bottom: 0.15rem;
+          letter-spacing: -0.5px;
+        }
+
+        .metric-bubble-label {
+          font-family: var(--font-mono);
+          font-size: 8px;
+          font-weight: 700;
+          color: #12100e;
+          text-transform: uppercase;
+          letter-spacing: 0.8px;
+          white-space: nowrap;
+        }
+
+        /* Distinct organic floating keys and speeds */
+        .metric-chat-bubble.bubble-0 {
+          animation: floatBubble-1 5.5s ease-in-out infinite;
+          top: 1rem;
+        }
+        .metric-chat-bubble.bubble-1 {
+          animation: floatBubble-2 6.5s ease-in-out infinite 0.8s;
+          top: 2rem;
+        }
+        .metric-chat-bubble.bubble-2 {
+          animation: floatBubble-3 6s ease-in-out infinite 1.6s;
+          top: 1rem;
+        }
+
+        @keyframes floatBubble-1 {
+          0%, 100% { transform: translateY(0) rotate(0.5deg); }
+          50% { transform: translateY(-7px) rotate(-0.5deg); }
+        }
+        @keyframes floatBubble-2 {
+          0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+          50% { transform: translateY(-9px) rotate(0.5deg); }
+        }
+        @keyframes floatBubble-3 {
+          0%, 100% { transform: translateY(0) rotate(1deg); }
+          50% { transform: translateY(-8px) rotate(-1deg); }
+        }
+
         /* Responsive adaptations for mobile stack */
+        @media (max-width: 1024px) {
+          .metric-chat-bubble {
+            right: 1.2rem;
+            top: -1.6rem !important;
+            transform: scale(0.9);
+            transform-origin: top right;
+            box-shadow: 0 8px 20px rgba(151, 184, 54, 0.1);
+          }
+          .metric-chat-bubble::after {
+            left: auto;
+            right: 20px;
+            bottom: -6px;
+            top: auto;
+            border-left: none;
+            border-bottom: 1.5px solid rgba(151, 184, 54, 0.35);
+            border-right: 1.5px solid rgba(151, 184, 54, 0.35);
+            transform: rotate(45deg);
+          }
+          .metric-chat-bubble.bubble-0,
+          .metric-chat-bubble.bubble-1,
+          .metric-chat-bubble.bubble-2 {
+            animation: floatBubbleMobile 5s ease-in-out infinite !important;
+          }
+          @keyframes floatBubbleMobile {
+            0%, 100% { transform: translateY(0) scale(0.9); }
+            50% { transform: translateY(-4px) scale(0.9); }
+          }
+        }
+
         @media (max-width: 768px) {
           .journal-notebook-card {
             padding: 1.8rem 1.5rem 1.8rem 2.4rem;
@@ -475,6 +611,18 @@ export default function Experience() {
         <div className="notebook-cards-stack">
           {EXPERIENCES.map((exp, idx) => (
             <div className="journal-notebook-card" key={idx}>
+              {/* Floating Metric Chat Bubble */}
+              {exp.metrics && exp.metrics.length > 0 && (
+                <div className={`metric-chat-bubble bubble-${idx}`}>
+                  {exp.metrics.map((metric, mIdx) => (
+                    <div className="metric-stat-item" key={mIdx}>
+                      <span className="metric-bubble-value">{metric.value}</span>
+                      <span className="metric-bubble-label">{metric.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* Binder rings and book spine overlays */}
               <div className="journal-spine-overlay" />
               <div className="card-rings-container">
