@@ -8,6 +8,7 @@ import WorkExperience from './components/WorkExperience';
 import Leadership from './components/Leadership';
 import Experience from './components/Experience';
 import Certifications from './components/Certifications';
+import NotGrinding from './components/NotGrinding';
 import VinylPlayer from './components/VinylPlayer';
 import HoloModal from './components/HoloModal';
 import resumePdf from './assets/Subhranil_Baul.pdf';
