@@ -55,12 +55,12 @@ export default function App() {
     }
 
     const el = document.getElementById(targetId);
-    const wrapper = document.querySelector('.scrollable-content-wrapper');
-    if (el && wrapper) {
-      // Calculate the absolute static offset top coordinate in the document body
-      const absoluteTop = wrapper.offsetTop + el.offsetTop;
-
-      // Scroll the window smoothly to this static coordinate
+    if (el) {
+      // getBoundingClientRect().top gives viewport-relative position.
+      // Adding window.scrollY converts it to an absolute document position.
+      // This correctly handles sticky-positioned sections whose offsetTop
+      // does not reflect their actual scroll-to destination.
+      const absoluteTop = el.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
         top: absoluteTop,
         behavior: 'smooth'
