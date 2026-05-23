@@ -22,7 +22,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'work', 'experience', 'leadership', 'certifications'];
+      const sections = ['home', 'about', 'work', 'experience', 'leadership', 'certifications', 'notgrinding'];
       let currentSection = 'home';
 
       for (const section of sections) {
@@ -266,6 +266,15 @@ export default function App() {
                   certifications
                 </a>
               </li>
+              <li>
+                <a 
+                  href="#notgrinding" 
+                  className={`nav-link ${activeSection === 'notgrinding' ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, 'notgrinding')}
+                >
+                  off-duty
+                </a>
+              </li>
             </ul>
 
             <a
@@ -303,6 +312,7 @@ export default function App() {
             <Experience />
             <Leadership />
             <Certifications />
+            <NotGrinding />
 
             {/* Elegant technical footer HUD */}
             <footer className="editorial-footer">
@@ -312,7 +322,7 @@ export default function App() {
                   padding: 3rem 0;
                   background: #faf6f0; /* Solid Alabaster Cream to prevent background transparency text-clipping */
                   position: relative;
-                  z-index: 30; /* High z-index to stack over sticky Certifications (zIndex 25) */
+                  z-index: 35; /* High z-index to stack over NotGrinding (zIndex 28) and Certifications (zIndex 25) */
                   width: 100%;
                   box-sizing: border-box;
                 }
