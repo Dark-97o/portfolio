@@ -1,0 +1,93 @@
+SUBHRANIL BAUL 
+AI/ML Engineer | Full Stack Developer 
++91 7004708062 | subhranil97@icloud.com | Jaipur, Rajasthan | linkedin.com/in/subhranil-baul-b4802a287 | github.com/Dark-97o 
+PROFESSIONAL SUMMARY 
+Final-year AI/ML engineer at UEM Jaipur (GPA 8.6) with end-to-end experience spanning machine learning, computer vision, full-stack 
+development, and IoT systems working across Python, TensorFlow, OpenCV, React, and Node.js. Published at IEEE IEMECON 2025, 
+co-founded a tech club, and led the technical team for a 3000+ registration hackathon. Proven ability to take projects from prototype 
+to production across edge AI, decentralized applications (Soroban/Stellar), and production -level websites – eager to bring that same 
+execution to a high-impact engineering team. 
+SKILLS 
+Programming Languages: Python, JavaScript, Java, C, C++, Rust, SQL 
+Web Technologies: React, Vite, HTML5, CSS3, Tailwind CSS, Web3, Node.js 
+AI / Machine Learning: Deep Learning, Computer Vision, NLP, RL, TensorFlow, Keras, Scikit-learn, OpenCV, NumPy, Pandas, 
+Matplotlib 
+Cloud & DevOps: Google Cloud Platform, Firebase, Cloudflare, Git, GitHub, REST APIs, Soroban/Stellar 
+Hardware & IoT: Raspberry Pi, IoT Systems, Embedded Systems, MATLAB, Vivado, Bluetooth/Gesture Control 
+Tools & Software: VS Code, Excel, PowerPoint, EmailJS, SUMO (Traffic Simulation), Open Office, MySQL, SQL 
+Soft Skills: Team Leadership, Problem-Solving, Critical Thinking, Adaptability, Time Management, Public Speaking 
+EDUCATION 
+University of Engineering and Management, Jaipur                                                                                                  2023 – 2027 (Expected) 
+Bachelor of Technology — Computer Science & Engineering (AI/ML Specialization)                                                               GPA: 8.6 / 10.0 
+Coursework: Machine Learning, Artificial Intelligence, Deep Learning, Reinforcement Learning, Embedded Systems, Computer Vision 
+WORK EXPERIENCE 
+Data Analytics Intern – Data Associate L1                                                                                                       July 2025 – September 2025 
+Infotact Solutions                                                                                                                                                                                                Remote 
+• Developed and deployed production ML models using Python and Scikit-learn; applied feature engineering and hyperparameter 
+tuning to achieve 15% accuracy improvement. 
+• Built end -to-end data pipelines for data ingestion, preprocessing, and transformation to support model training, 
+evaluation, and deployment workflows. 
+Python Programmer Intern                                                                                                                                    June 2024 – July 2024 
+Codsoft                                                                                                                                                                                                                 Remote 
+• Built two client-facing Python projects a fully functional calculator and a Rock -Paper-Scissors game – with error handling 
+and unit tests to ensure production-level code quality, reducing execution time by ~12%. 
+Freelance Graphic Designer                                                                                                                                                 May 2024 – July 2024 
+Self-Employed 
+• Delivered branding and visual design assets for clients including logos, social media creatives, and promotional materials 
+PROJECTS 
+AI-Based Face Recognition Attendance System | Python, TensorFlow, OpenCV, Raspberry Pi 5, Firebase 
+• Developed an edge AI face recognition attendance prototype on Raspberry Pi 5 using TensorFlow and OpenCV, achieving 83% 
+detection accuracy across 20 students and 3 faculty with real-time dashboard analytics. 
+• Automated attendance tracking for a 23 -person cohort, eliminating manual processes and reducing administrative 
+workload. 
+PactFlow — Decentralized Freelance Escrow Protocol | Soroban (Rust), Stellar Network, React, Firebase, Web3 
+  GitHub Repo: https://github.com/Dark-97o/PactFlow | Demo: pact-flow-pi.vercel.app 
+• Architected and deployed 4 Soroban smart contracts (Escrow, Registry, NFT Marketplace, Reputation) on Stellar Testnet, enabling 
+trustless job matching with automated XLM escrow locking and 95% worker / 5% protocol fee splits. 
+• Built a full -stack dApp (React + Firebase) with multi -wallet authentication (Freighter, xBull, etc), on -chain reputation 
+scoring, NFT market with 10% royalty engine, and dispute resolution, onboarded 6 real users with live feedback iterations. 
+Smart Traffic Signal Optimization — Reinforcement Learning | Python, Reinforcement Learning, SUMO 
+• Designed and built a  RL-based adaptive traffic signal control system using Q -Learning and SUMO simulation, dynamical ly 
+optimized signal phase timings to reduce average intersection wait time by 28% and improve traffic throughput by 18.7% 
+IoT Smart Wheelchair with Gesture & Bluetooth Control | IoT, Raspberry Pi, Bluetooth, Embedded C 
+  Project Link: https://devfolio.co/projects/gesture-controlled-wheelchair-5468  
+• Engineered an IoT -based smart wheelchair with multi -modal control (gesture, touch, Bluetooth) and autonomous 
+pathfinding, achieving 87.6% gesture recognition accuracy via accelerometer and gyroscope sensor fusion — designed to 
+address mobility challenges for 1M+ physically disabled individuals in India per Census 2011 data.  
+Acehack Hackathon Website | Vanilla HTML, CSS, JS 
+  GitHub Repo: https://github.com/AceHack-Hackathon/AceHack-website  | Live : https://acehack.uem.edu.in/  
+• Designed and deployed the official Acehack 5.0 hackathon website supporting 5000+ participant registrations 
+Pradyog Student Club & ACM UEMJ Websites | React, Vite, Tailwind CSS, Cloudflare, Firebase 
+  Pradyog Live: https://pradyog.netlify.app/ | ACM UEMJ Live: https://acm-uemj.uem.edu.in/  
+• Built and maintained two club websites serving 300+ active club members 
+RESEARCH & PUBLICATIONS 
+IEMECON 2025 — 13th International Conference on Intelligent Embedded, MicroElectronics, Communication, and Optical 
+Networks | Paper: https://ieeexplore.ieee.org/document/11365706  
+TensorFlow, Computer Vision, and Edge AI-based Face Recognition Attendance Monitoring System Using Raspberry Pi 5 
+• Designed and implemented a Raspberry Pi 5–based edge AI attendance system using facial recognition with on-device 
+inference, real-time analytics, and dashboard visualization for automated student and faculty tracking 
+ACHIEVEMENTS 
+• 1st Position — Brand Resurrection Challenge | Tech Utopia 2K26, University of Engineering and Management, Jaipur 
+• 2nd Position — Project Expo 4.0 | Manipal University, Jaipur 
+• 3rd Position — InnoSpark Event | IEEE Consumer Technology Society, Chandigarh University 
+LEADERSHIP & EXTRACURRICULAR ACTIVITIES 
+Web-Dev Lead & Tech Lead | Organizer — Acehack 5.0 |  Acehack 4.0 Hackathon                                        January 2025 – Present 
+• Leading full technical and web infrastructure for UEM Jaipur's flagship hackathon with 3000+ Registrations. 
+• Managing and supervising a cross-functional team of 40+ members across web, design and tech. 
+Web Master — ACM UEMJ Student Branch                                                                                                                 October 2025 – Present 
+• Redesigned and maintain the official ACM UEMJ website serving 20+ branch members 
+Student Vice-Chairman — IEEE APS UEMJ Student Chapter                                                                                   October 2024 – Present 
+• Coordinating technical events, workshops, and industry sessions for the IEEE chapter 
+Co-Founder — PRADYOG Students Club                                                                                                                             May 2024 – Present 
+• Co-founded a student technology and innovation club; grew membership to 30+ students within the first year. 
+• Organised 10+ IoT based events over 2 years with 200+ students. 
+Core Team Member — Google Developers Group UEMJ                                                                                   September 2023 – Present 
+CERTIFICATIONS 
+• The Joy of Computing using Python — NPTEL (Elite) 
+• Data Science with Python — NPTEL (Elite) 
+• Introduction to Deep Learning & Neural Networks with Keras — Coursera 
+• Introduction to Data Science in Python — Coursera 
+• Databases and SQL for Data Science — Coursera 
+• Smart Manufacturing and Industry 4.0 — IITD-AIA Foundation 
+• Google Android Developer Virtual Internship – Eduskills AICTE — Cohort 09 
+• Google AI/ML Virtual Internship – Eduskills AICTE — Cohort 10 

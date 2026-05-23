@@ -7,6 +7,7 @@ import AboutMe from './components/AboutMe';
 import WorkExperience from './components/WorkExperience';
 import Leadership from './components/Leadership';
 import Experience from './components/Experience';
+import Certifications from './components/Certifications';
 import HoloModal from './components/HoloModal';
 import resumePdf from './assets/Subhranil_Baul.pdf';
 import './App.css';
@@ -19,7 +20,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'work', 'experience', 'leadership'];
+      const sections = ['home', 'about', 'work', 'experience', 'leadership', 'certifications'];
       let currentSection = 'home';
       
       for (const section of sections) {
@@ -42,9 +43,25 @@ export default function App() {
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
+    if (targetId === 'home') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+
     const el = document.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    const wrapper = document.querySelector('.scrollable-content-wrapper');
+    if (el && wrapper) {
+      // Calculate the absolute static offset top coordinate in the document body
+      const absoluteTop = wrapper.offsetTop + el.offsetTop;
+      
+      // Scroll the window smoothly to this static coordinate
+      window.scrollTo({
+        top: absoluteTop,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -238,6 +255,15 @@ export default function App() {
                   leadership
                 </a>
               </li>
+              <li>
+                <a 
+                  href="#certifications" 
+                  className={`nav-link ${activeSection === 'certifications' ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, 'certifications')}
+                >
+                  certifications
+                </a>
+              </li>
             </ul>
 
             <a 
@@ -258,7 +284,14 @@ export default function App() {
             onWindowUnlocked={() => setShowNavbar(true)}
             onScrollToProjects={() => {
               const el = document.getElementById('about');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
+              const wrapper = document.querySelector('.scrollable-content-wrapper');
+              if (el && wrapper) {
+                const absoluteTop = wrapper.offsetTop + el.offsetTop;
+                window.scrollTo({
+                  top: absoluteTop,
+                  behavior: 'smooth'
+                });
+              }
             }}
           />
           
@@ -267,6 +300,7 @@ export default function App() {
             <WorkExperience />
             <Experience />
             <Leadership />
+            <Certifications />
 
             {/* Elegant technical footer HUD */}
             <footer style={{

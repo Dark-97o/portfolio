@@ -1,6 +1,6 @@
 /* 🎌 High-End Editorial Cream & Obsidian Hero Component - Immersive Window Scroll Overlay */
 import React, { useState, useEffect, useRef } from 'react';
-import heroVid from '../assets/hero_vid.mov';
+import heroVid from '../assets/hero_vid.mp4';
 import avtImg from '../assets/avt.png';
 import trainImg from '../assets/train.png';
 import winOpenImg from '../assets/winopen.png';
@@ -671,7 +671,7 @@ export default function Hero({ onWindowUnlocked }) {
 
         {/* Main hero card */}
         <div className={`container hero-container hero-state-${windowState}`}>
-          <div className="hero-profile-card" id="about">
+          <div className="hero-profile-card" id="hero-card">
             {/* Let's Work Together Border Text overlay */}
             <div className="card-border-text-wrap">
               <svg className="card-border-text-svg" viewBox="0 0 800 240" preserveAspectRatio="none">
