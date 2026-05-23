@@ -447,6 +447,7 @@ export default function WorkExperience() {
           color: #faf6f0; /* Alabaster cream */
           margin-bottom: 0.5rem;
           text-transform: uppercase;
+          text-shadow: 0 4px 12px rgba(0, 0, 0, 0.85); /* High-contrast editorial shadow */
         }
 
         .work-section-title .accent {
@@ -456,9 +457,10 @@ export default function WorkExperience() {
         .work-subtitle {
           font-family: var(--font-mono);
           font-size: 10px;
-          color: rgba(250, 246, 240, 0.5);
+          color: rgba(250, 246, 240, 0.75);
           letter-spacing: 2px;
           text-transform: uppercase;
+          text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85); /* Consistent text shadow */
         }
 
         /* 3D Folders Row container styling */
@@ -1122,6 +1124,7 @@ export default function WorkExperience() {
           color: #faf6f0; /* Pure Alabaster White */
           text-transform: uppercase;
           margin: 0 0 0.15rem 0;
+          text-shadow: 0 4px 12px rgba(0, 0, 0, 0.85); /* Consistent heading shadow */
         }
 
         .pub-paper-title {
@@ -1132,14 +1135,16 @@ export default function WorkExperience() {
           color: #faf6f0; /* Alabaster Cream */
           margin: 0;
           line-height: 1.35;
+          text-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
         }
 
         .pub-conference-name {
           font-family: var(--font-mono);
           font-size: 11px;
-          color: rgba(250, 246, 240, 0.65);
+          color: rgba(250, 246, 240, 0.75);
           text-transform: uppercase;
           letter-spacing: 0.5px;
+          text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
         }
 
         .pub-card-right {

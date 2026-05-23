@@ -5,6 +5,7 @@ import CyberCursor from './components/CyberCursor';
 import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
 import WorkExperience from './components/WorkExperience';
+import Leadership from './components/Leadership';
 import Experience from './components/Experience';
 import HoloModal from './components/HoloModal';
 import resumePdf from './assets/Subhranil_Baul.pdf';
@@ -18,7 +19,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'work', 'experience'];
+      const sections = ['home', 'about', 'work', 'experience', 'leadership'];
       let currentSection = 'home';
       
       for (const section of sections) {
@@ -228,6 +229,15 @@ export default function App() {
                   experience
                 </a>
               </li>
+              <li>
+                <a 
+                  href="#leadership" 
+                  className={`nav-link ${activeSection === 'leadership' ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, 'leadership')}
+                >
+                  leadership
+                </a>
+              </li>
             </ul>
 
             <a 
@@ -256,6 +266,7 @@ export default function App() {
             <AboutMe />
             <WorkExperience />
             <Experience />
+            <Leadership />
 
             {/* Elegant technical footer HUD */}
             <footer style={{
