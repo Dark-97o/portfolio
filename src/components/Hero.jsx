@@ -1,6 +1,6 @@
 /* 🎌 High-End Editorial Cream & Obsidian Hero Component - Immersive Window Scroll Overlay */
 import React, { useState, useEffect, useRef } from 'react';
-import heroVid from '../assets/hero_vid.mp4';
+import heroVid from '../assets/hero_vid.mov';
 import avtImg from '../assets/avt.png';
 import trainImg from '../assets/train.png';
 import winOpenImg from '../assets/winopen.png';
@@ -591,7 +591,7 @@ export default function Hero({ onWindowUnlocked }) {
           align-items: center;
           pointer-events: none;
           z-index: 2;
-          animation: trainPass 10s linear infinite; /* Faster cruising speed */
+          animation: trainPass 18s linear infinite; /* Faster cruising speed */
         }
 
         .hero-train {
@@ -602,6 +602,51 @@ export default function Hero({ onWindowUnlocked }) {
           opacity: 0.95;
           position: relative;
           z-index: 2; /* Sits in front of the headlight and flare */
+        }
+
+        .hero-train-pill {
+          position: absolute;
+          top: 45px; /* Shifted lower into the train body */
+          left: 60px; /* Centered over passenger cabin */
+          background: rgba(255, 255, 255, 0.52); /* Higher contrast premium glass */
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+          border: 1px solid rgba(255, 255, 255, 0.45);
+          border-radius: 9999px;
+          padding: 0.45rem 1.05rem; /* Even larger premium padding */
+          color: #000000;
+          font-family: var(--font-mono), monospace;
+          font-size: 17.5px; /* Even bigger font-size */
+          font-weight: 900;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          white-space: nowrap;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+        }
+
+        .jaipur-highlight {
+          color: #c70000ff; /* Signature Olive Green */
+        }
+
+        /* Pulsing green location dot */
+        .hero-train-pill::before {
+          content: "";
+          display: inline-block;
+          width: 7.5px; /* Even larger pulsing dot */
+          height: 7.5px; /* Even larger pulsing dot */
+          background-color: #ff0000ff; /* Signature Sage Green dot! */
+          border-radius: 50%;
+          box-shadow: 0 0 6px #e44800ff, 0 0 10px #ff0000ff;
+          animation: pillDotPulse 1.6s ease-in-out infinite;
+        }
+
+        @keyframes pillDotPulse {
+          0%, 100% { opacity: 0.4; transform: scale(0.95); }
+          50% { opacity: 1; transform: scale(1.25); }
         }
 
         /* Ambient glowing headlight cone projecting forward */
@@ -666,6 +711,12 @@ export default function Hero({ onWindowUnlocked }) {
             height: 6px;
             border-top-width: 1.5px;
           }
+          .hero-train-pill {
+            top: 26px; /* Shifted lower inside mobile train body */
+            left: 32px;
+            font-size: 9px; /* Even bigger font size */
+            padding: 0.25rem 0.7rem; /* Even more padding */
+          }
         }
       `}</style>
 
@@ -716,6 +767,7 @@ export default function Hero({ onWindowUnlocked }) {
         <div className={`hero-train-wrapper hero-state-${windowState}`}>
           <div className="hero-train-light" />
           <div className="hero-train-flare" />
+          <div className="hero-train-pill">Based in <span className="jaipur-highlight">JAipur</span></div>
           <img src={trainImg} alt="Ambient passing train" className="hero-train" />
         </div>
       </section>

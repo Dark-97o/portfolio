@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import cropsImg from '../assets/crops.png';
 
-// High-Performance Ambient Golden Pollen / Spores Canvas
-function GoldenPollenCanvas() {
+// High-Performance Dynamic Falling Leaf Background Canvas for Certifications
+function FallingLeavesCanvas() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -22,58 +22,75 @@ function GoldenPollenCanvas() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    const pollenCount = 40;
-    const pollens = [];
-
-    // Signature golden-yellow, bronze, light-olive, and cream colors
-    const pollenColors = [
-      'rgba(230, 160, 90, ',   // Golden copper
-      'rgba(240, 210, 140, ',  // Warm pollen gold
-      'rgba(151, 184, 54, ',   // Soft sage olive
-      'rgba(255, 255, 255, '   // Crisp cream white
+    const leafCount = 35;
+    const leaves = [];
+    const olivePalette = [
+      'rgba(151, 184, 54, ',  // Portfolio signature Olive Green
+      'rgba(128, 156, 45, ',  // Deep Sage Olive complementary
+      'rgba(96, 108, 56, '    // Moss Olive Green
     ];
 
-    for (let i = 0; i < pollenCount; i++) {
-      pollens.push({
+    for (let i = 0; i < leafCount; i++) {
+      leaves.push({
         x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height + canvas.height * 0.2, // Distribute through screen height
-        size: Math.random() * 2.5 + 1.2,
-        speedY: Math.random() * 0.4 + 0.15,
-        swaySpeed: Math.random() * 0.01 + 0.003,
+        y: Math.random() * canvas.height * 1.5 - canvas.height * 0.5,
+        size: Math.random() * 12 + 10,
+        speedY: Math.random() * 0.7 + 0.4,
+        swaySpeed: Math.random() * 0.02 + 0.008,
         swayAngle: Math.random() * Math.PI * 2,
-        swayRadius: Math.random() * 15 + 5,
-        colorRGB: pollenColors[Math.floor(Math.random() * pollenColors.length)],
-        opacity: Math.random() * 0.35 + 0.1
+        swayRadius: Math.random() * 22 + 8,
+        angle: Math.random() * Math.PI * 2,
+        spinSpeed: Math.random() * 0.012 - 0.006,
+        color: olivePalette[Math.floor(Math.random() * olivePalette.length)],
+        opacity: Math.random() * 0.35 + 0.15
       });
     }
 
-    const drawPollen = (ctx, x, y, size, colorRGB, opacity) => {
+    const drawLeaf = (ctx, x, y, size, angle, color, opacity) => {
       ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+
       ctx.beginPath();
-      ctx.arc(x, y, size, 0, Math.PI * 2);
-      ctx.fillStyle = colorRGB + opacity + ')';
-      ctx.shadowBlur = size * 2.5;
-      ctx.shadowColor = colorRGB + '0.5)';
+      ctx.moveTo(0, -size);
+      ctx.quadraticCurveTo(size * 0.6, -size * 0.1, 0, size);
+      ctx.quadraticCurveTo(-size * 0.6, -size * 0.1, 0, -size);
+      ctx.fillStyle = color + opacity + ')';
       ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(0, -size);
+      ctx.lineTo(0, size);
+      ctx.strokeStyle = 'rgba(40, 50, 20, ' + (opacity * 0.4) + ')';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
       ctx.restore();
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < pollenCount; i++) {
-        const p = pollens[i];
-        p.y -= p.speedY;
-        p.swayAngle += p.swaySpeed;
-        const currentX = p.x + Math.sin(p.swayAngle) * p.swayRadius;
+      for (let i = 0; i < leafCount; i++) {
+        const leaf = leaves[i];
+        leaf.y += leaf.speedY;
+        leaf.swayAngle += leaf.swaySpeed;
+        const currentX = leaf.x + Math.sin(leaf.swayAngle) * leaf.swayRadius;
+        leaf.angle += leaf.spinSpeed;
 
-        if (p.y < -20) {
-          p.y = canvas.height + 20;
-          p.x = Math.random() * canvas.width;
-          p.opacity = Math.random() * 0.35 + 0.1;
+        if (leaf.y > canvas.height + 40) {
+          leaf.y = -40;
+          leaf.x = Math.random() * canvas.width;
+          leaf.speedY = Math.random() * 0.7 + 0.4;
         }
 
-        drawPollen(ctx, currentX, p.y, p.size, p.colorRGB, p.opacity);
+        if (currentX < -40) {
+          leaf.x = canvas.width + 20;
+        } else if (currentX > canvas.width + 40) {
+          leaf.x = -20;
+        }
+
+        drawLeaf(ctx, currentX, leaf.y, leaf.size, leaf.angle, leaf.color, leaf.opacity);
       }
 
       animationFrameId = requestAnimationFrame(animate);
@@ -109,7 +126,7 @@ const CERTIFICATIONS_DATA = [
     provider: "NPTEL (Elite Certificates)",
     period: "Verified Competency",
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" stroke="#e6a05a" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" width="22" height="22" stroke="#97b836" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2L2 7l10 5 10-5-10-5z" />
         <path d="M2 17l10 5 10-5" />
         <path d="M2 12l10 5 10-5" />
@@ -118,11 +135,13 @@ const CERTIFICATIONS_DATA = [
     items: [
       {
         title: "The Joy of Computing using Python",
-        detail: "Awarded Elite classification status under statistical evaluation by IIT Madras. Verified in core scripting logic, operational analysis, and design principles."
+        detail: "Awarded Elite classification status under statistical evaluation by IIT Madras. Verified in core scripting logic, operational analysis, and design principles.",
+        isElite: true
       },
       {
         title: "Data Science with Python",
-        detail: "Awarded Elite classification status under statistical evaluation by IIT Madras. Verified in exploratory data analysis, mathematical modelling, and numerical operations."
+        detail: "Awarded Elite classification status under statistical evaluation by IIT Madras. Verified in exploratory data analysis, mathematical modelling, and numerical operations.",
+        isElite: true
       }
     ],
     metrics: [
@@ -135,7 +154,7 @@ const CERTIFICATIONS_DATA = [
     provider: "Coursera / IBM / University of Michigan",
     period: "Industry Accredited",
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" stroke="#e6a05a" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" width="22" height="22" stroke="#97b836" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
         <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
         <line x1="6" y1="6" x2="6.01" y2="6" />
@@ -166,7 +185,7 @@ const CERTIFICATIONS_DATA = [
     provider: "IITD-AIA Foundation & AICTE Eduskills",
     period: "Practical Applied Research",
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" stroke="#e6a05a" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" width="22" height="22" stroke="#97b836" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
         <path d="M2 12h20" />
@@ -237,7 +256,7 @@ export default function Certifications() {
           position: relative;
         }
 
-        /* Scenic Crops Background with Sepia editorial styling (fixed and larger) */
+        /* Scenic Crops Background scaled bottom-aligned to match the Lake background exactly */
         .cert-crops-bg {
           position: absolute;
           top: 0;
@@ -245,13 +264,13 @@ export default function Certifications() {
           width: 100%;
           height: 100%;
           background-image: url('${cropsImg}');
-          background-size: cover;
+          background-size: min(1100px, 90vw) auto; /* Elegant smaller dimension */
           background-repeat: no-repeat;
-          background-position: center center;
+          background-position: center 60%; /* Bottom aligned */
           background-attachment: fixed;
-          opacity: 0.35; /* Crisp visibility with rich blend */
+          opacity: 0.25; /* Blended low opacity for visual harmony */
           mix-blend-mode: multiply;
-          filter: sepia(0.35) contrast(1.15) brightness(0.92) saturate(110%);
+          filter: sepia(0.22) contrast(1.1) brightness(0.96);
           pointer-events: none;
           z-index: 1;
         }
@@ -262,11 +281,11 @@ export default function Certifications() {
           left: 0;
           width: 100%;
           height: 100%;
-          background: radial-gradient(rgba(17, 17, 17, 0.015) 1px, transparent 1px);
+          background: radial-gradient(rgba(17, 17, 17, 0.01) 1px, transparent 1px);
           background-size: 16px 16px;
           pointer-events: none;
           z-index: 2;
-          opacity: 0.85;
+          opacity: 0.8;
         }
 
         .cert-content {
@@ -293,21 +312,12 @@ export default function Certifications() {
           text-transform: uppercase;
           line-height: 1;
           margin-bottom: 0.4rem;
-          text-shadow: 0 1.5px 3px rgba(255, 255, 255, 0.95), 0 0 10px rgba(230, 160, 90, 0.25);
+          text-shadow: 0 1.5px 3px rgba(255, 255, 255, 0.95), 0 0 10px rgba(151, 184, 54, 0.15);
         }
 
         .cert-title .accent {
-          color: #e6a05aff; /* Signature Warm Copper Gold */
+          color: #97b836ff; /* Signature Sage/Olive Green */
           text-shadow: 0 1.5px 3px rgba(255, 255, 255, 0.95);
-        }
-
-        .cert-subtitle {
-          font-family: var(--font-mono);
-          font-size: 10px;
-          color: var(--text-secondary);
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
         /* 3D Glassmorphic stack */
@@ -319,19 +329,19 @@ export default function Certifications() {
           position: relative;
         }
 
-        /* Glassmorphic ledger page styling */
+        /* Glassmorphic ledger page styling matching signature Olive theme */
         .cert-glass-card {
           width: 100%;
-          background: rgba(255, 255, 255, 0.16); /* Warm glass tone */
+          background: rgba(255, 255, 255, 0.16);
           backdrop-filter: blur(24px) saturate(145%);
           -webkit-backdrop-filter: blur(24px) saturate(145%);
           border-radius: 8px 16px 16px 8px;
           box-shadow: 
             0 20px 50px rgba(18, 16, 14, 0.15),
-            0 6px 18px rgba(230, 160, 90, 0.08),
+            0 6px 18px rgba(151, 184, 54, 0.08),
             inset 0 1px 1px rgba(255, 255, 255, 0.4),
             inset -3px 0 12px rgba(255, 255, 255, 0.15);
-          border: 1px solid rgba(255, 255, 255, 0.28); /* Glass fine boundary */
+          border: 1px solid rgba(151, 184, 54, 0.22); /* Signature Olive Green glass border */
           position: relative;
           padding: 2.2rem 2.5rem 2.2rem 4.5rem; /* Spacious bounds for rings */
           display: flex;
@@ -339,8 +349,8 @@ export default function Certifications() {
           z-index: 5;
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
           background-image: 
-            linear-gradient(rgba(230, 160, 90, 0.085) 1px, transparent 1px), /* Ruled lines in warm gold gradient */
-            linear-gradient(90deg, rgba(230, 160, 90, 0.25) 1px, transparent 1px); /* Gold margin vertical line */
+            linear-gradient(rgba(151, 184, 54, 0.065) 1px, transparent 1px), /* Ruled lines in signature olive-green */
+            linear-gradient(90deg, rgba(151, 184, 54, 0.25) 1px, transparent 1px); /* Olive margin vertical divider */
           background-size: 100% 32px, 100% 100%;
           background-position: 0 28px, 3.4rem 0; /* Align beautifully with padding and spacer */
           background-repeat: repeat, no-repeat;
@@ -351,9 +361,9 @@ export default function Certifications() {
           background: rgba(255, 255, 255, 0.20);
           box-shadow: 
             0 28px 60px rgba(18, 16, 14, 0.22),
-            0 10px 25px rgba(230, 160, 90, 0.15),
+            0 10px 25px rgba(151, 184, 54, 0.15),
             inset 0 1px 1px rgba(255, 255, 255, 0.5);
-          border-color: rgba(255, 255, 255, 0.38);
+          border-color: rgba(151, 184, 54, 0.35);
         }
 
         /* Book spine / binder rings */
@@ -363,9 +373,9 @@ export default function Certifications() {
           top: 0;
           bottom: 0;
           width: 0.45rem;
-          background: linear-gradient(90deg, rgba(230, 160, 90, 0.15) 0%, rgba(230, 160, 90, 0.02) 100%);
+          background: linear-gradient(90deg, rgba(151, 184, 54, 0.12) 0%, rgba(151, 184, 54, 0.02) 100%);
           z-index: 6;
-          border-right: 1px solid rgba(230, 160, 90, 0.08);
+          border-right: 1px solid rgba(151, 184, 54, 0.1);
         }
 
         /* binder rings elements */
@@ -383,16 +393,16 @@ export default function Certifications() {
           pointer-events: none;
         }
 
-        /* Copper spiral notebook rings */
+        /* Shrunk metal spiral rings matching Experience.jsx rings */
         .cert-ring {
           width: 25px;
           height: 8px;
-          border: 1.8px solid #a3723f; /* Dark copper outline */
+          border: 1.8px solid #809c2d; /* Sage metal outline */
           border-radius: 8px;
-          background: linear-gradient(180deg, #faf6f0 0%, #d48f43 40%, #e6a05a 100%); /* Copper metallic gradient */
+          background: linear-gradient(180deg, #faf6f0 0%, #b89047 40%, #97b836 100%); /* Olive metal gradient */
           box-shadow: 
-            0 3px 6px rgba(163, 114, 63, 0.25), 
-            inset 0 1px 1px rgba(255, 255, 255, 0.5);
+            0 3px 6px rgba(151, 184, 54, 0.15), 
+            inset 0 1px 1px rgba(255, 255, 255, 0.4);
           transform: rotate(-2.5deg);
         }
 
@@ -433,7 +443,7 @@ export default function Certifications() {
           font-family: var(--font-display);
           font-size: 1.05rem;
           font-weight: 800;
-          color: #e6a05aff; /* Warm Gold accent */
+          color: #97b836; /* Signature Olive Green */
           letter-spacing: -0.2px;
           text-shadow: 0 0.5px 1px rgba(255, 255, 255, 0.6);
         }
@@ -476,14 +486,36 @@ export default function Certifications() {
           margin-bottom: 0.15rem;
           display: flex;
           align-items: center;
+          flex-wrap: wrap;
           gap: 0.4rem;
         }
 
         .cert-item-title::before {
           content: "✦";
-          color: #e6a05aff;
+          color: #97b836; /* Signature Olive */
           font-weight: 900;
           font-size: 10px;
+        }
+
+        /* Polished Gold Elite Medal Badge styles */
+        .cert-elite-medal-badge {
+          display: inline-flex;
+          align-items: center;
+          background: linear-gradient(135deg, #fcebb6 0%, #f7d070 100%);
+          border: 1px solid #d4af37;
+          border-radius: 4px;
+          padding: 0.05rem 0.35rem;
+          box-shadow: 0 2px 4px rgba(212, 175, 55, 0.15);
+          margin-left: 0.5rem;
+        }
+
+        .cert-elite-medal-text {
+          font-family: var(--font-mono);
+          font-size: 8.5px;
+          font-weight: 900;
+          color: #855800; /* Deep gold ink */
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
         }
 
         .cert-item-detail {
@@ -495,21 +527,21 @@ export default function Certifications() {
           margin-bottom: 0.5rem;
         }
 
-        /* Premium Floating Glassmorphic Metric Bubbles - Warm Gold Theme */
+        /* Premium Floating Glassmorphic Metric Bubbles - Olive/Sage Green Theme */
         .cert-metric-bubble {
           position: absolute;
           right: -6.5rem; /* Float off the right side */
-          background: rgba(255, 255, 255, 0.85);
+          background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(12px) saturate(140%);
           -webkit-backdrop-filter: blur(12px) saturate(140%);
-          border: 1.5px solid rgba(230, 160, 90, 0.4);
+          border: 1.5px solid rgba(151, 184, 54, 0.35);
           border-radius: 14px;
           padding: 0.7rem 1.1rem;
           display: flex;
           gap: 1.1rem;
           align-items: center;
           box-shadow: 
-            0 12px 30px rgba(230, 160, 90, 0.1),
+            0 12px 30px rgba(151, 184, 54, 0.12),
             0 4px 10px rgba(18, 16, 14, 0.04),
             inset 0 1px 0 rgba(255, 255, 255, 0.6);
           z-index: 20;
@@ -525,10 +557,10 @@ export default function Certifications() {
           width: 10px;
           height: 10px;
           background: #ffffff;
-          border-left: 1.5px solid rgba(230, 160, 90, 0.4);
-          border-bottom: 1.5px solid rgba(230, 160, 90, 0.4);
+          border-left: 1.5px solid rgba(151, 184, 54, 0.35);
+          border-bottom: 1.5px solid rgba(151, 184, 54, 0.35);
           transform: rotate(45deg);
-          box-shadow: -2px 2px 2px rgba(230, 160, 90, 0.03);
+          box-shadow: -2px 2px 2px rgba(151, 184, 54, 0.03);
           z-index: -1;
         }
 
@@ -540,7 +572,7 @@ export default function Certifications() {
         }
 
         .cert-metric-item:not(:last-child) {
-          border-right: 1.2px dashed rgba(230, 160, 90, 0.25);
+          border-right: 1.2px dashed rgba(151, 184, 54, 0.25);
           padding-right: 1.1rem;
         }
 
@@ -548,7 +580,7 @@ export default function Certifications() {
           font-family: var(--font-display);
           font-size: 1.2rem;
           font-weight: 850;
-          color: #b87a3d; /* Copper deep gold */
+          color: #809c2d; /* Premium complementary Sage/Olive */
           line-height: 1.1;
           margin-bottom: 0.15rem;
           letter-spacing: -0.5px;
@@ -617,8 +649,8 @@ export default function Certifications() {
             bottom: -6px;
             top: auto;
             border-left: none;
-            border-bottom: 1.5px solid rgba(230, 160, 90, 0.4);
-            border-right: 1.5px solid rgba(230, 160, 90, 0.4);
+            border-bottom: 1.5px solid rgba(151, 184, 54, 0.35);
+            border-right: 1.5px solid rgba(151, 184, 54, 0.35);
             transform: rotate(45deg);
           }
           .cert-metric-bubble.cert-bubble-0,
@@ -644,10 +676,10 @@ export default function Certifications() {
         }
       `}</style>
 
-      {/* Ambient Rising Golden Pollen Canvas */}
-      <GoldenPollenCanvas />
+      {/* Dynamic falling organic olive leaves background canvas */}
+      <FallingLeavesCanvas />
 
-      {/* Editorial Crops Backdrop with fixed layers */}
+      {/* Editorial Crops Backdrop (scaled bottom center alignment) */}
       <div className="cert-crops-bg" />
       <div className="cert-grain-overlay" />
 
@@ -656,7 +688,6 @@ export default function Certifications() {
           <h2 className="cert-title" id="certifications-heading">
             CERTIFIED <span className="accent">CREDENTIALS.</span>
           </h2>
-          <span className="cert-subtitle">Verified Accomplishments Catalog</span>
         </div>
 
         <div className="cert-cards-stack">
@@ -695,7 +726,17 @@ export default function Certifications() {
               <ul className="cert-credentials-list">
                 {cert.items.map((item, itemIdx) => (
                   <li key={itemIdx} className="cert-item">
-                    <div className="cert-item-title">{item.title}</div>
+                    <div className="cert-item-title">
+                      {item.title}
+                      {item.isElite && (
+                        <span className="cert-elite-medal-badge">
+                          <svg viewBox="0 0 24 24" width="10" height="10" fill="#855800" style={{ marginRight: '2px', display: 'inline-block', verticalAlign: 'middle' }}>
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                          <span className="cert-elite-medal-text">Elite</span>
+                        </span>
+                      )}
+                    </div>
                     <div className="cert-item-detail">{item.detail}</div>
                   </li>
                 ))}

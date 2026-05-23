@@ -8,6 +8,7 @@ import WorkExperience from './components/WorkExperience';
 import Leadership from './components/Leadership';
 import Experience from './components/Experience';
 import Certifications from './components/Certifications';
+import VinylPlayer from './components/VinylPlayer';
 import HoloModal from './components/HoloModal';
 import resumePdf from './assets/Subhranil_Baul.pdf';
 import './App.css';
@@ -22,7 +23,7 @@ export default function App() {
     const handleScroll = () => {
       const sections = ['home', 'about', 'work', 'experience', 'leadership', 'certifications'];
       let currentSection = 'home';
-      
+
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -56,7 +57,7 @@ export default function App() {
     if (el && wrapper) {
       // Calculate the absolute static offset top coordinate in the document body
       const absoluteTop = wrapper.offsetTop + el.offsetTop;
-      
+
       // Scroll the window smoothly to this static coordinate
       window.scrollTo({
         top: absoluteTop,
@@ -211,8 +212,8 @@ export default function App() {
           <div className="nav-inner">
             <ul className="nav-links">
               <li>
-                <a 
-                  href="#home" 
+                <a
+                  href="#home"
                   className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'home')}
                 >
@@ -220,8 +221,8 @@ export default function App() {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#about" 
+                <a
+                  href="#about"
                   className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'about')}
                 >
@@ -229,8 +230,8 @@ export default function App() {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#work" 
+                <a
+                  href="#work"
                   className={`nav-link ${activeSection === 'work' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'work')}
                 >
@@ -238,8 +239,8 @@ export default function App() {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#experience" 
+                <a
+                  href="#experience"
                   className={`nav-link ${activeSection === 'experience' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'experience')}
                 >
@@ -247,8 +248,8 @@ export default function App() {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#leadership" 
+                <a
+                  href="#leadership"
                   className={`nav-link ${activeSection === 'leadership' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'leadership')}
                 >
@@ -256,8 +257,8 @@ export default function App() {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#certifications" 
+                <a
+                  href="#certifications"
                   className={`nav-link ${activeSection === 'certifications' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'certifications')}
                 >
@@ -266,9 +267,9 @@ export default function App() {
               </li>
             </ul>
 
-            <a 
-              href={resumePdf} 
-              download="Subhranil_Baul_Resume.pdf" 
+            <a
+              href={resumePdf}
+              download="Subhranil_Baul_Resume.pdf"
               className="resume-btn"
             >
               Resume
@@ -280,7 +281,7 @@ export default function App() {
       {/* Main Core Website content */}
       {booted && (
         <main style={{ position: 'relative', zIndex: 2 }}>
-          <Hero 
+          <Hero
             onWindowUnlocked={() => setShowNavbar(true)}
             onScrollToProjects={() => {
               const el = document.getElementById('about');
@@ -294,7 +295,7 @@ export default function App() {
               }
             }}
           />
-          
+
           <div className="scrollable-content-wrapper">
             <AboutMe />
             <WorkExperience />
@@ -303,20 +304,63 @@ export default function App() {
             <Certifications />
 
             {/* Elegant technical footer HUD */}
-            <footer style={{
-              borderTop: 'var(--border-editorial)',
-              padding: '2.5rem 0',
-              textAlign: 'center',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '10px',
-              color: 'var(--text-secondary)',
-              letterSpacing: '1px',
-              background: 'rgba(250, 246, 240, 0.95)'
-            }}>
-              <div className="container">
-                <div>PROJECT_ARCHITECT // COMPILATION SUCCESS // ALL INTERFACES GREEN</div>
-                <div style={{ marginTop: '0.5rem', color: 'var(--secondary-color)' }}>
-                  LATENCY // ACTIVE CONNECTIVITY: VERIFIED // DESIGN_VER: R3.5
+            <footer className="editorial-footer">
+              <style>{`
+                .editorial-footer {
+                  border-top: var(--border-editorial);
+                  padding: 3rem 0;
+                  background: #faf6f0; /* Solid Alabaster Cream to prevent background transparency text-clipping */
+                  position: relative;
+                  z-index: 30; /* High z-index to stack over sticky Certifications (zIndex 25) */
+                  width: 100%;
+                  box-sizing: border-box;
+                }
+
+                .footer-container {
+                  width: min(1080px, 92vw);
+                  margin: 0 auto;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  flex-wrap: wrap;
+                  gap: 2rem;
+                }
+
+                .footer-logs {
+                  font-family: var(--font-mono), monospace;
+                  font-size: 10px;
+                  color: var(--text-secondary);
+                  letter-spacing: 1px;
+                  text-align: right;
+                  line-height: 1.6;
+                }
+
+                @media (max-width: 768px) {
+                  .footer-container {
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                    gap: 1.8rem;
+                  }
+                  .footer-logs {
+                    text-align: center;
+                  }
+                }
+              `}</style>
+
+              <div className="footer-container">
+                {/* Interactive Vinyl turntable player */}
+                <VinylPlayer />
+
+                {/* Diagnostic technical logs */}
+                <div className="footer-logs">
+                  <div>PROJECT_ARCHITECT // COMPILATION SUCCESS // ALL INTERFACES GREEN</div>
+                  <div style={{ marginTop: '0.4rem', color: '#c70000ff' }}>
+                    LATENCY // ACTIVE CONNECTIVITY: VERIFIED // DESIGN_VER: R3.5
+                  </div>
+                  <div style={{ marginTop: '0.6rem', fontSize: '9px', opacity: 0.6, fontFamily: 'var(--font-mono)' }}>
+                    © {new Date().getFullYear()} SUBHRANIL BAUL • ALL RIGHTS RESERVED
+                  </div>
                 </div>
               </div>
             </footer>
@@ -326,9 +370,9 @@ export default function App() {
 
       {/* Dynamic Holographic detail diagnostics modal */}
       {selectedProject && (
-        <HoloModal 
-          project={selectedProject} 
-          onClose={() => setSelectedProject(null)} 
+        <HoloModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
         />
       )}
     </div>
