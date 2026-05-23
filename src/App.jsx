@@ -12,6 +12,7 @@ import NotGrinding from './components/NotGrinding';
 import VinylPlayer from './components/VinylPlayer';
 import HoloModal from './components/HoloModal';
 import resumePdf from './assets/Subhranil_Baul.pdf';
+import footImg from './assets/foot.png';
 import './App.css';
 
 export default function App() {
@@ -267,8 +268,8 @@ export default function App() {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#notgrinding" 
+                <a
+                  href="#notgrinding"
                   className={`nav-link ${activeSection === 'notgrinding' ? 'active' : ''}`}
                   onClick={(e) => handleNavClick(e, 'notgrinding')}
                 >
@@ -319,22 +320,107 @@ export default function App() {
               <style>{`
                 .editorial-footer {
                   border-top: var(--border-editorial);
-                  padding: 3rem 0;
+                  padding: 4rem 0 3.5rem 0;
                   background: #faf6f0; /* Solid Alabaster Cream to prevent background transparency text-clipping */
                   position: relative;
                   z-index: 35; /* High z-index to stack over NotGrinding (zIndex 28) and Certifications (zIndex 25) */
                   width: 100%;
                   box-sizing: border-box;
+                  overflow: hidden;
+                }
+
+                /* Absolute background decoration watermark - INCREASED VISIBILITY! */
+                .footer-decor-img {
+                  position: absolute;
+                  right: 0;
+                  bottom: 0;
+                  height: 100%;
+                  max-width: 48%;
+                  object-fit: contain;
+                  object-position: right bottom;
+                  opacity: 0.45; /* Enhanced visibility as requested */
+                  pointer-events: none;
+                  z-index: 5;
+                  mix-blend-mode: multiply;
+                  mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+                  -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
                 }
 
                 .footer-container {
-                  width: min(1080px, 92vw);
+                  width: min(1120px, 92vw);
                   margin: 0 auto;
                   display: flex;
                   justify-content: space-between;
                   align-items: center;
-                  flex-wrap: wrap;
+                  flex-wrap: nowrap; /* Prevent columns from dropping below */
                   gap: 2rem;
+                  position: relative;
+                  z-index: 10;
+                }
+
+                /* Premium Social Links Column */
+                .footer-connect {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-start;
+                  gap: 0.55rem;
+                  z-index: 12;
+                }
+
+                .connect-title {
+                  font-family: var(--font-mono);
+                  font-size: 11px;
+                  font-weight: 800;
+                  letter-spacing: 1.5px;
+                  color: var(--primary-color);
+                  text-transform: uppercase;
+                  position: relative;
+                }
+
+                .connect-title::after {
+                  content: '';
+                  display: block;
+                  width: 18px;
+                  height: 1.5px;
+                  background: #97b836; /* Olive green theme accent */
+                  margin-top: 3px;
+                }
+
+                .connect-socials {
+                  display: flex;
+                  gap: 1.2rem;
+                  flex-wrap: wrap;
+                  margin-top: 0.2rem;
+                }
+
+                .connect-link {
+                  font-family: var(--font-sans);
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: var(--text-secondary);
+                  text-decoration: none;
+                  transition: var(--transition-fast);
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  position: relative;
+                }
+
+                .connect-link:hover {
+                  color: #97b836; /* Olive green hover highlight */
+                  transform: translateY(-1px);
+                }
+
+                .social-favicon {
+                  width: 14px;
+                  height: 14px;
+                  object-fit: contain;
+                  vertical-align: middle;
+                  transition: transform 0.25s ease;
+                }
+
+                .connect-link:hover .social-favicon {
+                  transform: scale(1.2) rotate(4deg);
                 }
 
                 .footer-logs {
@@ -344,14 +430,39 @@ export default function App() {
                   letter-spacing: 1px;
                   text-align: right;
                   line-height: 1.6;
+                  z-index: 12;
+                  flex-shrink: 0; /* Prevent from being pushed below */
                 }
 
-                @media (max-width: 768px) {
+                .footer-train-slogan {
+                  font-family: var(--font-display);
+                  font-size: clamp(1rem, 2vw, 2rem);
+                  font-weight: 900;
+                  color: var(--primary-color);
+                  letter-spacing: -0.02em;
+                  text-transform: uppercase;
+                  margin-bottom: 0.35rem;
+                  line-height: 1.1;
+                  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+                }
+
+                .footer-train-slogan .olive {
+                  color: #97b836; /* Signature olive green accent */
+                }
+
+                @media (max-width: 900px) {
                   .footer-container {
                     flex-direction: column;
                     align-items: center;
                     text-align: center;
-                    gap: 1.8rem;
+                    gap: 2rem;
+                  }
+                  .footer-connect {
+                    align-items: center;
+                  }
+                  .connect-socials {
+                    justify-content: center;
+                    gap: 1.5rem;
                   }
                   .footer-logs {
                     text-align: center;
@@ -359,17 +470,40 @@ export default function App() {
                 }
               `}</style>
 
+              {/* Fading background decoration watermark */}
+              <img src={footImg} alt="" className="footer-decor-img" />
+
               <div className="footer-container">
                 {/* Interactive Vinyl turntable player */}
                 <VinylPlayer />
 
-                {/* Diagnostic technical logs */}
-                <div className="footer-logs">
-                  <div>PROJECT_ARCHITECT // COMPILATION SUCCESS // ALL INTERFACES GREEN</div>
-                  <div style={{ marginTop: '0.4rem', color: '#c70000ff' }}>
-                    LATENCY // ACTIVE CONNECTIVITY: VERIFIED // DESIGN_VER: R3.5
+                {/* Let's Connect placeholder social links */}
+                <div className="footer-connect">
+                  <div className="connect-title">LET'S <span style={{ color: '#97b836' }}>CONNECT.</span></div>
+                  <div className="connect-socials">
+                    <a href="mailto:#" className="connect-link" title="Mail">
+                      <img src="https://www.google.com/s2/favicons?sz=32&domain=gmail.com" alt="" className="social-favicon" />
+                      <span>Mail</span>
+                    </a>
+                    <a href="https://github.com/#" target="_blank" rel="noopener noreferrer" className="connect-link" title="GitHub">
+                      <img src="https://www.google.com/s2/favicons?sz=32&domain=github.com" alt="" className="social-favicon" />
+                      <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/#" target="_blank" rel="noopener noreferrer" className="connect-link" title="LinkedIn">
+                      <img src="https://www.google.com/s2/favicons?sz=32&domain=linkedin.com" alt="" className="social-favicon" />
+                      <span>LinkedIn</span>
+                    </a>
+                    <a href="https://instagram.com/#" target="_blank" rel="noopener noreferrer" className="connect-link" title="Instagram">
+                      <img src="https://www.google.com/s2/favicons?sz=32&domain=instagram.com" alt="" className="social-favicon" />
+                      <span>Instagram</span>
+                    </a>
                   </div>
-                  <div style={{ marginTop: '0.6rem', fontSize: '9px', opacity: 0.6, fontFamily: 'var(--font-mono)' }}>
+                </div>
+
+                {/* Technical Copyright column */}
+                <div className="footer-logs">
+                  <div className="footer-train-slogan">LETS BOARD THAT <span className="olive">TRAIN TOGETHER</span></div>
+                  <div style={{ fontSize: '9px', opacity: 0.6, fontFamily: 'var(--font-mono)' }}>
                     © {new Date().getFullYear()} SUBHRANIL BAUL • ALL RIGHTS RESERVED
                   </div>
                 </div>
