@@ -533,7 +533,7 @@ export default function Hero({ onWindowUnlocked }) {
         }
 
         .editorial-title span.name-black {
-          color: #000000;
+          color: #94bb1eff;
           text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
         }
 
