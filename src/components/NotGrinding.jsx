@@ -23,14 +23,14 @@ import hack3 from '../assets/hack/WhatsApp Image 2026-05-23 at 8.40.35 PM (2).jp
 import hack4 from '../assets/hack/WhatsApp Image 2026-05-23 at 8.40.35 PM (3).jpeg';
 import hack5 from '../assets/hack/WhatsApp Image 2026-05-23 at 8.40.35 PM (4).jpeg';
 
-// Actual cover images for the games
-import minecraftCover from '../assets/minecraft_cover.png';
-import csgoCover from '../assets/csgo_cover.png';
-import expeditionCover from '../assets/expedition_cover.png';
-import bulletstormCover from '../assets/bulletstorm_cover.png';
-import daysgoneCover from '../assets/daysgone_cover.png';
+// Real game screenshots from assets/games/
+import game1 from '../assets/games/Screenshot 2026-05-24 094238.png';
+import game2 from '../assets/games/Screenshot 2026-05-24 094610.png';
+import game3 from '../assets/games/Screenshot 2026-05-24 094702.png';
+import game4 from '../assets/games/Screenshot 2026-05-24 094728.png';
+import game5 from '../assets/games/Screenshot 2026-05-24 094909.png';
 
-const GAMING_STACK = [minecraftCover, csgoCover, expeditionCover, bulletstormCover, daysgoneCover];
+const GAMING_STACK = [game1, game2, game3, game4, game5];
 const PHOTO_STACK = [photo1, photo2, photo3, photo4, photo5];
 const TRAVEL_STACK = [travel1, travel2, travel3, travel4, travel5];
 const HACK_STACK = [hack1, hack2, hack3, hack4, hack5];
@@ -63,10 +63,10 @@ export default function NotGrinding() {
   }, []);
 
   const CATEGORIES = [
-    { name: "Gaming Setup", items: GAMING_STACK },
-    { name: "Photography", items: PHOTO_STACK },
-    { name: "Travelling", items: TRAVEL_STACK },
-    { name: "Hackathons", items: HACK_STACK }
+    { name: "GAMING", sub: "Very very competitive", items: GAMING_STACK },
+    { name: "PHOTOGRAPHY", sub: "Capture the moments", items: PHOTO_STACK },
+    { name: "TRAVELLING", sub: "Traversing the world", items: TRAVEL_STACK },
+    { name: "HACKATHONS", sub: "Always hacking", items: HACK_STACK }
   ];
 
   return (
@@ -187,16 +187,32 @@ export default function NotGrinding() {
         }
 
         .grind-shelf-title {
-          font-family: var(--font-mono);
-          font-size: 17px;
-          font-weight: 800;
+          font-family: var(--font-display);
+          font-size: 24px;
+          font-weight: 900;
           color: #faf6f0;
           letter-spacing: 0.2px;
           text-transform: uppercase;
-          margin-bottom: 2.5rem;
+          margin-bottom: 0.3rem;
           text-align: center;
           text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
           position: relative;
+          line-height: 1.1;
+        }
+
+        .grind-shelf-subtitle {
+          font-family: 'Playfair Display', Georgia, serif;
+          font-size: 13.5px;
+          font-style: italic;
+          font-weight: 600;
+          color: #bfeb3dff; /* Signature olive green */
+          letter-spacing: 0.2px;
+          text-align: center;
+          transform: rotate(-5deg);
+          display: block;
+          margin-bottom: 2.2rem;
+          opacity: 0.9;
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
         }
 
         /* 3D Physical Photo Stack Deck - pooping out fanning cards! */
@@ -275,11 +291,12 @@ export default function NotGrinding() {
           {CATEGORIES.map((category, catIdx) => (
             <div className="grind-stack-wrapper" key={catIdx}>
               <h3 className="grind-shelf-title">{category.name}</h3>
+              <span className="grind-shelf-subtitle">{category.sub}</span>
               <div className="grind-stack-container">
                 {category.items.map((item, itemIdx) => {
                   // Calculate mathematical cyclic relative position in physical 3D stack
                   const relativeIndex = (itemIdx - activeIndex + 5) % 5;
-                  
+
                   let zIndex = 1;
                   let opacity = 0;
                   let transform = 'translate(0px, 20px) scale(0.85) rotate(0deg)';
